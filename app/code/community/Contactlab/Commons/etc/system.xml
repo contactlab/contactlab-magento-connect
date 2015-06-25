@@ -230,7 +230,7 @@
                         </soap_call_set_subscribed>
 
                         <contactlab_subscribers_model_task_updatesubscriberstatusrunner_interval>
-                            <label>Interval beetwen syncronous inscription state update attemps</label>
+                            <label>Interval between syncronous inscription state update attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>510</sort_order>
                             <show_in_default>1</show_in_default>
@@ -239,7 +239,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries</config_path>
                         </contactlab_subscribers_model_task_updatesubscriberstatusrunner_interval>
                         <contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries>
-                            <label>Total number of syncronous inscription state update attemps</label>
+                            <label>Total number of syncronous inscription state update attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>520</sort_order>
                             <show_in_default>1</show_in_default>

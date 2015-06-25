@@ -125,3 +125,4 @@
 "Truncate unique Keys", "Reset tabella UK"
 "Scan templates", "Accodamento email ricorrenti"
 "Debug an email address", "Test di invio su una mail di test"
+"Installed version: %s", "Versione installata: %s"

@@ -43,7 +43,7 @@ function random() {
 }
 
 function mkMail($n, $l) {
-    return "andrea.gaspardo+" . preg_replace('|\s+|', '_', strtolower($n . "." . $l . '.' . mt_rand(100000000, 999999999) . '_' . mt_rand(100000000, 999999999) . '@webformat.com'));
+    return "name.surname+" . preg_replace('|\s+|', '_', strtolower($n . "." . $l . '.' . mt_rand(100000000, 999999999) . '_' . mt_rand(100000000, 999999999) . '@example.com'));
 }
 
 /*

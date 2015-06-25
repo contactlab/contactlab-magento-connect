@@ -9,12 +9,17 @@ abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Com
             return "Module export is disabled";
         }
         if ($this->_useLocalServer()) {
-            $filename = $this->getTask()->getConfig("contactlab_commons/connection/export_local_path")
+            $filenameFormat = $this->getTask()->getConfig("contactlab_commons/connection/export_local_path")
                     . '/' . $this->getFileName();
         } else {
-            $filename = "/tmp/" . $this->getFileName();
+            $filenameFormat = "/tmp/" . $this->getFileName();
         }
-		$filename = $this->_formatFileName($filename);
+        if ($this->_useRemoteServer()) {
+            $filename = $this->_formatFileName($filenameFormat, true);
+            $realFilename = $this->_formatFileName($filenameFormat);
+        } else {
+            $filename = $this->_formatFileName($filenameFormat);
+        }
         Mage::helper("contactlab_commons")->logNotice("Exporting locally to $filename");
 
         $path = dirname($filename);
@@ -38,7 +43,9 @@ abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Com
         gzclose($this->gz);
 
 		if ($this->_useRemoteServer()) {
-        	$this->_putFile(realpath($filename));
+        	$this->_putFile(realpath($filename), basename($realFilename));
+            sleep(2);
+            unlink(realpath($filename));
         }
         $this->afterFileCopy();
 
@@ -46,7 +53,7 @@ abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Com
     }
 
     /** Put file into sftp or localhost. */
-    private function _putFile($filename) {
+    private function _putFile($filename, $realFilename) {
         $sftp = new Contactlab_Commons_Model_Ssh_Net_SFTP(
                 $this->getTask()->getConfig("contactlab_commons/connection/remote_server"));
         if (!$sftp->login(
@@ -56,10 +63,11 @@ abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Com
         }
         $remoteFile = $this->getTask()
                 ->getConfig("contactlab_commons/connection/export_remote_path")
-                . '/' . basename($filename);
+                . '/' . $realFilename;
         $sftp->delete($remoteFile);
         $sftp->put($remoteFile, $filename, NET_SFTP_LOCAL_FILE);
         $this->_checkUploadedFile($filename, $remoteFile, $sftp);
+        
 		$sftp->_disconnect(0);
     }
 

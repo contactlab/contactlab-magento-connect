@@ -24,9 +24,10 @@ abstract class Contactlab_Commons_Model_AbstractImportExport extends Mage_Core_M
 	 * Format file name.
 	 *
 	 * @param string $filename
+     * @param boolean $addTime
 	 * @return string
 	 */
-	protected function _formatFileName($filename) {
+	protected function _formatFileName($filename, $addTime = false) {
 		if (!preg_match("|^.*\.gz$|", $filename)) {
 			$filename = $filename . '.gz';
 		}
@@ -35,7 +36,13 @@ abstract class Contactlab_Commons_Model_AbstractImportExport extends Mage_Core_M
 			return $filename;
 		}
 		$formatted = date($format);
-		return preg_replace("|\{$format\}|", "$formatted", $filename);
+        $rv = preg_replace("|\{$format\}|", "$formatted", $filename);
+        if ($addTime) {
+            $path = dirname($rv);
+            $fname = $this->_getTime() . '_' . basename($rv);
+            $rv = $path . '/' . $fname;
+        }
+		return $rv;
 	}
 
     /**
@@ -51,4 +58,13 @@ abstract class Contactlab_Commons_Model_AbstractImportExport extends Mage_Core_M
      * @return boolean
      */
     protected abstract function isEnabled();
+    
+    /**
+     * Get time string.
+     * @return string.
+     */
+    private function _getTime() {
+        $date = new DateTime();
+        return $date->format('His');
+    }
 }

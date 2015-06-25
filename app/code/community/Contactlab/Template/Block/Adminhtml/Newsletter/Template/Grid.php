@@ -9,7 +9,6 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid extends Mage_
      * @return \Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid
      */
     protected function _prepareColumns() {
-        echo "_prepareColumns<br>";
         $this->addColumn('template_code',
             array('header'=>Mage::helper('newsletter')->__('ID'), 'align'=>'center', 'index'=>'template_id',
                 'width' => 1));
