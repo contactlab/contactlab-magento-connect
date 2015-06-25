@@ -128,7 +128,7 @@
 
 
                 <queue translate="label">
-                    <label>XML Delivery Queue</label>
+                    <label>XML Delivery queue</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>70</sort_order>
                     <show_in_default>1</show_in_default>

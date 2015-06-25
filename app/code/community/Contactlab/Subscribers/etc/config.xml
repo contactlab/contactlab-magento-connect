@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.8.17</version>
+            <version>0.8.20</version>
             <description>Subscriber sync Magento/ContactLab and ContactLab/Magento</description>
         </Contactlab_Subscribers>
     </modules>
@@ -286,7 +286,7 @@
     <default>
         <contactlab_subscribers>
             <global>
-                <enabled>0</enabled>
+                <!--enabled>0</enabled>
                 <debug>0</debug>
                 <export_filename>subscribers_{Ymd}.xml</export_filename>
                 <import_filename>event_info_{Ymd}.xml</import_filename>
@@ -296,10 +296,10 @@
                 <check_uk_before_export>1</check_uk_before_export>
                 <subscribed_flag_name>__cls1</subscribed_flag_name>
                 <export_not_subscribed>1</export_not_subscribed>
-                <reset_export_dates_before_next_export>0</reset_export_dates_before_next_export>
+                <reset_export_dates_before_next_export>0</reset_export_dates_before_next_export-->
             </global>
             <queue>
-                <contactlab_subscribers_model_task_exportsubscribersrunner_interval>15</contactlab_subscribers_model_task_exportsubscribersrunner_interval>
+                <!--contactlab_subscribers_model_task_exportsubscribersrunner_interval>15</contactlab_subscribers_model_task_exportsubscribersrunner_interval>
                 <contactlab_subscribers_model_task_exportsubscribersrunner_retries>5</contactlab_subscribers_model_task_exportsubscribersrunner_retries>
                 <contactlab_subscribers_model_task_importsubscribersrunner_interval>10</contactlab_subscribers_model_task_importsubscribersrunner_interval>
                 <contactlab_subscribers_model_task_importsubscribersrunner_retries>3</contactlab_subscribers_model_task_importsubscribersrunner_retries>
@@ -310,11 +310,11 @@
                 <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval>5</contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval>
                 <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries>5</contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries>
                 <contactlab_subscribers_model_task_updatesubscriberstatusrunner_interval>1</contactlab_subscribers_model_task_updatesubscriberstatusrunner_interval>
-                <contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries>10</contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries>
+                <contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries>10</contactlab_subscribers_model_task_updatesubscriberstatusrunner_retries-->
             </queue>
             <stats>
-                <period_1>30</period_1>
-                <period_2>120</period_2>
+                <!--period_1>30</period_1>
+                <period_2>120</period_2-->
             </stats>
         </contactlab_subscribers>
     </default>

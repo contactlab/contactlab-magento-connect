@@ -21,7 +21,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
         $queueCollection = Mage::getResourceModel("newsletter/queue_collection");
         $queueCollection->addFieldToFilter('template_id', $templateId);
         $queueCollection->join(array('task' => 'contactlab_commons/task'),
-                'main_table.task_id = task.task_id and task.status != \'hidden\'',
+                'main_table.task_id = task.task_id',
                 array(
                     'status' => 'status',
                     'task_created_at' => 'created_at',
@@ -62,6 +62,9 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
             $rv .= ">";
             $rv .= "<td>" . $a . $queue->getTaskCreatedAt() . "</a></td>";
             $rv .= "<td>" . $a . ($queue->hasTaskPlannedAt() ? $queue->getTaskPlannedAt() : '&mdash;') . "</a></td>";
+            if ($queue->getStatus() === 'hidden') {
+                $queue->setStatus('closed');
+            }
             $rv .= "<td>" . $a . Contactlab_Commons_Block_Adminhtml_Events_Renderer_Status::renderTask($queue) . "</a></td>";
             $rv .= "</tr>";
         }

@@ -76,7 +76,11 @@ class Contactlab_Subscribers_Model_Importer_Subscribers extends Contactlab_Commo
             return false;
         }
         // Check WebForCode
-        if ((string) $item->CATEGORY_DESC !== $this->getWebFormCode()) {
+        $wfc = (string) $item->CATEGORY_DESC;
+
+        $enabledWfcCodes = array_map('trim', explode(',', $this->getWebFormCode()));
+
+        if (!in_array($wfc, $enabledWfcCodes)) {
             return false;
         }
         return true;
