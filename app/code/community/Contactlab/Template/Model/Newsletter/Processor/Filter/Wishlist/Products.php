@@ -27,7 +27,8 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Wishlist_Products
         $collection->getSelect()->join(
             array('wishlist_items' => $wishlistItem),
                     "wishlist_items.wishlist_id = wishlist.wishlist_id and wishlist_items.store_id = $storeId",
-                        array('product_ids' => 'GROUP_CONCAT(concat(product_id, \'|\', qty, \'|\', wishlist_item_id) SEPARATOR \',\')'));
+                        array('product_ids' => 'GROUP_CONCAT(concat(product_id, \'|\', qty, \'|\', wishlist_item_id)'
+                            . ' ORDER BY qty desc SEPARATOR \',\')'));
 
         $collection->getSelect()->group("$mainTable.$field");
 

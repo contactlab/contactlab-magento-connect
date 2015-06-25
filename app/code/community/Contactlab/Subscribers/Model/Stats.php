@@ -25,7 +25,7 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         $order = $this->_getLastOrder($customer);
         if ($order) {
             $this->setLastOrderDate($order->getCreatedAt());
-            $this->setLastOrderAmount($order->getGrandTotal());
+            $this->setLastOrderAmount($order->getBaseGrandTotal());
             $this->setLastOrderProducts($order->getTotalItemCount());
         } else {
             $this->setLastOrderDate(null);
@@ -42,7 +42,7 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         }
         $coll = Mage::getModel('sales/order')
                 ->getCollection()
-                ->addExpressionFieldToSelect('grand_total', 'sum({{grand_total}})', 'grand_total')
+                ->addExpressionFieldToSelect('grand_total', 'sum({{base_grand_total}})', 'base_grand_total')
                 ->addExpressionFieldToSelect('total_item_count', 'sum({{total_item_count}})', 'total_item_count')
                 ->addExpressionFieldToSelect('order_count', 'sum({{1}})', '1')
                 ->addAttributeToFilter("customer_id", $customer->getEntityId())
@@ -61,10 +61,10 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
     private function _updateTotalOrder(Mage_Customer_Model_Customer $customer) {
         $coll = Mage::getModel('sales/order')
                 ->getCollection()
-                ->addExpressionFieldToSelect('grand_total', 'sum({{grand_total}})', 'grand_total')
+                ->addExpressionFieldToSelect('grand_total', 'sum({{base_grand_total}})', 'base_grand_total')
                 ->addExpressionFieldToSelect('total_item_count', 'sum({{total_item_count}})', 'total_item_count')
                 ->addExpressionFieldToSelect('order_count', 'sum({{1}})', '1')
-                ->addExpressionFieldToSelect('avg_grand_total', 'avg({{grand_total}})', 'grand_total')
+                ->addExpressionFieldToSelect('avg_grand_total', 'avg({{base_grand_total}})', 'base_grand_total')
                 ->addExpressionFieldToSelect('avg_orders_products', 'avg({{total_item_count}})', 'total_item_count')
                 ->addAttributeToFilter("status", array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
                 ->addAttributeToFilter("customer_id", $customer->getEntityId());
@@ -83,7 +83,7 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
                 ->getCollection()
                 ->setOrder('created_at', 'desc')
                 ->addAttributeToSelect('created_at')
-                ->addAttributeToSelect('grand_total')
+                ->addAttributeToSelect('base_grand_total')
                 ->addAttributeToSelect('total_item_count')
                 ->addAttributeToFilter("status", array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
                 ->addAttributeToFilter("customer_id", $customer->getEntityId());

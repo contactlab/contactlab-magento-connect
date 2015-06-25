@@ -22,6 +22,11 @@
                             <sort_order>1030</sort_order>
                             <action>contactlab_commons/adminhtml_releaseNotes</action>
                         </release_notes>
+                        <configuration_check translate="title" module="contactlab_commons">
+                            <title>Cron configuration check</title>
+                            <sort_order>1040</sort_order>
+                            <action>contactlab_commons/adminhtml_configurationCheck</action>
+                        </configuration_check>
                     </children>
                 </contactlab>
             </children>
@@ -84,6 +89,10 @@
 	                                    <title>Release notes</title>
 	                                    <sort_order>1030</sort_order>
                                         </release_notes>
+                                        <configuration_check>
+	                                    <title>Cron configuration check</title>
+	                                    <sort_order>1040</sort_order>
+                                        </configuration_check>
 	                            </children>
 	                        </contactlab>
 	                    </children>

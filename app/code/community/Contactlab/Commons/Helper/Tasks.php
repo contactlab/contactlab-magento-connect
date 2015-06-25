@@ -96,7 +96,7 @@ class Contactlab_Commons_Helper_Tasks extends Mage_Core_Helper_Abstract {
                     $templateId,
                     array('name' => $senderName,
                             'email' => $senderEmail),
-                    $recipient,
+                    trim($recipient),
                     Mage::helper('contactlab_commons')->__('Tasks error notification'),
                     array(),
                     Mage::app()->getStore()->getId()

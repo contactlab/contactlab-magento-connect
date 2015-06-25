@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Commons>
-            <version>0.8.15</version>
+            <version>0.8.16</version>
             <description>Magento/ContactLab Common functions</description>
         </Contactlab_Commons>
     </modules>
@@ -102,6 +102,7 @@
     <crontab>
         <jobs>
             <contactlab_commons_consume>
+                <description>Consume task event queue</description>
                 <schedule>
                     <!-- Consume the queue every minute -->
                     <cron_expr>* * * * *</cron_expr>
@@ -111,6 +112,7 @@
                 </run>
             </contactlab_commons_consume>
             <contactlab_commons_clear_queue>
+                <description>Remove old tasks from task queue</description>
                 <schedule>
                     <!-- Clear the queue the queue every day -->
                     <cron_expr>0 2 * * *</cron_expr>
@@ -120,6 +122,7 @@
                 </run>
             </contactlab_commons_clear_queue>
             <contactlab_commons_send_email>
+                <description>Send error notification email</description>
                 <schedule>
                     <cron_expr>5 * * * *</cron_expr>
                 </schedule>
@@ -134,7 +137,7 @@
             <global>
                 <days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug>
-                <platform_version>2.2.0</platform_version>
+                <platform_version>2.2.3</platform_version>
             </global>
             <connection>
                 <type>1</type>
