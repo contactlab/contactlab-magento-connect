@@ -67,6 +67,11 @@
                     <file>contactlab_commons/send_mail.html</file>
                     <type>html</type>
                 </contactlab_commons_error_email_send_email_template>
+                <contactlab_commons_modify_email_send_email_template translate="label" module="contactlab_commons">
+                    <label>Modify subscriber data email</label>
+                    <file>contactlab_commons/mod_mail.html</file>
+                    <type>html</type>
+                </contactlab_commons_modify_email_send_email_template>
             </email>
         </template>
     </global>

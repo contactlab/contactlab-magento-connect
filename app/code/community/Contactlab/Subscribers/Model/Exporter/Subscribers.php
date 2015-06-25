@@ -125,6 +125,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $this->customers++;
             $writer = new XMLWriter();
             $writer->openMemory();
+            $writer->setIndent(true);
             $writer->startElement("RECORD");
             $writer->writeAttribute('ACTION', 'U');
             foreach ($toFill as $k => $v) {
@@ -224,11 +225,27 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $toFill['email'] = $item->getSubscriberEmail();
             $this->_manageNewsletterClsFlag($toFill, $item);
             $this->_fillStoreAttributes($toFill, $item);
-
+            /**
+             * Added: we load the newsletter subscriber fields entity corresponding
+             * to Uk entity and fill corresponding attributes in $toFill
+             * 
+             */
+            $subsmodel = Mage::getModel('contactlab_subscribers/fields')->load($item->getSubscriberId(),'subscriber_id');
+            /*
+             *  Need to map $subsmodel data to $this->toFill fields
+             *  TODO: probably this is not the correct way to do it
+             */
+            $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
+            foreach($subsmodel->getData() as $attributename => $attributevalue){
+                if(array_key_exists($attributename, $namemap))
+                    if(array_key_exists($namemap[$attributename], $toFill))
+                        $toFill[$namemap[$attributename]] = $subsmodel->getData($attributename);
+            }
             $this->found = true;
             $this->newsletterSubscribers++;
             $writer = new XMLWriter();
             $writer->openMemory();
+            $writer->setIndent(true);
             $writer->startElement("RECORD");
             $writer->writeAttribute('ACTION', 'U');
             foreach ($toFill as $k => $v) {
