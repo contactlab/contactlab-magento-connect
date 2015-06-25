@@ -15,26 +15,10 @@ class Contactlab_Commons_Block_Adminhtml_Tasks extends Mage_Adminhtml_Block_Widg
 
         parent::__construct();
         $this->removeButton("add");
-		$this->addCommandButton("tasks", "clear", 'contactlab_commons', "Clear old tasks",
-				'Are you sure you want to do this?', '*/*/clear');
-		$this->addCommandButton("tasks", "clear", 'contactlab_commons', "Clear old tasks",
-				'Are you sure you want to do this?', '*/*/clear');
+		$this->addCommandButton("tasks", "clear", 'contactlab_commons', "Clear old tasks", 'Are you sure you want to do this?', '*/*/clear');
 		if (Mage::helper('contactlab_commons')->isDebug()) {
 			$this->addCommandButton("tasks", "consume", 'contactlab_commons', "Consume tasks",
 					null, '*/*/consume');
-			$this->addCommandButton("uk", "check", 'contactlab_subscribers', "Check unique Keys",
-					null, 'contactlab_subscribers/adminhtml_uk/update');
-			$this->addCommandButton("uk", "update", 'contactlab_subscribers', "Update unique Keys",
-					null, 'contactlab_subscribers/adminhtml_uk/update', array('doit' => 'yes'));
-			$this->addCommandButton("uk", "truncate", 'contactlab_subscribers', "Truncate unique Keys",
-					null, 'contactlab_subscribers/adminhtml_uk/truncate');
-            if (Mage::helper('core')->isModuleEnabled('Contactlab_Template')) {
-                $this->addEmailAddressDebug();
-                $url = 'contactlab_template/adminhtml_template/scan';
-                $onClick = 'var v = $(\'email-address-debug\').value; location.href = \'' . Mage::helper('adminhtml')->getUrl($url) . 'address/\' + v';
-    			$this->addCommandButton("template", "scan", 'contactlab_template', "Scan templates",
-	    				null, $url, array(), $onClick);
-            }
 		}
     }
 

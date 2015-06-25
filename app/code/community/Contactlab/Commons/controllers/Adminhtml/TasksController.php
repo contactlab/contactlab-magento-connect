@@ -177,6 +177,8 @@ class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Contro
         $rv->status = $r;
         if ($r === 'COMPLETED') {
     		$rv->label = $this->__("API Soap service up and running");
+        } else if ($r === 'DISABLED') {
+            $rv->label = "";
         } else {
     		$rv->label = sprintf($this->__("<strong>Subscriber DataExchange is in Status <em>%s</em></stong>"), $this->__($r));
         }

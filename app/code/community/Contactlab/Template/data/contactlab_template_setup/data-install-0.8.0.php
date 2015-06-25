@@ -14,12 +14,9 @@ $wish->setIsSystem(1);
 $wish->setIsCronEnabled(1);
 $wish->save();
 
-
-$wish = Mage::getModel("contactlab_template/type");
-$wish->setName("Ceneric template");
-$wish->setTemplateTypeCode("GENERIC");
-$wish->setIsSystem(1);
-$wish->setIsCronEnabled(0);
-$wish->save();
-
-
+$generic = Mage::getModel("contactlab_template/type");
+$generic->setName("Generic template");
+$generic->setTemplateTypeCode("GENERIC");
+$generic->setIsSystem(1);
+$generic->setIsCronEnabled(0);
+$generic->save();

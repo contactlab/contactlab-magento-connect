@@ -1,5 +1,3 @@
-<p>
-    <label for="email-address-debug">Debug an email address:</label>
-    <input type="text" name="email-address-debug" id="email-address-debug" value="<?php
-            echo filter_var($this->getAddress(), FILTER_VALIDATE_EMAIL) ?>" class="input-text">
-</p>
+<td><label for="email-address-debug"><?php echo $this->__('Debug an email address') ?>:</label></td>
+<td><input type="text" name="email-address-debug" id="email-address-debug" value="<?php
+            echo filter_var(Mage::app()->getRequest()->getParam('address'), FILTER_VALIDATE_EMAIL) ?>" class="input-text"></td>

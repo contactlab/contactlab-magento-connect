@@ -1,0 +1,26 @@
+<div class="grid box-left" style="margin-top: 50px">
+    <div class="hor-scroll">
+        <h3 style="margin-top: 30px">Import/export subscribers</h3>
+        <table class="data" cellspacing="0">
+            <thead>
+                <tr class="headings">
+                    <th colspan="2"><?php echo $this->__('Use this panel to manually queue import, export and statistics reset tasks') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="even">
+                    <td><?php echo $this->__('Queue <strong>import subscribers</strong> task') ?></td>
+                    <td><?php echo $this->getChildHtml('contactlab.commons.subscribe.import') ?></td>
+                </tr>
+                <tr class="even">
+                    <td><?php echo $this->__('Queue <strong>export subscribers</strong> task') ?></td>
+                    <td><?php echo $this->getChildHtml('contactlab.commons.subscribe.export') ?></td>
+                </tr>
+                <tr class="even">
+                    <td><?php echo $this->__('Queue <strong>statistics update</strong> task') ?></td>
+                    <td><?php echo $this->getChildHtml('contactlab.commons.subscribe.stats') ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
