@@ -15,11 +15,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <config>
     <default>
-        <contactlab_commons>
-            <global>
+        <contactlab_commons><!-- Configuration -> CONTACTLAB -->
+            <global><!-- General -->
                 <enabled></enabled><!-- 0/1 default 0 -->
             </global>
-            <connection>
+            <connection><!-- File Transfer Configuration -->
                 <type>0</type><!-- 0 = remote; 1 = local, default = 1 -->
                 <remote_server></remote_server><!-- default sftp-clab.housing.tomato.it -->
                 <sftp_password></sftp_password>
@@ -27,17 +27,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                 <export_remote_path></export_remote_path><!-- default incoming/updater -->
                 <import_remote_path></import_remote_path><!-- default incoming/exporter -->
             </connection>
-            <soap>
+            <soap><!-- SOAP configuration -->
                 <enable></enable><!-- 0/1 default 0 -->
                 <apikey></apikey>
                 <uid></uid>
                 <data_exporter_config_identifier></data_exporter_config_identifier>
             </soap>
         </contactlab_commons>
-        <contactlab_subscribers>
+        <contactlab_subscribers><!-- Magento ⇒ ContactLab Configuration-->
             <global>
                 <enabled></enabled><!-- 0/1 default 0 -->
-                <source_identifier></source_identifier>
+                <source_identifier></source_identifier><!-- id DB ContactLab -->
                 <subscribed_flag_name></subscribed_flag_name><!-- default __cls1 -->
                 <web_form_code></web_form_code>
                 <export_billing_address></export_billing_address><!-- 0/1 default 0 -->
@@ -55,7 +55,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             </subscriber_to_customer>
         </contactlab_subscribers>
         <contactlab_template>
-            <queue>
+            <queue>   <!-- Recurring Email -->
                 <enabled></enabled><!-- 0/1 default 0 -->
                 <auth_api_key></auth_api_key>
                 <auth_suid></auth_suid>
@@ -80,29 +80,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             </global>
         </contactlab_transactional>
     </default>
-    <!-- Use these two sections to enable cron based import and export -->
-    <crontab>
-        <jobs>
-            <contactlab_subscribers_export_subscribers>
-                <schedule>
-                    <cron_expr></cron_expr><!-- Cron expression here. Es: 30 21 * * * -->
-                </schedule>
-                <run>
-                    <model>contactlab_subscribers/cron::addExportSubscribersQueue</model>
-                </run>
-            </contactlab_subscribers_export_subscribers>
-        </jobs>
-    </crontab>
-    <crontab>
-        <jobs>
-            <contactlab_subscribers_import_subscribers>
-                <schedule>
-                    <cron_expr></cron_expr><!-- Cron expression here. Es: 30 21 * * * -->
-                </schedule>
-                <run>
-                    <model>contactlab_subscribers/cron::addIUmportSubscribersQueue</model>
-                </run>
-            </contactlab_subscribers_import_subscribers>
-        </jobs>
-    </crontab>
 </config>

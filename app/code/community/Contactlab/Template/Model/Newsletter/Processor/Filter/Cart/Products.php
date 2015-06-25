@@ -30,10 +30,11 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_Products
         $collection->getSelect()->join(
             array('cart_items' => $cartItem),
                     'cart_items.quote_id = cart.entity_id and cart_items.parent_item_id is null',
-                        array('product_ids' => 'GROUP_CONCAT(concat(product_id, \'|\', qty, \'|\', item_id, \'|\', row_total) SEPARATOR \',\')'));
+                        array('product_ids' => 'GROUP_CONCAT(concat(product_id, \'|\', qty, \'|\', item_id, \'|\', row_total)'
+                            . ' ORDER BY row_total desc SEPARATOR \',\')'));
 
         $collection->getSelect()->group("$mainTable.$field");
-        
+
         return $collection;
     }
 

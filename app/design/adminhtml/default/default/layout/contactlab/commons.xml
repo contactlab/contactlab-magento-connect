@@ -47,4 +47,10 @@
                    template="contactlab/commons/releasenotes.phtml"/>
         </reference>
     </contactlab_commons_adminhtml_releasenotes_index>
+    <contactlab_commons_adminhtml_configurationcheck_index>
+        <reference name="content">
+            <block type="contactlab_commons/adminhtml_configurationCheck" name="contactlab_commons_adminhtml_configurationcheck"
+                   template="contactlab/commons/configurationcheck.phtml"/>
+        </reference>
+    </contactlab_commons_adminhtml_configurationcheck_index>
 </layout>

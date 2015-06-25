@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.8.16</version>
+            <version>0.8.17</version>
             <description>Subscriber sync Magento/ContactLab and ContactLab/Magento</description>
         </Contactlab_Subscribers>
     </modules>
@@ -318,6 +318,16 @@
             </stats>
         </contactlab_subscribers>
     </default>
+    <crontab>
+        <jobs>
+            <contactlab_subscribers_export_subscribers>
+                <description>Export Magento subscribers and customers to ContactLab</description>
+            </contactlab_subscribers_export_subscribers>
+            <contactlab_subscribers_import_subscribers>
+                <description>Import subscribers and customers from ContactLab</description>
+            </contactlab_subscribers_import_subscribers>
+        </jobs>
+    </crontab>
     <!--crontab>
         <jobs>
             <contactlab_subscribers_stats_recalc>
