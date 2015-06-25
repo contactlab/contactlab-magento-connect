@@ -6,39 +6,81 @@
         </reference>
     </contactlab_subscribers_adminhtml_exportsubscribers_index>
     <contactlab_commons_adminhtml_tasks_index>
-        <reference name="contactlab.commons.tasks">
-            <action method="addCommandButton">
-            	<section>subscribers</section>
-                <code>queue</code>
-                <helper>contactlab_subscribers</helper>
-                <label>Queue Subscribers export job</label>
-                <alert>Are you sure you want to do this?</alert>
-                <url>contactlab_subscribers/adminhtml_exportSubscribers/queue</url>
-            </action>
-            <action method="addCommandButton">
-            	<section>subscribers</section>
-                <code>import</code>
-                <helper>contactlab_subscribers</helper>
-                <label>Queue Subscribers import job</label>
-                <alert>Are you sure you want to do this?</alert>
-                <url>contactlab_subscribers/adminhtml_importSubscribers/queue</url>
-            </action>
-            <!--action method="addCommandButton">
-            	<section>stats</section>
-                <code>clearStats</code>
-                <helper>contactlab_subscribers</helper>
-                <label>Clear statistics</label>
-                <alert>Are you sure you want to do this?</alert>
-                <url>contactlab_subscribers/adminhtml_stats/clear</url>
-            </action-->
-            <action method="addCommandButton">
-            	<section>stats</section>
-                <code>calcStats</code>
-                <helper>contactlab_subscribers</helper>
-                <label>Fill statistics</label>
-                <alert>Are you sure you want to do this?</alert>
-                <url>contactlab_subscribers/adminhtml_stats/fill</url>
-            </action>
+        <reference name="content">
+            <block type="adminhtml/template" name="contactlab.commons.uk" before="contactlab.commons.version"
+                   template="contactlab/subscribers/uk.phtml">
+                <block type="contactlab_commons/adminhtml_widget_button" name="contactlab.commons.uk.check" as="contactlab.commons.uk.check">
+                    <action method="setLabel" translate="label">
+                        <label>Check unique Keys</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_uk/update</url>
+                    </action>
+                </block>
+                <block type="contactlab_commons/adminhtml_widget_button" name="contactlab.commons.uk.update" as="contactlab.commons.uk.update">
+                    <action method="setLabel" translate="label">
+                        <label>Update unique Keys</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_uk/update</url>
+                        <params><![CDATA[doit=yes]]></params>
+                    </action>
+                </block>
+                <block type="contactlab_commons/adminhtml_widget_button" name="contactlab.commons.uk.truncate" as="contactlab.commons.uk.truncate">
+                    <action method="setLabel" translate="label">
+                        <label>Truncate unique Keys</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_uk/truncate</url>
+                    </action>
+                    <action method="setConfirm" translate="confirm">
+                        <confirm>Are you sure to truncate the UK table?</confirm>
+                    </action>
+                </block>
+            </block>
+
+            <block type="adminhtml/template" name="contactlab.commons.subscribers" before="contactlab.commons.uk"
+                   template="contactlab/subscribers/subscribers.phtml">
+                <block type="contactlab_commons/adminhtml_widget_button"
+                       name="contactlab.commons.subscribe.export"
+                       as="contactlab.commons.subscribe.export">
+                    <action method="setLabel" translate="label">
+                        <label>Queue Subscribers export job</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_exportSubscribers/queue</url>
+                    </action>
+                    <action method="setConfirm" translate="confirm">
+                        <confirm>Are you sure you want to do this?</confirm>
+                    </action>
+                </block>
+                <block type="contactlab_commons/adminhtml_widget_button"
+                       name="contactlab.commons.subscribe.import"
+                       as="contactlab.commons.subscribe.import">
+                    <action method="setLabel" translate="label">
+                        <label>Queue Subscribers import job</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_importSubscribers/queue</url>
+                    </action>
+                    <action method="setConfirm" translate="confirm">
+                        <confirm>Are you sure you want to do this?</confirm>
+                    </action>
+                </block>
+                <block type="contactlab_commons/adminhtml_widget_button"
+                       name="contactlab.commons.subscribe.stats"
+                       as="contactlab.commons.subscribe.stats">
+                    <action method="setLabel" translate="label">
+                        <label>Fill statistics</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_subscribers/adminhtml_stats/fill</url>
+                    </action>
+                    <action method="setConfirm" translate="confirm">
+                        <confirm>Are you sure you want to do this?</confirm>
+                    </action>
+                </block>
+            </block>
         </reference>
     </contactlab_commons_adminhtml_tasks_index>
 </layout>

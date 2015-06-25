@@ -34,7 +34,7 @@ class Contactlab_Subscribers_Adminhtml_UkController extends Mage_Adminhtml_Contr
                 throw new Zend_Exception("Unique keys truncate not allowed");
             }
             $this->truncate();
-            $session->addSuccess($helper->__('Unique keys truncated successfully.'));
+            $session->addSuccess($helper->__('Unique keys truncation successfully queued.'));
         } catch (Exception $e) {
             $session->addError($e);
         }

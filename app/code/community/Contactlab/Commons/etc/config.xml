@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Commons>
-            <version>0.8.11</version>
+            <version>0.8.12</version>
             <description>Magento/ContactLab Common functions</description>
         </Contactlab_Commons>
     </modules>
@@ -132,7 +132,6 @@
     <default>
         <contactlab_commons>
             <global>
-                <enabled>0</enabled>
                 <days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug>
             </global>

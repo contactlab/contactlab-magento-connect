@@ -17,6 +17,11 @@
                             <sort_order>30</sort_order>
                             <action>contactlab_commons/adminhtml_logs</action>
                         </logs>
+                        <release_notes translate="title" module="contactlab_commons">
+                            <title>Release notes</title>
+                            <sort_order>1030</sort_order>
+                            <action>contactlab_commons/adminhtml_releaseNotes</action>
+                        </release_notes>
                     </children>
                 </contactlab>
             </children>
@@ -75,6 +80,10 @@
 	                                    <title>Logs</title>
 	                                    <sort_order>30</sort_order>
 	                                </logs>
+                                        <release_notes>
+	                                    <title>Release notes</title>
+	                                    <sort_order>1030</sort_order>
+                                        </release_notes>
 	                            </children>
 	                        </contactlab>
 	                    </children>

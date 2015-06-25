@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2015 Webformat S.r.l.
+http://www.webformat.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<config>
+    <default>
+        <contactlab_commons>
+            <global>
+                <enabled></enabled><!-- 0/1 default 0 -->
+            </global>
+            <connection>
+                <type>0</type><!-- 0 = remote; 1 = local, default = 1 -->
+                <remote_server></remote_server><!-- default sftp-clab.housing.tomato.it -->
+                <sftp_password></sftp_password>
+                <sftp_username></sftp_username>
+                <export_remote_path></export_remote_path><!-- default incoming/updater -->
+                <import_remote_path></import_remote_path><!-- default incoming/exporter -->
+            </connection>
+            <soap>
+                <enable></enable><!-- 0/1 default 0 -->
+                <apikey></apikey>
+                <uid></uid>
+                <data_exporter_config_identifier></data_exporter_config_identifier>
+            </soap>
+        </contactlab_commons>
+        <contactlab_subscribers>
+            <global>
+                <enabled></enabled><!-- 0/1 default 0 -->
+                <source_identifier></source_identifier>
+                <subscribed_flag_name></subscribed_flag_name><!-- default __cls1 -->
+                <web_form_code></web_form_code>
+                <export_billing_address></export_billing_address><!-- 0/1 default 0 -->
+                <export_shipping_address></export_shipping_address><!-- 0/1 default 1 -->
+                <export_filename></export_filename><!--default event_info_{Ymd}.xml -->
+                <import_filename></import_filename><!-- default subscribers_{Ymd}.xml -->
+                <soap_call_after_export></soap_call_after_export><!-- 0/1 default 0 -->
+                <soap_call_before_export></soap_call_before_export><!-- 0/1 default 0 -->
+                <soap_call_is_subscribed></soap_call_is_subscribed><!-- 0/1 default 0 -->
+                <soap_call_set_subscribed></soap_call_set_subscribed><!-- 0/1 default 0 -->
+            </global>
+            <subscriber_to_customer>
+                <email_on_unsubscribe></email_on_unsubscribe><!-- 0/1, default 0. Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked. -->
+                <unsubscribe_if_not_confirm></unsubscribe_if_not_confirm><!-- 0/1, default 0 -->
+            </subscriber_to_customer>
+        </contactlab_subscribers>
+        <contactlab_template>
+            <queue>
+                <enabled></enabled><!-- 0/1 default 0 -->
+                <auth_api_key></auth_api_key>
+                <auth_suid></auth_suid>
+                <group_id></group_id>
+                <delivery_method></delivery_method><!-- auto/manual -->
+                <export_remote_path></export_remote_path><!-- -->
+            </queue>
+            <generic>
+                <enabled></enabled><!-- 0/1 default 0 -->
+            </generic>
+            <wishlist>
+                <enabled></enabled><!-- 0/1 default 0 -->
+            </wishlist>
+            <cart>
+                <enabled></enabled><!-- 0/1 default 0 -->
+            </cart>
+        </contactlab_template>
+        <contactlab_transactional>
+            <global>
+                <enabled></enabled><!-- 0/1 default 0 -->
+                <smtp></smtp><!-- smtp server es. mail1.clabmag.smtp.contactlab.it -->
+            </global>
+        </contactlab_transactional>
+    </default>
+    <!-- Use these two sections to enable cron based import and export -->
+    <crontab>
+        <jobs>
+            <contactlab_subscribers_export_subscribers>
+                <schedule>
+                    <cron_expr></cron_expr><!-- Cron expression here. Es: 30 21 * * * -->
+                </schedule>
+                <run>
+                    <model>contactlab_subscribers/cron::addExportSubscribersQueue</model>
+                </run>
+            </contactlab_subscribers_export_subscribers>
+        </jobs>
+    </crontab>
+    <crontab>
+        <jobs>
+            <contactlab_subscribers_import_subscribers>
+                <schedule>
+                    <cron_expr></cron_expr><!-- Cron expression here. Es: 30 21 * * * -->
+                </schedule>
+                <run>
+                    <model>contactlab_subscribers/cron::addIUmportSubscribersQueue</model>
+                </run>
+            </contactlab_subscribers_import_subscribers>
+        </jobs>
+    </crontab>
+</config>
