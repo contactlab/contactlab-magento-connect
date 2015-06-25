@@ -92,4 +92,49 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
         $subscriber = Mage::getModel("newsletter/subscriber")->loadByCustomer($customer);
         return $subscriber->hasSubscriberId() ? $subscriber->getSubscriberId() : NULL;
     }
+
+    /**
+     * Update all.
+     * @param boolean $doIt
+     */
+    public function updateAll($doIt, Contactlab_Commons_Model_Task $task = null) {
+        /* @var $model Contactlab_Subscribers_Model_Uk */
+        $model = Mage::getModel("contactlab_subscribers/uk");
+        if (!is_null($task)) {
+            $model->setTask($task);
+        }
+        $model->update($doIt);
+        return !$model->getHasNotices();
+    }
+
+    /** Add update uk task. */
+    public function addUpdateUkTask() {
+        return Mage::getModel("contactlab_commons/task")
+                ->setTaskCode("UpdateUkTask")
+                ->setModelName('contactlab_subscribers/task_updateUkRunner')
+                ->setDescription('Update uk table')
+                ->save();
+    }
+
+    /**
+     * Truncate table
+     */
+    public function truncate(Contactlab_Commons_Model_Task $task = null) {
+        /* @var $model Contactlab_Subscribers_Model_Uk */
+        $model = Mage::getModel("contactlab_subscribers/uk");
+        if (!is_null($task)) {
+            $model->setTask($task);
+        }
+        $model->truncate();
+    }
+
+    /** Add truncate uk task. */
+    public function addTruncateUkTask() {
+        return Mage::getModel("contactlab_commons/task")
+                ->setTaskCode("TruncateUkTask")
+                ->setModelName('contactlab_subscribers/task_truncateUkRunner')
+                ->setDescription('Truncate uk table')
+                ->save();
+    }
+
 }

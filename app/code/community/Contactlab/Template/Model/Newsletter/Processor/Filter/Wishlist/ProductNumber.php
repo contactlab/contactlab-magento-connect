@@ -31,4 +31,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Wishlist_ProductNumb
 
         return $collection;
     }
+    
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter wishlist by product number";
+    }
 }

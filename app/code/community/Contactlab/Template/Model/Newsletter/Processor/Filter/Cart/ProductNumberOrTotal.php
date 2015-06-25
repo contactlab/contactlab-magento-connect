@@ -42,4 +42,13 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_ProductNumberOr
 
         return $collection;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter cart by product number and total";
+    }
+
 }

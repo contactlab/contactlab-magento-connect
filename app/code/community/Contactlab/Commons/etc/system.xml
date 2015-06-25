@@ -174,7 +174,7 @@
                         </wsdl_url>
                         <uid translate="label">
                             <label>Uid</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>password</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -185,7 +185,7 @@
                         </uid>
                         <apikey translate="label">
                             <label>Api key</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>password</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -268,7 +268,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Unsubscribe the customer during Nesletter subscriber to customer operation if the check of subscription is left unchecked.</comment>
+                            <comment>Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked.</comment>
                             <config_path>contactlab_subscribers/subscriber_to_customer/unsubscribe_if_not_confirm</config_path>
                         </unsubscribe_if_not_confirm>
                         <email_on_unsubscribe translate="label">

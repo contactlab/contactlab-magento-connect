@@ -43,4 +43,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Wishlist_TotalValue
 
         return $collection;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter Wishlist by total value";
+    }
 }

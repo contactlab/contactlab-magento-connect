@@ -15,6 +15,7 @@
             <block type="contactlab_commons/adminhtml_tasks" name="contactlab.commons.tasks" />
             <block type="contactlab_commons/adminhtml_tasks_js" name="contactlab.commons.tasks.js" />
             <block type="contactlab_commons/adminhtml_tasks_status" name="contactlab.commons.tasks.status" />
+            <block type="contactlab_commons/adminhtml_version" name="contactlab.commons.version" />
         </reference>
         <reference name="head">
             <action method="addJs"><file>contactlab_commons/adminhtml/tasks.js</file></action>

@@ -18,4 +18,13 @@ class Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection extend
         $this->_queueJoinedFlag = true;
         return $this;
     }
+
+    /**
+     * Get the real size.
+     * @return int
+     */
+    public function getRealSize() {
+        $sql = $this->getSelectCountSql();
+        return $this->getConnection()->fetchOne($sql, $this->_bindParams);
+    }
 }

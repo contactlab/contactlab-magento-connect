@@ -32,4 +32,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_Dnd
 
         return $collection;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Apply Do Not Disturb policies";
+    }
 }

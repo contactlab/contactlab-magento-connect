@@ -174,7 +174,12 @@ class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Contro
 		$rv = new stdClass();
         // FIXME multi store
 		$r = Mage::getModel('contactlab_commons/soap_getSubscriberDataExchangeStatus')->singleCall();
-		$rv->label = sprintf($this->__("<strong>Subscriber DataExchange is in Status <em>%s</em></stong>"), $this->__($r));
+        $rv->status = $r;
+        if ($r === 'COMPLETED') {
+    		$rv->label = $this->__("API Soap service up and running");
+        } else {
+    		$rv->label = sprintf($this->__("<strong>Subscriber DataExchange is in Status <em>%s</em></stong>"), $this->__($r));
+        }
 		$this->getResponse()->setBody(JSON_encode($rv));
 	}
 

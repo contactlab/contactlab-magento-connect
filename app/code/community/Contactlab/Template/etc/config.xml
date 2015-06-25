@@ -2,7 +2,8 @@
 <config>
     <modules>
         <Contactlab_Template>
-            <version>0.8.13</version>
+            <version>0.8.17</version>
+            <description>Abandoned cart / Wishlist remind and generic email sending through ContactLab XML Delivery</description>
         </Contactlab_Template>
     </modules>
     <global>
@@ -40,6 +41,11 @@
                     <subscriber_collection>Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection</subscriber_collection>
                 </rewrite>
             </newsletter_resource>
+            <customer_resource>
+                <rewrite>
+                    <customer_collection>Contactlab_Template_Model_Resource_Customer_Collection</customer_collection>
+                </rewrite>
+            </customer_resource>
             <contactlab_template>
                 <class>Contactlab_Template_Model</class>
                 <resourceModel>contactlab_template_resource</resourceModel>

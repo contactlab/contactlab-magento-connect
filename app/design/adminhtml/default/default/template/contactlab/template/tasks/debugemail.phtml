@@ -1,0 +1,5 @@
+<p>
+    <label for="email-address-debug">Debug an email address:</label>
+    <input type="text" name="email-address-debug" id="email-address-debug" value="<?php
+            echo filter_var($this->getAddress(), FILTER_VALIDATE_EMAIL) ?>" class="input-text">
+</p>

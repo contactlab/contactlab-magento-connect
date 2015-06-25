@@ -74,9 +74,9 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
             $rv .= "<a id=\"toggle-" . $templateId . "-row\" href=\"#\" onclick=\"$$('.template-" . $templateId . "-row').each(Element.toggle); $('toggle-" . $templateId . "-row').innerHTML = $('toggle-" . $templateId . "-row').innerHTML == '$a' ? '$b' : '$a'; return false;\">$a</a>";
             $rv .= "</td>";
             $rv .= "</tr>";
-            $rv .= "</tbody>";
-            $rv .= "</table>";
         }
+        $rv .= "</tbody>";
+        $rv .= "</table>";
         return $rv;
     }
 }
