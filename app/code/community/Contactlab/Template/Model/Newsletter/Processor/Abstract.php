@@ -14,7 +14,7 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         $this->setFilters(array());
     }
 
-    /* @var $_collection Mage_Core_Model_Resource_Db_Collection_Abstract The collection. */
+    /* @var Mage_Core_Model_Resource_Db_Collection_Abstract $_collection The collection. */
     private $_collection;
 
     /**
@@ -44,7 +44,15 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         if ($this->getIsTestMode()) {
             $this->applyFilter('contactlab_template/newsletter_processor_filter_testMode');
         }
+        $this->setTemplate($template);
+
+        if ($template->hasDebugAddress() && $template->getDebugAddress() != '') {
+            $this->applyFilter('contactlab_template/newsletter_processor_filter_emailLike',
+                    array('eq' => $template->getDebugAddress()));
+        }
+
         $this->applySubscribersFilter($template);
+        $this->unsStop();
         foreach ($this->getFilters() as $filter) {
             $this->applyFilter($filter['name'], $filter['params']);
         }
@@ -59,6 +67,11 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         return $this->_collection;
     }
 
+    /**
+     * Load customers.
+     * @param Mage_Newsletter_Model_Template $template
+     * @return Mage_Customer_Model_Resource_Customer_Collection
+     */
     protected final function loadCustomers(Mage_Newsletter_Model_Template $template) {
         /* @var $subscribers Mage_Core_Model_Resource_Db_Abstract */
         $subscribers = Mage::getResourceModel("newsletter/subscriber");
@@ -70,7 +83,14 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         if ($this->getIsTestMode()) {
             $this->applyFilter('contactlab_template/newsletter_processor_filter_testMode');
         }
+
+        if ($template->hasDebugAddress() && $template->getDebugAddress() != '') {
+            $this->applyFilter('contactlab_template/newsletter_processor_filter_emailLike',
+                    array('eq' => $template->getDebugAddress()));
+        }
+
         $this->applySubscribersFilter($template);
+        $this->unsStop();
         foreach ($this->getFilters() as $filter) {
             $this->applyFilter($filter['name'], $filter['params']);
         }
@@ -93,6 +113,9 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
      * @return $this
      */
     public function applyFilter($filter, $parameters = array()) {
+        if ($this->hasStop() && $this->getStop()) {
+            return $this;
+        }
         $filterModel = Mage::getModel($filter);
         if (!is_object($filterModel)) {
             throw new Zend_Exception("Could not find $filter model");
@@ -103,7 +126,22 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         if ($this->getIsTestMode() && !$filterModel->doRunInTestMode()) {
             return $this;
         }
+        if ($this->doOutputRows()) {
+            $countBefore = $this->_collection->getRealSize();
+        }
         $filterModel->applyFilter($this->_collection, $parameters);
+        if ($this->doOutputRows()) {
+            $countAfter = $this->_collection->getRealSize();
+            if ($countAfter == 0) {
+                $this->setStop(true);
+            }
+            if ($countAfter != $countBefore) {
+                $this->addDebugInfo(sprintf("[Store %s %s] - %s filter applied. %d rows before, %d rows after" . ($countAfter == 0 ? ' <em>Exit loop</em>' : ''),
+                        $this->getStoreId(),
+                        $this->getTemplate()->getTemplateSubject(),
+                        $filterModel->getName(), $countBefore, $countAfter));
+            }
+        }
         return $this;
     }
 
@@ -180,5 +218,33 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         $filters = $this->getFilters();
         $filters[] = array('name' => $filterName, 'params' => $params);
         $this->setFilters($filters);
+    }
+
+    /**
+     * Set debug info.
+     * @param string $message
+     */
+    public function addDebugInfo($message) {
+        if (!$this->hasDebugInfo()) {
+            $this->setDebugInfo(array());
+        }
+        $info = $this->getDebugInfo();
+        /* @var $info Mage_Core_Model_Message */
+        $messageEntity = Mage::getSingleton('core/message');
+        $info[] = $messageEntity->notice($message);
+        $this->setDebugInfo($info);
+    }
+
+    /**
+     * Should output rows to session messages?
+     * @return boolean.
+     */
+    public function doOutputRows() {
+        /* @var $helper Contactlab_Template_Helper_Data */
+        $helper = Mage::helper("contactlab_template");
+        /* @var $helperC Contactlab_Commons_Helper_Data */
+        $helperC = Mage::helper("contactlab_commons");
+
+        return $helper->shouldSendMessages() && $helperC->isDebug();
     }
 }

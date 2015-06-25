@@ -7,17 +7,43 @@ class Contactlab_Template_Helper_Data extends Mage_Core_Helper_Abstract {
      * Scan for template to be sent.
      *
      * @param string $storeId = 0
+     * @param string $debugAddress
      * @return array
      */
-    public function scan($storeId = 0) {
+    public function scan($storeId = 0, $debugAddress = null) {
         $rv = array();
+        /* @var $templates Mage_Newsletter_Model_Resource_Template_Collection */
         $templates = Mage::getResourceModel("newsletter/template_collection")
             ->loadActiveTemplatesForCron();
+
         // $helper->logDebug("Scan " . $templates->count() . " templates found");
-        foreach ($templates as $template) {
-            $r = $template->processTemplateQueue($storeId);
-            if ($r) {
-                $rv[$template->getTemplateCode()] = $r;
+        $info = array();
+        if ($templates->count() === 0) {
+            $this->addSessionWarning("No <strong>templates</strong> found.");
+        } else {
+            $message = "Scanning <strong>" . $templates->count() . " templates</strong> found: ";
+            foreach ($templates as $template) {
+                /* @var $template Contactlab_Template_Model_Newsletter_Template */
+                $message .= $template->getTemplateSubject() . ", ";
+                $template->setDebugAddress($debugAddress);
+                $r = $template->processTemplateQueue($storeId);
+                if ($r) {
+                    $rv[$template->getTemplateCode()] = $r;
+                }
+                if ($template->hasDebugInfo()) {
+                    $info[] = $template->getDebugInfo();
+                }
+            }
+            $message = preg_replace("!, $!", ".", $message);
+            $this->addSessionMessage($message);
+            foreach ($info as $i) {
+                if (is_array($i)) {
+                    foreach ($i as $l) {
+                        $this->addDebugInfo($l);
+                    }
+                } else {
+                    $this->addDebugInfo($i);
+                }
             }
         }
         return $rv;
@@ -77,4 +103,49 @@ class Contactlab_Template_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         return money_format("%!.2n", $price);
     }
+
+    /**
+     * Add session message.
+     * @param type $message
+     */
+    public function addSessionMessage($message) {
+        /* @var $session Mage_Adminhtml_Model_Session */
+        if ($this->shouldSendMessages()) {
+            $session = Mage::getSingleton("adminhtml/session");
+            $session->addSuccess($message);
+        }
+    }
+
+    /**
+     * Add session message.
+     * @param type $message
+     */
+    public function addSessionWarning($message) {
+        /* @var $session Mage_Adminhtml_Model_Session */
+        if ($this->shouldSendMessages()) {
+            $session = Mage::getSingleton("adminhtml/session");
+            $session->addWarning($message);
+        }
+    }
+
+    /**
+     * Only for apache.
+     * @return boolean
+     */
+    public function shouldSendMessages() {
+        return php_sapi_name() !== 'cli';
+    }
+
+    /**
+     * Add debug info.
+     * @param Mage_Core_Model_Message_Abstract $l
+     */
+    public function addDebugInfo(Mage_Core_Model_Message_Abstract $l) {
+        if ($this->shouldSendMessages()) {
+            /* @var $session Mage_Adminhtml_Model_Session */
+            $session = Mage::getSingleton("adminhtml/session");
+            $session->addMessage($l);
+        }
+    }
+
 }

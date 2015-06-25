@@ -13,6 +13,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
         $adapter = Mage::getSingleton('core/resource')->getConnection('core_write');
 
         // $helper->logDebug("Process " . $this->getTemplateCode() . " template, store " . $storeId);
+        /* @var $processor Contactlab_Template_Model_Newsletter_Processor_Abstract  */
         $processor = $this->getTemplateQueueProcessor($storeId)->setStoreId($storeId);
         if (!$processor->isEnabled()) {
             return null;
@@ -23,7 +24,6 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
         foreach ($processor->loadSubscribers($this, false) as $item) {
             if (is_null($queue)) {
                 $queue = Mage::getModel('newsletter/queue');
-                $queue->setTemplateId($this->getId());
                 $queue->setTemplateId($this->getId());
                 $queue->setNewsletterType($this->getTemplateType());
                 $queue->setNewsletterSubject($this->getTemplateSubject());
@@ -46,7 +46,6 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
                 if (is_null($queue)) {
                     $queue = Mage::getModel('newsletter/queue');
                     $queue->setTemplateId($this->getId());
-                    $queue->setTemplateId($this->getId());
                     $queue->setNewsletterType($this->getTemplateType());
                     $queue->setNewsletterSubject($this->getTemplateSubject());
                     $queue->setNewsletterSenderName($this->getTemplateSenderName());
@@ -63,6 +62,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
                 $c++;
             }
         }
+        $this->setDebugInfo($processor->getDebugInfo());
         if ($c > 0) {
             $this->_createTask($queue, $storeId, $c);
             return "Found " . $c . " subscribers " . $queue->getQueueId();

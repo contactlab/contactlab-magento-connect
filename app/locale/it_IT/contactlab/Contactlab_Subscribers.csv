@@ -3,6 +3,8 @@
 "All values are in <strong>minute</strong>.","Tutti i valori sono da intendersi in <strong>minuti</strong>."
 "Always all subscribers","Sempre tutti i subscribers"
 "Always export not subscribed users","Esporta sempre anche gli account che non hanno sottoscritto la newsletter"
+"Attention: this could slow down the export process","Attenzione: il processo di export potrebbe rallentare notevolmente"
+"Check UK Table consistency before every export","Controlla consistenza della tabella prima dell'export"
 "Clear statistics","Rimuovi statistiche"
 "Custom fields","Campi personalizzati"
 "Enable field 1 (text)","Abilita il campo custom 1<br><strong>Tipo testo</strong>"
@@ -62,7 +64,7 @@
 "Subscribers","Iscritti alla newsletter"
 "The fields enabled in this section will be <strong>included</strong> during the subscribers export.","I campi abilitati in questa sezione saranno <strong>inclusi</strong> nell'export dei subscribers."
 "Delete inscription if user doesn't confirm","Togliere iscrizione se l'utente non conferma"
-"Unsubscribe the customer during Nesletter subscriber to customer operation if the check of subscription is left unchecked.","Togliere l'iscrizione alla newsletter se l'utente lascia vuota la casella dell'iscrizione in fase di registrazione"
+"Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked.","Togliere l'iscrizione alla newsletter se l'utente lascia vuota la casella dell'iscrizione in fase di registrazione"
 "Please do <strong>Recalc Customer Statistics</strong> into <strong>Tasks</strong> page after you change one or both statistics period length.<br>To ensure that all customers statistics' are updated in Contactlab, please select <strong>All subscribers only for the next export</strong> option in <strong>Export Policy</strong> configuration option.","Ricalcolare le <strong>Statistiche clienti</strong> dalla pagina dei <strong>Tasks</strong> dopo aver modificato la lunghezza di uno o di entrambi i periodi. Per garantire che tutte le statistiche vengano esportate durante la prossima esportazione, selezionare il valore <strong>Tutti i subscribers limitatamente alla prossima esportazione</strong> nell'opzione <strong>Modalità di export</strong>"
 
 "Magento &rArr; ContactLab Configuration", "Configurazione Magento &rArr; ContactLab"
@@ -71,4 +73,4 @@
 "Aggregated fields (Statistics)", "Campi Aggregati (Statistiche)"
 "Path server importer", "Percorso file importazione"
 "DataExporter Configuration Id", "ID Configurazione Data exporter"
-"Leave empty to use environment memory limit", "Lasciare vuoto per usare il memory limit di default"
+"Leave empty to use environment memory limit (see <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">this page</a> for more info about the right syntax)", "Lasciare vuoto per usare il memory limit di default (fare riferimento a <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">questa pagina</a> per maggiori informazioni sulla corretta sintassi del parametro)"

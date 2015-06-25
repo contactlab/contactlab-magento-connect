@@ -35,4 +35,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_TotalValue
 
         return $collection;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter Abandoned Cart by total value";
+    }
 }

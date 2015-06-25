@@ -4,8 +4,8 @@ $installer = $this;
 $installer->startSetup();
 
 // Create customer export table
-$table = "contactlab_subscribers/uk";
-$table = $installer->getTable($table);
+$tableName = "contactlab_subscribers/uk";
+$table = $installer->getTable($tableName);
 
 // Alter subscribers table
 $installer->getConnection()->addColumn($table,

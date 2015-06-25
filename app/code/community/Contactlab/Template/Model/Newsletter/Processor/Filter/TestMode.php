@@ -44,4 +44,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_TestMode
         }
         return $rv;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter only test email addresses";
+    }
 }

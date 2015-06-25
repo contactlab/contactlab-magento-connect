@@ -122,7 +122,7 @@ class Contactlab_Template_Model_Newsletter_Queue extends Mage_Newsletter_Model_Q
            && ($this->getQueueStatus() != self::STATUS_NEVER && $this->getQueueStartAt())) {
             return $this;
         }
-        
+
         $collection = $this->getSubscribersCustomerCollection();
         if ($collection->getSize() == 0) {
             $this->_finishQueue();
@@ -140,7 +140,6 @@ class Contactlab_Template_Model_Newsletter_Queue extends Mage_Newsletter_Model_Q
             ->setTemplate($this->getTemplate())
             ->setSourceCollection($collection)
             ->send();
-
         if ($this->getXmlDelivery()
                 ->getUploader()->useLocalServer()) {
             // Local upload, wont check return code, finish queue.
@@ -175,6 +174,10 @@ class Contactlab_Template_Model_Newsletter_Queue extends Mage_Newsletter_Model_Q
                     ->join(array('link' => $this->_subscribersCustomerCollection->getTable('newsletter/queue_link')),
                         'main_table.queue_id = link.queue_id',
                         array('letter_sent_at', 'product_ids', 'customer_id' => 'customer_id'));
+            /* @var $helper Contactlab_Commons_Helper_Data */
+            $helper = Mage::helper("contactlab_commons");
+            $helper->logWarn($this->_subscribersCustomerCollection
+                    ->getSelect()->assemble());
         }
         return $this->_subscribersCustomerCollection;
     }

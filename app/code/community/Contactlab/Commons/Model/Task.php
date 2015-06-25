@@ -577,7 +577,7 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
         Mage::dispatchEvent('contactlab_commons_task_delete_before', array(
             'task' => $this));
         if ($this->getPreventDelete()) {
-            return $this->_hide();
+            return $this->_hide()->save();
         }
         return parent::delete();
     }

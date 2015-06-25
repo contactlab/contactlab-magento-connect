@@ -27,4 +27,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Store
     public function doRunInTestMode() {
         return true;
     }
+
+        /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter by store";
+    }
 }
