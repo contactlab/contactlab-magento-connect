@@ -9,7 +9,9 @@ class Contactlab_Subscribers_Model_Task_ImportSubscribersRunner extends Contactl
      * Run the task (calls the helper).
      */
     protected function _runTask() {
-        $this->_checkSubscriberDataExchangeStatus();
+        if ($this->getTask()->getConfigFlag("contactlab_commons/soap/enable")) {
+            $this->_checkSubscriberDataExchangeStatus();
+        }
         return Mage::getModel("contactlab_subscribers/importer_subscribers")
 	        ->setTask($this->getTask())
 	        ->import($this);

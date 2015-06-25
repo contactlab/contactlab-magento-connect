@@ -23,6 +23,7 @@
 <div class="content-header">
     <h3 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h3>
 </div>
+<h3><?php echo $this->__('Installed version: %s', $this->getPlatformVersion()); ?></h3>
 <?php foreach ($this->getReleaseNotes() as $releaseNotes): ?>
     <h2><?php echo $releaseNotes->getTitle() ?></h2>
     <p><em><?php echo $releaseNotes->getDescription() ?></em></p>

@@ -7,6 +7,9 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
     /** Skip subscribe customer function. */
     private $_skipSubscribeCustomer = false;
 
+    /** Skip unsubscribe soap call. */
+    private $_skipUnsubscribeSoapCall = false;
+
     private $_timezoneOffset = 0;
 
     /** Constructor. */
@@ -130,11 +133,14 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
                 $model = Mage::getModel("newsletter/subscriber")->load($ukModel->getSubscriberId());
             }
         }
+        // 03/02/2015 - Disabled match by email address
+        /*
         if (!isset($model)) {
             $task->addEvent("Could not find \"$uk\" unique id during unsubscription, trying with email \"$email\" address");
             $model = Mage::getModel("newsletter/subscriber")->loadByEmail($email);
         }
-        if ($model->hasSubscriberId()) {
+        */
+        if (isset($model) && $model->hasSubscriberId()) {
             if (!$this->_checkCanUnsubscribe($task, $model, $datetime)) {
                 return false;
             }
@@ -147,7 +153,7 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
             }
             return true;
         } else {
-            $task->addEvent("Could not find \"$email\" during unsubscription");
+            $task->addEvent(sprintf("Could not find \"%s\" with uk %s during unsubscription", $email, $uk));
             return false;
         }
     }
@@ -194,6 +200,9 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
 
     /** Update subscriber status via SOAP.*/
     public function updateSubscriberStatus($email, $id, $isSubscribed, $storeId, $queue = true) {
+        if ($this->_skipUnsubscribeSoapCall) {
+            return;
+        }
         if (!Mage::getStoreConfigFlag("contactlab_subscribers/global/soap_call_set_subscribed", $storeId)) {
             return $this;
         }
@@ -248,9 +257,17 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * Set skip Subscribe Customer?
+     * Set skip Subscribe Customer.
      */
     public function setSkipSubscribeCustomer() {
         $this->_skipSubscribeCustomer = true;
     }
+
+    /**
+     * Set skip unsubscribe soap call.
+     */
+    public function setSkipUnsubscribeSoapCall() {
+        $this->_skipUnsubscribeSoapCall = true;
+    }
+
 }

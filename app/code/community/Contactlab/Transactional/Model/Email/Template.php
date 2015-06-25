@@ -72,8 +72,8 @@ class Contactlab_Transactional_Model_Email_Template extends Mage_Core_Model_Emai
             } else if ($this->hasTemplateCode()) {
                 $code = $this->getTemplateCode();
             }   
-            $this->getMail->setTemplateCode($code);
-            $this->getMail->setTemplateId($this->getTemplateType());
+            $this->getMail()->setTemplateCode($code);
+            $this->getMail()->setTemplateId($this->getTemplateType());
         }
         return $rv;
     }

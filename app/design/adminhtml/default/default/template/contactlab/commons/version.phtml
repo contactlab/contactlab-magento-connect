@@ -2,7 +2,7 @@
 <?php if ($this->doPrintVersion()): ?>
     <div class="grid" style="padding-top: 50px; clear: both">
         <div class="hor-scroll">
-            <h3><?php echo $this->getTitle() ?></h3>
+            <h3><?php echo $this->__('Installed version: %s', $this->getPlatformVersion()); ?></h3>
             <table class="data" cellspacing="0" style="width: 40%">
                 <thead>
                     <tr class="headings">

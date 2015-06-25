@@ -40,4 +40,12 @@ class Contactlab_Commons_Block_Adminhtml_Version extends Mage_Adminhtml_Block_Ab
         $helper = Mage::helper('contactlab_commons');
         return $helper->isDebug();
     }
+
+    /**
+     * Get platform version.
+     * @return String
+     */
+    public function getPlatformVersion() {
+        return Mage::helper('contactlab_commons')->getPlatformVersion();
+    }
 }
