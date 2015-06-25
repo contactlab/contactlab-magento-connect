@@ -1,0 +1,536 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <contactlab_subscribers translate="label" module="contactlab_subscribers">
+            <label><![CDATA[Magento &rArr; ContactLab Configuration]]></label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>20</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <global translate="label">
+                    <label>Setup</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enable or disable Contactlab Subscribers module</comment>
+                        </enabled>
+                        <export_filename translate="label">
+                            <label>Export filename</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Export filename (es, subscribers_{Ymd}.xml)<br>Use {Ymd} syntax to replace current data.<br>The <a href='http://php.net/manual/en/function.date.php'>date() php function</a>'s style is used.]]></comment>
+                        </export_filename>
+                        <export_shipping_address translate="label">
+                            <label>Export shipping address</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </export_shipping_address>
+                        <export_billing_address translate="label">
+                            <label>Export billing address</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </export_billing_address>
+                        <export_policy>
+                            <label>Export Policy</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>contactlab_subscribers/system_config_source_export_policy</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </export_policy>
+                        <last_export>
+                            <label>Last export's date and time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <export_policy>2</export_policy>
+                            </depends>
+                            <comment>GMT timezone</comment>
+                        </last_export>
+                        <export_not_subscribed>
+                            <label>Always export not subscribed users</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </export_not_subscribed>
+                        <reset_export_dates_before_next_export>
+                            <label>Reset export dates before next export</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reset_export_dates_before_next_export>
+                        <soap_call_after_export translate="label">
+                            <label>Enable SOAP call after export</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </soap_call_after_export>
+                        <subscribed_flag_name translate="label">
+                            <label>Subscribed flag name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Specify here the field that contain the subscription flag in ContactLab database (es. __cls1).]]></comment>
+                        </subscribed_flag_name>
+                        <export_remote_path translate="label">
+                            <label>Remote path for export</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_commons/connection/export_remote_path</config_path>
+                        </export_remote_path>
+                        <data_updater_config_identifier translate="label" module="contactlab_commons">
+                            <label>Data updater config identifier</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_commons/soap/data_updater_config_identifier</config_path>
+                        </data_updater_config_identifier>
+                        <source_identifier>
+                            <label>Source identifier</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </source_identifier>
+                        <web_form_code>
+                            <label>WebFormCode</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </web_form_code>
+                        <memory_limit>
+                            <label>Memory limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use environment memory limit</comment>
+                        </memory_limit>
+                    </fields>
+                </global>
+                <custom_fields translate="label">
+                    <label>Custom fields</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[The fields enabled in this section will be <strong>included</strong> during the subscribers export.]]></comment>
+                	<fields>
+                        <enable_field_1 translate="label">
+                            <label>Enable field 1 (text)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_1>
+                        <field_1 translate="label">
+                            <label>Field 1 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_1>1</enable_field_1>
+                            </depends>
+                        </field_1>
+                        <enable_field_2 translate="label">
+                            <label>Enable field 2 (text)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_2>
+                        <field_2 translate="label">
+                            <label>Field 2 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_2>1</enable_field_2>
+                            </depends>
+                        </field_2>
+                        <enable_field_3 translate="label">
+                            <label>Enable field 3 (text)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_3>
+                        <field_3 translate="label">
+                            <label>Field 3 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_3>1</enable_field_3>
+                            </depends>
+                        </field_3>
+                        <enable_field_4 translate="label">
+                            <label>Enable field 4 (text)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_4>
+                        <field_4 translate="label">
+                            <label>Field 4 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>410</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_4>1</enable_field_4>
+                            </depends>
+                        </field_4>
+                        <enable_field_5 translate="label">
+                            <label>Enable field 5 (text)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_5>
+                        <field_5 translate="label">
+                            <label>Field 5 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_5>1</enable_field_5>
+                            </depends>
+                        </field_5>
+                        <enable_field_6 translate="label">
+                            <label>Enable field 6 (date/time)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_6>
+                        <field_6 translate="label">
+                            <label>Field 6 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>610</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_6>1</enable_field_6>
+                            </depends>
+                        </field_6>
+                        <enable_field_7 translate="label">
+                            <label>Enable field 7 (date/time)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>700</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_field_7>
+                        <field_7 translate="label">
+                            <label>Field 7 name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>710</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_field_7>1</enable_field_7>
+                            </depends>
+                        </field_7>
+                    </fields>
+                </custom_fields>
+                <stats translate="label">
+                    <label>Aggregated fields (Statistics)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[Please do <strong>Recalc Customer Statistics</strong> into <strong>Tasks</strong> page after you change one or both statistics period length.<br>To ensure that all customers statistics' are updated in Contactlab, please select <strong>All subscribers only for the next export</strong> option in <strong>Export Policy</strong> configuration option.]]></comment>
+                    <fields>
+                        <period_1 translate="label">
+                            <label>First period length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>First period length in days</comment>
+                        </period_1>
+                        <period_2 translate="label">
+                            <label>Second period length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Second period length in days</comment>
+                        </period_2>
+                        <contactlab_subscribers_model_task_clearstatsrunner_interval translate="label">
+                            <label>Interval between statistic clear attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_interval</config_path>
+                        </contactlab_subscribers_model_task_clearstatsrunner_interval>
+                        <contactlab_subscribers_model_task_clearstatsrunner_retries translate="label">
+                            <label>Number of statistic clear attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_retries</config_path>
+                        </contactlab_subscribers_model_task_clearstatsrunner_retries>
+                        <contactlab_subscribers_model_task_calcstatsrunner_interval translate="label">
+                            <label>Interval between statistic fill attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_calcstatsrunner_interval</config_path>
+                        </contactlab_subscribers_model_task_calcstatsrunner_interval>
+                        <contactlab_subscribers_model_task_calcstatsrunner_retries translate="label">
+                            <label>Number of statistic fill attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_calcstatsrunner_retries</config_path>
+                        </contactlab_subscribers_model_task_calcstatsrunner_retries>
+                    </fields>
+                </stats>
+                <queue translate="label">
+                    <label>Queue parameters</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <fields>
+                        <contactlab_subscribers_model_task_exportsubscribersrunner_interval translate="label">
+                            <label>Interval between export attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_subscribers_model_task_exportsubscribersrunner_interval>
+                        <contactlab_subscribers_model_task_exportsubscribersrunner_retries translate="label">
+                            <label>Number of export attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_subscribers_model_task_exportsubscribersrunner_retries>
+                        <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval translate="label">
+                            <label>Interval between StartSubscriberDataExchangeRunner SOAP Calls</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval>
+                        <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries translate="label">
+                            <label>Number of StartSubscriberDataExchangeRunner SOAP Calls attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries>
+                    </fields>
+                </queue>
+                <example_configuration translate="label">
+                    <label>Cron configuration example</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment><![CDATA[<h3>Example configuration</h3>
+<p>This is an example of configuration that queues an export job every day at 9:30PM</p>
+<pre>&lt;crontab&gt;
+        &lt;contactlab_subscribers_export_subscribers&gt;
+            &lt;schedule&gt;
+                &lt;cron_expr&gt;30 21 * * *&lt;/cron_expr&gt;
+            &lt;/schedule&gt;
+            &lt;run&gt;
+                &lt;model&gt;contactlab_subscribers/cron::addExportSubscribersQueue&lt;/model&gt;
+            &lt;/run&gt;
+        &lt;/contactlab_subscribers_export_subscribers&gt;
+    &lt;/jobs&gt;
+&lt;/crontab&gt;</pre>]]></comment>
+                </example_configuration>
+            </groups>
+        </contactlab_subscribers>
+        <contactlab_subscribers_2 translate="label" module="contactlab_subscribers">
+            <label><![CDATA[ContactLab &rArr; Magento Configuration]]></label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <setup>
+                    <label>Setup</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <import_filename translate="label">
+                            <label>Import filename</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/global/import_filename</config_path>
+                            <comment><![CDATA[Import filename (es, event_info_{Ymd}.xml)<br>Use {Ymd} syntax to replace current data.<br>The <a href='http://php.net/manual/en/function.date.php'>date() php function</a>'s style is used.]]></comment>
+                        </import_filename>
+                        <import_remote_path translate="label">
+                            <label>Path server importer</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_commons/connection/import_remote_path</config_path>
+                        </import_remote_path>
+                        <data_exporter_config_identifier translate="label">
+                            <label>DataExporter Configuration Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_commons/soap/data_exporter_config_identifier</config_path>
+                        </data_exporter_config_identifier>
+                    </fields>
+                </setup>
+                <queue translate="label">
+                    <label>Manage Queue</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[All values are in <strong>minute</strong>.]]></comment>
+                    <fields>
+                        <contactlab_subscribers_model_task_importsubscribersrunner_interval translate="label">
+                            <label>Interval between import attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_importsubscribersrunner_interval</config_path>
+                        </contactlab_subscribers_model_task_importsubscribersrunner_interval>
+                        <contactlab_subscribers_model_task_importsubscribersrunner_retries translate="label">
+                            <label>Total number of import attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_importsubscribersrunner_retries</config_path>
+                        </contactlab_subscribers_model_task_importsubscribersrunner_retries>
+                    </fields>
+                </queue>
+            </groups>
+        </contactlab_subscribers_2>
+    </sections>
+</config>

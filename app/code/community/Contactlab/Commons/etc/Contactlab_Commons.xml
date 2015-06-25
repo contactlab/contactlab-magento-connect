@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Contactlab_Commons>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Contactlab_Commons>
+    </modules>
+</config>

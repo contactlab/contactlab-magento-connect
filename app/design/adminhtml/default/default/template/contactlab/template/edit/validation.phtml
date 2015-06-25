@@ -1,0 +1,45 @@
+<script type="text/javascript">
+
+var getOppositeElement = function (elId) {
+    var oppositeId;
+    if (elId.replace(/[_-]/g, ' ').match(/\bmax\b/)) {
+        oppositeId = elId.replace(/max/, 'min');
+    } else if (elId.replace(/[_-]/g, ' ').match(/\bmin\b/)) {
+        oppositeId = elId.replace(/min/, 'max');
+    }
+    return $(oppositeId);
+};
+
+// Custom validation
+Validation.add('validate-is-min-of-range', 'Minor value cannot be greater than maximum value', function (value, minEl) {
+    var minValue = parseNumber(value), maxEl, maxValue;
+    if (isNaN(minValue)) {
+        return true;
+    }
+    maxEl = getOppositeElement(minEl.id);
+    if (!maxEl) {
+        return true;
+    }
+    maxValue = parseNumber(maxEl.value);
+    if (isNaN(maxValue)) {
+        return true;
+    }
+    return maxValue >= minValue;
+});
+
+Validation.add('validate-is-max-of-range', 'Maximum value cannot be lower than minimum value', function (value, maxEl) {
+    var maxValue = parseNumber(value), minEl, minValue;
+    if (isNaN(maxValue)) {
+        return true;
+    }
+    minEl = getOppositeElement(maxEl.id);
+    if (!minEl) {
+        return true;
+    }
+    minValue = parseNumber(minEl.value);
+    if (isNaN(minValue)) {
+        return true;
+    }
+    return maxValue >= minValue;
+});
+</script>

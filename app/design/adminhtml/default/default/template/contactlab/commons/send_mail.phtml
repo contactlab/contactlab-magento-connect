@@ -1,0 +1,33 @@
+<?php $h = Mage::helper('contactlab_commons'); ?>
+    <table cellpadding="0" cellspacing="0" border="0" style="font-family: arial; font-size: 12px; color: #666666; border-left: 1px solid #999999; border-top: 1px solid #999999">
+             <tr>  
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Task code'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Created at'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Planned at'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Description'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Task data'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Number of retries'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Max retries'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Retries interval'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Task status'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Created at'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Description'); ?></td>
+                <td valign="top" style="background-color: #dddddd; padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999; font-weight: bold"><?php print $h->__('Task status'); ?></td>
+            </tr>
+<?php
+foreach ($this->getErrorTasks() as $item) {
+	$row = $item->getData();
+    $cell = '';
+    foreach ($row as $key => $value) {
+        if ($key == 'task_event_id') {
+            continue;
+        }
+        if (preg_match('/....\-..\-../', $value)) {
+        	$row[$key] = date('d/m/Y H:i:s', strtotime($value));
+		}
+        $cell .= '<td valign="top" style="padding: 3px 10px 3px 10px; border-right: 1px solid #999999; border-bottom: 1px solid #999999">'.(empty($row[$key]) ? '&nbsp;' : $row[$key]).'</td>';
+    }
+    print '<tr>' . $cell . '</tr>';
+}
+?>
+    </table>

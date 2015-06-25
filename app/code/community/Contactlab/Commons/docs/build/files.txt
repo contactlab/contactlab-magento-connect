@@ -1,0 +1,6 @@
+./app/code/community/Contactlab/Commons
+./app/etc/modules/Contactlab_Commons.xml
+./app/locale/it_IT/contactlab/Contactlab_Commons.csv
+./app/locale/en_US/contactlab/Contactlab_Commons.csv
+./app/design/adminhtml/default/default/layout/contactlab/commons.xml
+./app/design/adminhtml/default/default/template/contactlab/commons

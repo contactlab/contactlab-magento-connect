@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <newsletter>
+            <children>
+                <contactlab>
+                    <children>
+                        <template_types translate="title" module="contactlab_template">
+                            <title>Template types</title>
+                            <sort_order>50</sort_order>
+                            <action>contactlab_template/adminhtml_types</action>
+                        </template_types>
+                    </children>
+                </contactlab>
+            </children>
+        </newsletter>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+	                <newsletter>
+	                    <children>
+	                        <contactlab>
+	                            <children>
+	                                <template_types translate="title" module="contactlab_template">
+	                                    <title>Template types</title>
+	                                    <sort_order>50</sort_order>
+	                                </template_types>
+	                            </children>
+	                        </contactlab>
+	                    </children>
+	                </newsletter>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <contactlab_template translate="title" module="contactlab_template">
+                                        <title>Recurring emails</title>
+                                        <sort_order>100</sort_order>
+                                    </contactlab_template>
+                                    <contactlab_template_cart translate="title" module="contactlab_template">
+                                        <title><![CDATA[Recurring Email &mdash; Abandoned Cart]]></title>
+                                        <sort_order>110</sort_order>
+                                    </contactlab_template_cart>
+                                    <contactlab_template_wishlist translate="title" module="contactlab_template">
+                                        <title><![CDATA[Recurring Email &mdash; Wishlist Remind]]></title>
+                                        <sort_order>120</sort_order>
+                                    </contactlab_template_wishlist>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
