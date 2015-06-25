@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <contactlab_template_adminhtml_types_index>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_type" name="contactlab_template_type" />
+        </reference>
+    </contactlab_template_adminhtml_types_index>
+    <contactlab_template_adminhtml_types_grid>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_type_grid" name="contactlab_template_type_grid" output="toHtml"/>
+        </reference>
+    </contactlab_template_adminhtml_types_grid>
+    <contactlab_template_adminhtml_types_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_type_edit" name="contactlab_template_edit" template="contactlab/template/type/edit.phtml" />
+        </reference>
+    </contactlab_template_adminhtml_types_edit>
+    <adminhtml_newsletter_template_edit>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_newsletter_template_edit_js" name="template_edit_js" template="contactlab/template/edit/js.phtml" after="-"/>
+            <block type="contactlab_template/adminhtml_newsletter_template_edit_validation" name="template_edit_validation" template="contactlab/template/edit/validation.phtml" after="-"/>
+        </reference>
+    </adminhtml_newsletter_template_edit>
+    <adminhtml_system_config_edit>
+        <reference name="content">
+            <block type="core/template" name="adminhtml_system_config_edit_validation_min_max" template="contactlab/template/edit/validation.phtml" after="-"/>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

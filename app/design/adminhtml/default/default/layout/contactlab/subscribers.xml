@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <contactlab_subscribers_adminhtml_exportsubscribers_index>
+        <reference name="content">
+            <block type="contactlab_subscribers/adminhtml_export" name="contactlab.subscribers.export" />
+        </reference>
+    </contactlab_subscribers_adminhtml_exportsubscribers_index>
+    <contactlab_commons_adminhtml_tasks_index>
+        <reference name="contactlab.commons.tasks">
+            <action method="addCommandButton">
+            	<section>subscribers</section>
+                <code>queue</code>
+                <helper>contactlab_subscribers</helper>
+                <label>Queue Subscribers export job</label>
+                <alert>Are you sure you want to do this?</alert>
+                <url>contactlab_subscribers/adminhtml_exportSubscribers/queue</url>
+            </action>
+            <action method="addCommandButton">
+            	<section>subscribers</section>
+                <code>import</code>
+                <helper>contactlab_subscribers</helper>
+                <label>Queue Subscribers import job</label>
+                <alert>Are you sure you want to do this?</alert>
+                <url>contactlab_subscribers/adminhtml_importSubscribers/queue</url>
+            </action>
+            <!--action method="addCommandButton">
+            	<section>stats</section>
+                <code>clearStats</code>
+                <helper>contactlab_subscribers</helper>
+                <label>Clear statistics</label>
+                <alert>Are you sure you want to do this?</alert>
+                <url>contactlab_subscribers/adminhtml_stats/clear</url>
+            </action-->
+            <action method="addCommandButton">
+            	<section>stats</section>
+                <code>calcStats</code>
+                <helper>contactlab_subscribers</helper>
+                <label>Fill statistics</label>
+                <alert>Are you sure you want to do this?</alert>
+                <url>contactlab_subscribers/adminhtml_stats/fill</url>
+            </action>
+        </reference>
+    </contactlab_commons_adminhtml_tasks_index>
+</layout>

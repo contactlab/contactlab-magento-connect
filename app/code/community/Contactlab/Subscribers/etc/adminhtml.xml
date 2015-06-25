@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+	                <newsletter>
+	                    <children>
+	                        <contactlab>
+	                            <children>
+	                                <subscribers translate="title" module="contactlab_subscribers">
+	                                    <title>Subscribers</title>
+	                                    <sort_order>20</sort_order>
+	                                    <children>
+	                                        <actions>
+	                                            <title>Actions</title>
+	                                            <children>
+	                                                <queue translate="title" module="contactlab_subscribers">
+	                                                    <title>Queue Subscribers export job</title>
+	                                                    <sort_order>10</sort_order>
+	                                                </queue>
+	                                                <import translate="title" module="contactlab_subscribers">
+	                                                    <title>Queue Subscribers import job</title>
+	                                                    <sort_order>20</sort_order>
+	                                                </import>
+	                                            </children>
+	                                        </actions>
+	                                    </children>
+	                                </subscribers>
+	                                <stats translate="title" module="contactlab_subscribers">
+	                                    <title>Statistics</title>
+	                                    <sort_order>30</sort_order>
+	                                    <children>
+	                                        <actions>
+	                                            <title>Actions</title>
+	                                            <children>
+										            <clearStats translate="title" module="contactlab_subscribers">
+	                                                    <title>Clear statistics</title>
+	                                                    <sort_order>10</sort_order>
+										            </clearStats>
+										            <calcStats translate="title" module="contactlab_subscribers">
+	                                                    <title>Fill statistics</title>
+	                                                    <sort_order>20</sort_order>
+										            </calcStats>
+	                                            </children>
+	                                        </actions>
+	                                    </children>
+	                                </stats>
+                                    <uk translate="title" module="contactlab_subscribers">
+                                        <title>ContactLab UK</title>
+                                        <sort_order>30</sort_order>
+                                        <children>
+                                            <actions>
+                                                <title>Actions</title>
+                                                <children>
+                                                    <update translate="title" module="contactlab_subscribers">
+                                                        <title>Update ContactLab UK </title>
+                                                        <sort_order>10</sort_order>
+                                                    </update>
+                                                </children>
+                                            </actions>
+                                        </children>
+                                    </uk>
+	                            </children>
+	                        </contactlab>
+	                    </children>
+	                </newsletter>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <contactlab_subscribers translate="title" module="contactlab_subscribers">
+                                        <title><![CDATA[Magento &rArr; ContactLab Configuration]]></title>
+                                        <sort_order>20</sort_order>
+                                    </contactlab_subscribers>
+                                    <contactlab_subscribers_2 translate="title" module="contactlab_subscribers">
+                                        <title><![CDATA[ContactLab &rArr; Magento Configuration]]></title>
+                                        <sort_order>30</sort_order>
+                                    </contactlab_subscribers_2>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
