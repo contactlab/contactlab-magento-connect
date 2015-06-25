@@ -1,0 +1,14 @@
+<div class="content-header">
+    <h1 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h1>
+</div>
+<?php foreach ($this->getCronConfiguration() as $item): ?>
+<h3><?php echo $item->getModule() ?> - <?php echo $item->getName() ?></h3>
+    <?php if ($item->hasDescription()): ?>
+        <p><em><?php echo $item->getDescription() ?></em></p>
+    <?php endif; ?>
+    <?php if ($item->getSchedule()): ?>
+        <p>Scheduled: <code><?php echo $item->getSchedule() ?></code></p>
+    <?php else: ?>
+        <p> Scheduled: <code class="error">Never</code></p>
+    <?php endif; ?>
+<?php endforeach; ?>

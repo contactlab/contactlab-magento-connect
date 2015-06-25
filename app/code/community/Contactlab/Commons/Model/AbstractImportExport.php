@@ -39,8 +39,8 @@ abstract class Contactlab_Commons_Model_AbstractImportExport extends Mage_Core_M
         $rv = preg_replace("|\{$format\}|", "$formatted", $filename);
         if ($addTime) {
             $path = dirname($rv);
-            $fname = $this->_getTime() . '_' . basename($rv);
-            $rv = $path . '/' . $fname;
+            $filenameWithTime = $this->_getTime() . '_' . basename($rv);
+            $rv = $path . '/' . $filenameWithTime;
         }
 		return $rv;
 	}

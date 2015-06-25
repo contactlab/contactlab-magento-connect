@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Template>
-            <version>0.8.19</version>
+            <version>0.8.20</version>
             <description>Abandoned cart / Wishlist remind and generic email sending through ContactLab XML Delivery</description>
         </Contactlab_Template>
     </modules>
@@ -129,6 +129,7 @@
     <crontab>
         <jobs>
             <contactlab_template_scan>
+                <description>Scan templates for new recurring email</description>
                 <schedule>
                     <!-- Scan templates every minute -->
                     <cron_expr>* * * * *</cron_expr>
