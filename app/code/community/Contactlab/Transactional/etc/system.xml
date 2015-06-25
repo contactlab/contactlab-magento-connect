@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <contactlab_transactional translate="label" module="contactlab_transactional">
+            <label>Transactional emails</label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>40</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <global translate="label">
+                    <label>Transactional email configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label" module="contactlab_commons">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enable or disable Contactlab Transactional Emails module</comment>
+                        </enabled>
+                        <smtp translate="label">
+                            <label>SMTP Server</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp>
+                    </fields>
+                </global>
+                <queue translate="label">
+                    <label>Queue parameters</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <contactlab_transactional_model_task_sendemailrunner_interval translate="label">
+                            <label>Interval beetwen email send attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_transactional_model_task_sendemailrunner_interval>
+                        <contactlab_transactional_model_task_sendemailrunner_retries translate="label">
+                            <label>Total number of email send attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_transactional_model_task_sendemailrunner_retries>
+                    </fields>
+                </queue>
+            </groups>
+        </contactlab_transactional>
+    </sections>
+</config>

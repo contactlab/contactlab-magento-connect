@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <contactlab_template translate="label" module="contactlab_template">
+            <label>Recurring Email</label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>50</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <global translate="label">
+                    <label>Templates configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable cron sending for this store</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <test_recipients translate="label">
+                            <label>Test recipients</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Comma separated values</comment>
+                        </test_recipients>
+                    </fields>
+                </global>
+                <generic translate="label">
+                    <label>Generic email campaign</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable generic campaign email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <send_to_not_subscribed translate="label">
+                            <label>Send generic campaign to not subscribed customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </send_to_not_subscribed>
+                    </fields>
+                </generic>
+                <xml_delivery translate="label">
+                    <label>XML Delivery parameters</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <fields>
+                        <auth_suid translate="label">
+                            <label>API Authentication UID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/queue/auth_suid</config_path>
+                        </auth_suid>
+                        <auth_api_key translate="label">
+                            <label>API Authentication key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/queue/auth_api_key</config_path>
+                        </auth_api_key>
+                        <export_remote_path translate="label">
+                            <label>Remote path for export</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/queue/export_remote_path</config_path>
+                        </export_remote_path>
+                        <delivery_method translate="label">
+                            <label>Delivery method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>contactlab_template/system_config_source_delivery_method</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/queue/delivery_method</config_path>
+                        </delivery_method>
+                        <group_id translate="label">
+                            <label>Email group ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/queue/group_id</config_path>
+                        </group_id>
+                    </fields>
+                </xml_delivery>
+
+
+                <queue translate="label">
+                    <label>XML Delivery Queue</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <fields>
+                        <contactlab_template_model_task_processnewsletterqueuerunner_interval translate="label">
+                            <label>Interval between sending attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_template_model_task_processnewsletterqueuerunner_interval>
+                        <contactlab_template_model_task_processnewsletterqueuerunner_retries translate="label">
+                            <label>Number of sending attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_template_model_task_processnewsletterqueuerunner_retries>
+                        <contactlab_template_model_task_checknewsletterqueuerunner_interval translate="label">
+                            <label>Interval between check attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_template_model_task_checknewsletterqueuerunner_interval>
+                        <contactlab_template_model_task_checknewsletterqueuerunner_retries translate="label">
+                            <label>Number of check attemps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>230</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contactlab_template_model_task_checknewsletterqueuerunner_retries>
+                    </fields>
+                </queue>
+
+
+            </groups>
+        </contactlab_template>
+
+
+
+
+
+        <contactlab_template_cart translate="label" module="contactlab_template">
+            <label><![CDATA[Recurring Email &mdash; Abandoned Cart]]></label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>60</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <cart translate="label">
+                    <label>Abandoned cart</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Abandoned Cart</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/cart/enabled</config_path>
+                        </enabled>
+                        <send_to_not_subscribed translate="label">
+                            <label>Send abandoned cart email to not subscribed customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/cart/send_to_not_subscribed</config_path>
+                        </send_to_not_subscribed>
+                        <min_minutes_from_last_update translate="label">
+                            <label>Minimum minutes value to consider a Abandoned Cart in email sending</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-not-negative-number validate-digits validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/cart/min_minutes_from_last_update</config_path>
+                        </min_minutes_from_last_update>
+                        <max_minutes_from_last_update translate="label">
+                            <label>Maximum minutes value to consider a Abandoned Cart in email sending</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-not-negative-number validate-digits validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/cart/max_minutes_from_last_update</config_path>
+                        </max_minutes_from_last_update>
+                        <min_value translate="label">
+                            <label>Cart minimum amount value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-number validate-not-negative-number validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/cart/min_value</config_path>
+                        </min_value>
+                        <max_value translate="label">
+                            <label>Cart maximum amount value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-number validate-not-negative-number validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/cart/max_value</config_path>
+                        </max_value>
+                        <min_products translate="label">
+                            <label>Minimum number of products in cart</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-greater-than-zero validate-digits validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/cart/min_products</config_path>
+                        </min_products>
+                        <max_products translate="label">
+                            <label>Maximum number of products in cart</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-greater-than-zero validate-digits validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/cart/max_products</config_path>
+                        </max_products>
+                        <and_or translate="label">
+                            <label>And / Or condition values</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>contactlab_template/system_config_source_andOr</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/cart/and_or</config_path>
+                        </and_or>
+                    </fields>
+                </cart>
+            </groups>
+        </contactlab_template_cart>
+
+
+        <contactlab_template_wishlist translate="label" module="contactlab_template">
+            <label><![CDATA[Recurring Email &mdash; Wishlist Remind]]></label>
+            <tab>contactlab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>70</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <wishlist translate="label">
+                    <label>Wishlist remind</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Wishlist remind</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/wishlist/enabled</config_path>
+                        </enabled>
+                        <send_to_not_subscribed translate="label">
+                            <label>Send wishlist remind email to not subscribed customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/wishlist/send_to_not_subscribed</config_path>
+                        </send_to_not_subscribed>
+                        <min_minutes_from_last_update translate="label">
+                            <label>Minimum minutes value to consider a Wishlist in email sending</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-not-negative-number validate-digits validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/wishlist/min_minutes_from_last_update</config_path>
+                        </min_minutes_from_last_update>
+                        <max_minutes_from_last_update translate="label">
+                            <label>Maximum minutes value to consider a Wishlist in email sending</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-not-negative-number validate-digits validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/wishlist/max_minutes_from_last_update</config_path>
+                        </max_minutes_from_last_update>
+                        <min_value translate="label">
+                            <label>Wishlist minimum amount value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-number validate-not-negative-number validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/wishlist/min_value</config_path>
+                        </min_value>
+                        <max_value translate="label">
+                            <label>Wishlist maximum amount value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-number validate-not-negative-number validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/wishlist/max_value</config_path>
+                        </max_value>
+                        <min_products translate="label">
+                            <label>Wishlist minimum item number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-greater-than-zero validate-digits validate-is-min-of-range</validate>
+                            <config_path>contactlab_template/wishlist/min_products</config_path>
+                        </min_products>
+                        <max_products translate="label">
+                            <label>Wishlist maximum item number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-greater-than-zero validate-digits validate-is-max-of-range</validate>
+                            <config_path>contactlab_template/wishlist/max_products</config_path>
+                        </max_products>
+                        <and_or translate="label">
+                            <label>And / Or condition values</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>contactlab_template/system_config_source_andOr</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>contactlab_template/wishlist/and_or</config_path>
+                        </and_or>
+                    </fields>
+                </wishlist>
+            </groups>
+        </contactlab_template_wishlist>
+
+
+    </sections>
+</config>

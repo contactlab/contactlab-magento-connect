@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <newsletter translate="title" module="contactlab_commons">
+            <children>
+                <contactlab translate="title" module="contactlab_commons">
+                    <title>Contactlab</title>
+                    <sort_order>1000</sort_order>
+                    <children>
+                        <tasks translate="title" module="contactlab_commons">
+                            <title>Tasks</title>
+                            <sort_order>10</sort_order>
+                            <action>contactlab_commons/adminhtml_tasks</action>
+                        </tasks>
+                        <logs translate="title" module="contactlab_commons">
+                            <title>Logs</title>
+                            <sort_order>30</sort_order>
+                            <action>contactlab_commons/adminhtml_logs</action>
+                        </logs>
+                    </children>
+                </contactlab>
+            </children>
+        </newsletter>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+            	<children>
+	                <newsletter>
+	                    <children>
+	                        <contactlab translate="title" module="contactlab_commons">
+	                            <title>Contactlab</title>
+	                            <sort_order>1000</sort_order>
+	                            <children>
+	                                <tasks translate="title">
+	                                    <title>Tasks</title>
+	                                    <sort_order>10</sort_order>
+	                                    <children>
+	                                        <actions>
+	                                            <title>Actions</title>
+	                                            <children>
+	                                                <suspend translate="title" module="contactlab_commons">
+	                                                    <title>Suspend tasks</title>
+	                                                    <sort_order>10</sort_order>
+	                                                </suspend>
+	                                                <unsuspend translate="title" module="contactlab_commons">
+	                                                    <title>Unsuspend tasks</title>
+	                                                    <sort_order>20</sort_order>
+	                                                </unsuspend>
+	                                                <retry translate="title" module="contactlab_commons">
+	                                                    <title>Retry tasks</title>
+	                                                    <sort_order>30</sort_order>
+	                                                </retry>
+	                                                <run translate="title" module="contactlab_commons">
+	                                                    <title>Run tasks</title>
+	                                                    <sort_order>40</sort_order>
+	                                                </run>
+	                                                <cancel translate="title" module="contactlab_commons">
+	                                                    <title>Cancel tasks</title>
+	                                                    <sort_order>50</sort_order>
+	                                                </cancel>
+	                                                <delete translate="title" module="contactlab_commons">
+	                                                    <title>Delete tasks</title>
+	                                                    <sort_order>50</sort_order>
+	                                                </delete>
+	                                                <clear translate="title" module="contactlab_commons">
+	                                                    <title>Clear queue</title>
+	                                                    <sort_order>60</sort_order>
+	                                                </clear>
+	                                            </children>
+	                                        </actions>
+	                                    </children>
+	                                </tasks>
+	                                <logs translate="title">
+	                                    <title>Logs</title>
+	                                    <sort_order>30</sort_order>
+	                                </logs>
+	                            </children>
+	                        </contactlab>
+	                    </children>
+	                </newsletter>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <contactlab_commons translate="title" module="contactlab_commons">
+                                        <title>Contactlab</title>
+                                        <sort_order>10</sort_order>
+                                    </contactlab_commons>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

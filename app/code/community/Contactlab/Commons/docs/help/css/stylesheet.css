@@ -1,0 +1,34 @@
+body {
+	font-family: "Ubuntu" sans-serif;
+	margin: 0;
+	background: white url(img/logo.jpg) no-repeat 80% 5cm;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #666;
+}
+
+#page {
+	text-align: center;
+}
+
+#page>* {
+	text-align: left;
+}
+
+#head {
+	background: #eee;
+	border-bottom: 1px #ccc solid;
+	padding: 1.5cm;
+}
+
+#head h1 {
+	margin: 0;
+	width: 960px;
+	margin: 0 auto;
+}
+
+#content {
+	width: 960px;
+	margin: 0 auto;
+}

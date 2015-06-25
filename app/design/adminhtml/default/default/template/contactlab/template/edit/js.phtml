@@ -1,0 +1,167 @@
+<script type="text/javascript">
+var templateTypeOptionsUpdater = (function ($) {
+    var my = {}, that = {};
+
+    my.updateTemplateTypeOptions = function () {
+        var options = my.templateTypeOptions[$("template_type_id").getValue()],
+            showFilterProducts = options.visible,
+            isXmlEnabled = $('enable_xml_delivery').getValue() === '1';
+        if ($('is_cron_enabled').getValue() !== (options.useCron ? '1' : '0')) {
+            if (confirm(options.alertCronChange)) {
+                $('is_cron_enabled').setValue(options.useCron ? '1' : '0');
+            }
+        }
+
+        if (showFilterProducts && isXmlEnabled
+            && ($('min_minutes_from_last_update').getValue() !== options.min_minutes_from_last_update
+                || $('max_minutes_from_last_update').getValue() !== options.max_minutes_from_last_update
+                || $('min_value').getValue() !== options.min_value
+                || $('max_value').getValue() !== options.max_value
+                || $('min_products').getValue() !== options.min_products
+                || $('max_products').getValue() !== options.max_products
+                || $('and_or').getValue() !== options.and_or)) {
+            if (confirm(options.alertOptionChange)) {
+                $('min_minutes_from_last_update').setValue(options.min_minutes_from_last_update || '');
+                $('max_minutes_from_last_update').setValue(options.max_minutes_from_last_update || '');
+                $('min_value').setValue(options.min_value || '');
+                $('max_value').setValue(options.max_value || '');
+                $('min_products').setValue(options.min_products || '');
+                $('max_products').setValue(options.max_products || '');
+                $('and_or').setValue(options.and_or);
+            }
+           
+        }
+        my.recalcVisible();
+    };
+
+    my.updateDefault = function (el, value) {
+        if ($('default-' + el)) {
+            $('default-' + el).remove();
+        }
+        if (value) {
+            $(el).insert({
+                after: new Element('span', {'style': 'margin-left: 20px'})
+                        .update("Default value: \"" + value + "\"")});
+        }
+    };
+
+    my.updateTemplateTypeOptionsDefaults = function () {
+        var options = my.templateTypeOptions[$("template_type_id").getValue()];
+        my.updateDefault('min_minutes_from_last_update', options.min_minutes_from_last_update);
+        my.updateDefault('max_minutes_from_last_update', options.max_minutes_from_last_update);
+        my.updateDefault('min_value', options.min_value);
+        my.updateDefault('max_value', options.max_value);
+        my.updateDefault('min_products', options.min_products);
+        my.updateDefault('max_products', options.max_products);
+        my.updateDefault('and_or', options.and_or);
+        my.recalcVisible();
+    };
+
+    my.recalcVisible = function () {
+        var options = my.templateTypeOptions[$("template_type_id").getValue()],
+            showFilterProducts = options.visible,
+            isXmlEnabled = $('enable_xml_delivery').getValue() === '1',
+            isCronEnabled = $('is_cron_enabled').getValue() === '1',
+            mode = $('flg_html_txt').getValue(),
+            isTxtMode = mode === 'T' || mode === 'B',
+            isHtmlMode = mode === 'H' || mode === 'B';
+
+        if (showFilterProducts && isXmlEnabled) {
+            $('customer_filter_fieldset').previous().show();
+            $('customer_filter_fieldset').show();
+            $('product_fieldset').previous().show();
+            $('product_fieldset').show();
+        } else {
+            $('customer_filter_fieldset').previous().hide();
+            $('customer_filter_fieldset').hide();
+            $('product_fieldset').previous().hide();
+            $('product_fieldset').hide();
+        }
+        if (isCronEnabled && isXmlEnabled) {
+            $('cron_date_range_start').up().up().show();
+            $('cron_date_range_end').up().up().show();
+            $('queue_delay_time').up().up().show();
+            $('priority').up().up().show();
+        } else {
+            $('cron_date_range_start').up().up().hide();
+            $('cron_date_range_end').up().up().hide();
+            $('queue_delay_time').up().up().hide();
+            $('priority').up().up().hide();
+        }
+        if (isXmlEnabled) {
+            $('cron_fieldset').previous().show();
+            $('cron_fieldset').show();
+            $('reply_to').up().up().show();
+            $('template_type_id').up().up().show();
+            $('template_text_plain').up().up().show();
+            $('flg_html_txt').up().up().show();
+            $('is_test_mode').up().up().show();
+        } else {
+            $('cron_fieldset').previous().hide();
+            $('cron_fieldset').hide();
+            $('reply_to').up().up().hide();
+            $('template_type_id').up().up().hide();
+            $('template_text_plain').up().up().hide();
+            $('flg_html_txt').up().up().hide();
+            $('is_test_mode').up().up().hide();
+        }
+
+        if (isHtmlMode || !isXmlEnabled) {
+            $('text').up().up().show();
+        } else {
+            $('text').up().up().hide();
+        }
+
+        if (isXmlEnabled) {
+            if (isTxtMode) {
+                $('template_text_plain').up().up().show();
+            } else {
+                $('template_text_plain').up().up().hide();
+            }
+            if (isHtmlMode) {
+                $('template_styles').up().up().show();
+            } else {
+                $('template_styles').up().up().hide();
+            }
+        } else {
+            $('template_text_plain').up().up().hide();
+            $('template_styles').up().up().hide();
+        }
+
+
+        if (isHtmlMode) {
+            my.onlyHtml.each(function (item) { item.up().up().show(); });
+        } else {
+            my.onlyHtml.each(function (item) { item.up().up().hide(); });
+        }
+        if (isTxtMode) {
+            my.onlyTxt.each(function (item) { item.up().up().show(); });
+        } else {
+            my.onlyTxt.each(function (item) { item.up().up().hide(); });
+        }
+    };
+
+
+    my.init = function () {
+        my.templateTypeOptions = <?php echo $this->getTemplateTypeOptionsJson() ?>;
+        Event.observe('template_type_id', 'change', my.updateTemplateTypeOptions);
+        Event.observe('is_cron_enabled', 'change', my.recalcVisible);
+        Event.observe('flg_html_txt', 'change', my.recalcVisible);
+        Event.observe('enable_xml_delivery', 'change', my.recalcVisible);
+
+        my.onlyTxt = [];
+        my.onlyHtml = [];
+        [1, 2, 3, 4, 5].each(function (item) {
+            my.onlyHtml.push($('template_pr_html_' + item));
+            my.onlyTxt.push($('template_pr_txt_' + item));
+        });
+        my.recalcVisible();
+        my.updateTemplateTypeOptionsDefaults();
+    };
+
+    my.init();
+
+    return that;
+}($));
+
+</script>
