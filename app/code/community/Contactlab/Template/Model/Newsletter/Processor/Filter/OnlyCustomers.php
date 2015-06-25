@@ -31,4 +31,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_OnlyCustomers
     public function doRunInTestMode() {
         return true;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter only customer subscribers";
+    }
 }

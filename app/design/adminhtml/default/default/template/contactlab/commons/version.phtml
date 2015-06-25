@@ -1,0 +1,26 @@
+<?php /* @var $this Contactlab_Commons_Block_Adminhtml_Version */ ?>
+<?php if ($this->doPrintVersion()): ?>
+    <div class="grid" style="margin-top: 50px">
+        <div class="hor-scroll">
+            <h3><?php echo $this->getTitle() ?></h3>
+            <table class="data" cellspacing="0" style="width: 40%">
+                <thead>
+                    <tr class="headings">
+                        <th><?php echo $this->__('Plugin') ?></th>
+                        <th><?php echo $this->__('Description') ?></th>
+                        <th><?php echo $this->__('Version') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->getModulesVersion() as $module): ?>
+                    <tr class="<?php echo $module->getClass() ?>">
+                        <td><strong><?php echo $module->getName() ?></strong></td>
+                        <td><?php echo $module->getDescription() ?></td>
+                        <td class="a-right"><code><?php echo $module->getVersion() ?></code></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>

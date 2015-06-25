@@ -2,7 +2,8 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.8.10</version>
+            <version>0.8.13</version>
+            <description>Subscriber sync Magento/ContactLab and ContactLab/Magento</description>
         </Contactlab_Subscribers>
     </modules>
     <global>
@@ -292,6 +293,7 @@
                 <export_shipping_address>1</export_shipping_address>
                 <export_billing_address>0</export_billing_address>
                 <export_policy>0</export_policy>
+                <check_uk_before_export>1</check_uk_before_export>
                 <subscribed_flag_name>__cls1</subscribed_flag_name>
                 <export_not_subscribed>1</export_not_subscribed>
                 <reset_export_dates_before_next_export>0</reset_export_dates_before_next_export>

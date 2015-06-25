@@ -69,6 +69,9 @@ abstract class Contactlab_Template_Model_Newsletter_Template_Compiler_Abstract e
         // Iterate products and calculate template
         foreach ($productExplode as $productItem) {
             $item = explode('|', $productItem);
+            if ($productItem === '') {
+                continue;
+            }
             $productQty = $item[1];
             $productId = $item[0];
             /* @var $products Mage_Catalog_Model_Resource_Product_Collection */

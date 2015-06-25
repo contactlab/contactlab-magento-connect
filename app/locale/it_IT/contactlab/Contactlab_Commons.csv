@@ -99,6 +99,7 @@
 "Data updater config identifier","ID Configurazione Data updater"
 "Data exporter config identifier","ID Configurazione Data exporter"
 "<strong>Subscriber DataExchange is in Status <em>%s</em></stong>","<strong>DataExchange è <em>%s</em></stong>"
+"<strong>Subscriber DataExchange is in Status <em>%s</em></stong>","<strong>DataExchange è <em>%s</em></stong>"
 "INREQUEST","inserito ma non ancora preso in carico"
 "RUNNING","in esecuzione"
 "COMPLETED","completato con successo"
@@ -113,7 +114,8 @@
 "Use ; delimiter for recipients separator", "Utilizzare il carattere ; per seperare destinatari multipli"
 "Email Template", "Template email"
 "Cron configuration example", "Esempio configurazione Cron"
-
 "Error notify email", "Email di errore"
 "Enable error notify email", "Abilitazione email di errore"
 "Recipients email", "Destinatari"
+"API Soap service up and running", "Servizio API Soap up and running"
+"Plugin versions", "Versione del plugin installata"

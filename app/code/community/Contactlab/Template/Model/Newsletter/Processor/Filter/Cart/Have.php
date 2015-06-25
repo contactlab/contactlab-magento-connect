@@ -28,4 +28,12 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_Have
 
         return $collection;
     }
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    public function getName() {
+        return "Filter customers with items in cart";
+    }
 }

@@ -87,7 +87,7 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_A
     /**
      * Add message.
      *
-     * @param SimpleXMLElement $notes
+     * @param SimpleXMLElement $message
      * @return void
      */
     private function _addMessage(SimpleXMLElement $message) {
@@ -102,9 +102,9 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_A
             $headers->addChild('reply_to', $this->getTemplate()->getReplyTo());
         }
 
-        $message->addChild('preferred_content', $this->_getPreferredContent());
         $message->addChild('publish_on_web')
             ->addAttribute('ovveridetaf', 'true');
+        $message->addChild('preferred_content', $this->_getPreferredContent());
 
         $body = $message->addChild('body');
         $this->_addBody($body);
@@ -280,6 +280,11 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_A
         $store = Mage::getModel('core/store')->load($this->getStoreId());
         $counter = 0;
 
+        /* @var $helper Contactlab_Commons_Helper_Data */
+        $helper = Mage::helper("contactlab_commons");
+        $helper->logWarn($this->getSourceCollection()->getSelect()->assemble());
+
+        $this->getSourceCollection()->disableIdCheck();
         foreach ($this->getSourceCollection() as $item) {
             fputcsv($fp, array(
                 $item->getUk(),
@@ -303,6 +308,7 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_A
                 $this->getTask()->setProgressValue($counter);
             }
         }
+        $this->getSourceCollection()->enableIdCheck();
         $this->rv = sprintf("%d items added to XMLDelivery queue", $counter);
         $this->getTask()->setProgressValue($counter);
 

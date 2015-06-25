@@ -39,4 +39,10 @@ interface Contactlab_Template_Model_Newsletter_Processor_Filter_Interface {
      * @return boolean
      */
     function doSendToAllCustomers();
+
+    /**
+     * Get filter name for debug.
+     * @return string
+     */
+    function getName();
 }

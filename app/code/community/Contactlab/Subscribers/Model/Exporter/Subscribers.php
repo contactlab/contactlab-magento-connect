@@ -178,6 +178,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
     /** Not customer records. */
     private function _addNotCustomerRecords() {
+        Mage::helper("contactlab_commons")->logDebug("_addNotCustomerRecords");
         $subscribersNotInCustomers = Mage::getModel('newsletter/subscriber')->getCollection();
         $this->_manageExportPolicy($subscribersNotInCustomers,
             array('main_table' => 'last_updated_at'));
@@ -191,6 +192,10 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             ->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
 
         $counter = 0;
+
+
+        Mage::helper("contactlab_commons")->logDebug("Prima del count, subscribersNotInCustomers");
+        Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
         $max = $subscribersNotInCustomers->count();
         $this->getTask()->setMaxValue($max);
         $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
