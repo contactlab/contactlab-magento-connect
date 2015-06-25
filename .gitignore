@@ -559,5 +559,11 @@ app/locale/es_ES/
 phpmyadmin/
 app/locale/it_IT/webformat/
 app/code/community/Readytec/ViewedProducts/etc/Readytec_ViewedProducts.xml
-app/code/community/Readytec/
+app/code/community/Readytec
 app/etc/modules/Readytec_ViewedProducts.xml
+app/design/adminhtml/default/default/layout/athletesworld
+app/design/adminhtml/default/default/layout/readytec/
+app/locale/it_IT/readytec/
+aw-export
+aw-import
+test/

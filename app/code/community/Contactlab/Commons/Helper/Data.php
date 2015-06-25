@@ -157,4 +157,28 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
 
         return sprintf('DELETE %s %s', $adapter->quoteIdentifier($table), $select->assemble());
     }
+
+    /**
+     * Get module versions.
+     * @return \Varien_Data_Collection
+     */
+    public function getModulesVersion() {
+        $rv = new Varien_Data_Collection();
+        $count = 0;
+        foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $moduleConfig) {
+            if (preg_match('/^Contactlab_.*/', $moduleName)) {
+                $item = new Varien_Object();
+                $item->setName(preg_replace('/^Contactlab_/', '', $moduleName))
+                    ->setVersion((string) $moduleConfig->version)
+                    ->setConfig($moduleConfig)
+                    ->setModuleName($moduleName)
+                    ->setDescription((string) $moduleConfig->description);
+                if ($count++ % 2 == 0) {
+                    $item->setClass("even");
+                }
+                $rv->addItem($item);
+            }
+        }
+        return $rv;
+    }
 }

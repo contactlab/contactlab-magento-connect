@@ -1,0 +1,32 @@
+<style type="text/css">
+    .rn-content {
+        margin-bottom: 30px;
+    }
+    .rn-content q {
+        font-weight: bold;
+    }
+    .rn-content q {
+        quotes: "“" "”" "‘" "’";
+    }
+    .rn-content q:before {
+        content: open-quote;
+    }
+    .rn-content q:after {
+        content: close-quote;
+    }
+    .rn-content ul, .rn-content ol {
+        list-style-type: inherit;
+        list-style: inherit;
+        padding-left: 40px;
+    }
+</style>
+<div class="content-header">
+    <h3 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h3>
+</div>
+<?php foreach ($this->getReleaseNotes() as $releaseNotes): ?>
+    <h2><?php echo $releaseNotes->getTitle() ?></h2>
+    <p><em><?php echo $releaseNotes->getDescription() ?></em></p>
+    <div class="rn-content">
+        <?php echo $releaseNotes->getText() ?>
+    </div>
+<?php endforeach; ?>

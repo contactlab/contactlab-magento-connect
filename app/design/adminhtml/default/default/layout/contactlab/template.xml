@@ -27,4 +27,24 @@
             <block type="core/template" name="adminhtml_system_config_edit_validation_min_max" template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_system_config_edit>
+    <contactlab_commons_adminhtml_tasks_index>
+        <reference name="content">
+            <block type="adminhtml/template" name="contactlab.template" after="contactlab.commons.uk"
+                   template="contactlab/template/tasks/buttons.phtml">
+                <block type="contactlab_template/adminhtml_widget_button_queue"
+                       name="contactlab.template.queue"
+                       as="contactlab.template.queue">
+                    <action method="setLabel" translate="label">
+                        <label>Scan templates</label>
+                    </action>
+                    <action method="setUrl">
+                        <url>contactlab_template/adminhtml_template/scan</url>
+                    </action>
+                </block>
+                <block type="adminhtml/template"
+                       name="contactlab.template.email"
+                       template="contactlab/template/tasks/debugemail.phtml" />
+            </block>
+        </reference>
+    </contactlab_commons_adminhtml_tasks_index>
 </layout>

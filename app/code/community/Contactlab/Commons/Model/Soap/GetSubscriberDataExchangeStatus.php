@@ -6,6 +6,9 @@
 class Contactlab_Commons_Model_Soap_GetSubscriberDataExchangeStatus extends Contactlab_Commons_Model_Soap_AbstractCall {
 	/** Do the SOAP call. */
 	public function call() {
+        if ($this->getConfigFlag('contactlab_commons/soap/enable')) {
+            return "DISABLED";
+        }
 		$this->validateStatus();
 		require_once('getSubscriberDataExchangeStatus.php');
 		$params = new getSubscriberDataExchangeStatus();

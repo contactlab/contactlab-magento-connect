@@ -106,7 +106,7 @@
                             <comment>Attention: this could slow down the export process</comment>
                         </check_uk_before_export>
                         <soap_call_after_export translate="label">
-                            <label>Enable SOAP call after export</label>
+                            <label>Enable import execution after export</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>95</sort_order>
@@ -151,7 +151,7 @@
                         </source_identifier>
                         <web_form_code>
                             <label>WebFormCode</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>password</frontend_type>
                             <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
