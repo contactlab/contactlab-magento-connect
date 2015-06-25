@@ -11,7 +11,7 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
     protected function _runTask() {
         /* @var $task Contactlab_Commons_Model_Task */
         $task = $this->getTask();
-        if ($task->getConfigFlag("contactlab_subscribers/global/soap_call_after_export")) {
+        if ($task->getConfigFlag("contactlab_commons/soap/enable")) {
             $this->_checkSubscriberDataExchangeStatus();
         }
         if ($task->getConfigFlag("contactlab_subscribers/global/check_uk_before_export")) {

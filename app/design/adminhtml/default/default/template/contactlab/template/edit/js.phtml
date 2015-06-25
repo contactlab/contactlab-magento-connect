@@ -108,15 +108,19 @@ var templateTypeOptionsUpdater = (function ($) {
 
         if (isHtmlMode || !isXmlEnabled) {
             $('text').up().up().show();
+            $('text').addClassName('required-entry');
         } else {
             $('text').up().up().hide();
+            $('text').removeClassName('required-entry');
         }
 
         if (isXmlEnabled) {
             if (isTxtMode) {
                 $('template_text_plain').up().up().show();
+                $('template_text_plain').addClassName('required-entry');
             } else {
                 $('template_text_plain').up().up().hide();
+                $('template_text_plain').removeClassName('required-entry');
             }
             if (isHtmlMode) {
                 $('template_styles').up().up().show();
@@ -124,6 +128,7 @@ var templateTypeOptionsUpdater = (function ($) {
                 $('template_styles').up().up().hide();
             }
         } else {
+            $('template_text_plain').removeClassName('required-entry');
             $('template_text_plain').up().up().hide();
             $('template_styles').up().up().hide();
         }

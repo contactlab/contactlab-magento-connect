@@ -101,7 +101,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
             'header' => $this->__('Actions'),
             'align' => 'left',
             'index' => 'task_id',
-            'width' => 120,
+            'width' => 135,
             'renderer' => 'contactlab_commons/adminhtml_tasks_renderer_actions'
         ));
         /*$actions = array();

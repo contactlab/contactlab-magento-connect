@@ -29,6 +29,14 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
+     * Get platform version.
+     * @return String
+     */
+    public function getPlatformVersion() {
+        return Mage::getStoreConfig('contactlab_commons/global/platform_version');
+    }
+
+    /**
      * Emergency: system is unusable
      */
     public function logEmerg($value) {
@@ -180,5 +188,26 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
             }
         }
         return $rv;
+    }
+
+    /**
+     * Log function call.
+     * @param String $functionName
+     * @param String $storeId
+     */
+    public function logCronCall($functionName, $storeId = false)
+    {
+        $pid = getmypid();
+        $uid = getmyuid();
+        $sapi = php_sapi_name();
+        if ($storeId !== false) {
+            $this->logInfo(sprintf(
+                "Function %s called. pid: %s, uid: %s, sapi: %s, store: %s.",
+                $functionName, $pid, $uid, $sapi, $storeId));
+        } else {
+            $this->logInfo(sprintf(
+                "Function %s called. pid: %s, uid: %s, sapi: %s.",
+                $functionName, $pid, $uid, $sapi));
+        }
     }
 }

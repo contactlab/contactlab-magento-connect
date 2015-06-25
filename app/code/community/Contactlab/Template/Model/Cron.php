@@ -11,6 +11,7 @@ class Contactlab_Template_Model_Cron {
      * @param string $storeId
      */
     public function scan($storeId = -1) {
+        $this->logCronCall('scan', $storeId);
         $h = Mage::helper('contactlab_template');
         foreach ($h->getAvailableStores() as $store) {
             if (!$h->isStoreEnabled($store)) {
@@ -24,5 +25,18 @@ class Contactlab_Template_Model_Cron {
                 Mage::helper('contactlab_commons')->logEmerg($e);
             }
         }
+    }
+
+    /**
+     * Log function call.
+     * @param String $functionName
+     * @param String $storeId
+     */
+    public function logCronCall($functionName, $storeId = false)
+    {
+        Mage::helper('contactlab_commons')
+            ->logCronCall(
+                "Contactlab_Template_Model_Cron::$functionName", $storeId
+            );
     }
 }

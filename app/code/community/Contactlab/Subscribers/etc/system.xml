@@ -151,7 +151,7 @@
                         </source_identifier>
                         <web_form_code>
                             <label>WebFormCode</label>
-                            <frontend_type>password</frontend_type>
+                            <frontend_type>text</frontend_type>
                             <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -349,7 +349,7 @@
                             <comment>Second period length in days</comment>
                         </period_2>
                         <contactlab_subscribers_model_task_clearstatsrunner_interval translate="label">
-                            <label>Interval between statistic clear attemps</label>
+                            <label>Interval between statistic clear attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -358,7 +358,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_interval>
                         <contactlab_subscribers_model_task_clearstatsrunner_retries translate="label">
-                            <label>Number of statistic clear attemps</label>
+                            <label>Number of statistic clear attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -367,7 +367,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_retries</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_retries>
                         <contactlab_subscribers_model_task_calcstatsrunner_interval translate="label">
-                            <label>Interval between statistic fill attemps</label>
+                            <label>Interval between statistic fill attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -376,7 +376,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_calcstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_calcstatsrunner_interval>
                         <contactlab_subscribers_model_task_calcstatsrunner_retries translate="label">
-                            <label>Number of statistic fill attemps</label>
+                            <label>Number of statistic fill attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -397,7 +397,7 @@
                     <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
                     <fields>
                         <contactlab_subscribers_model_task_exportsubscribersrunner_interval translate="label">
-                            <label>Interval between export attemps</label>
+                            <label>Interval between export attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -405,7 +405,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_subscribers_model_task_exportsubscribersrunner_interval>
                         <contactlab_subscribers_model_task_exportsubscribersrunner_retries translate="label">
-                            <label>Number of export attemps</label>
+                            <label>Number of export attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -421,7 +421,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval>
                         <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries translate="label">
-                            <label>Number of StartSubscriberDataExchangeRunner SOAP Calls attemps</label>
+                            <label>Number of StartSubscriberDataExchangeRunner SOAP Calls attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -522,7 +522,7 @@
                     <comment><![CDATA[All values are in <strong>minute</strong>.]]></comment>
                     <fields>
                         <contactlab_subscribers_model_task_importsubscribersrunner_interval translate="label">
-                            <label>Interval between import attemps</label>
+                            <label>Interval between import attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -531,7 +531,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_importsubscribersrunner_interval</config_path>
                         </contactlab_subscribers_model_task_importsubscribersrunner_interval>
                         <contactlab_subscribers_model_task_importsubscribersrunner_retries translate="label">
-                            <label>Total number of import attemps</label>
+                            <label>Total number of import attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

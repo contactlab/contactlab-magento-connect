@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Transactional>
-            <version>0.8.1</version>
+            <version>0.8.2</version>
             <description>Magento transactional email sending through ContactLab Smart Relay</description>
         </Contactlab_Transactional>
     </modules>

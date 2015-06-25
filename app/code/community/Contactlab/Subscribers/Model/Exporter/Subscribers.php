@@ -155,7 +155,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         Mage::helper("contactlab_commons")->flushDbProfiler();
         if (!$this->found) {
-            $this->getTask()->addEvent("No record exported or deleted", true);
+            $this->getTask()->addEvent("No record exported or deleted");
         } else {
             if ($this->customers > 0) {
                 $this->getTask()->addEvent(sprintf("%d customers exported", $this->customers));

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <crontab>
+        <jobs>
+            <contactlab_subscribers_export_subscribers>
+                <schedule>
+                    <cron_expr>30 21 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>contactlab_subscribers/cron::addExportSubscribersQueue</model>
+                </run>
+            </contactlab_subscribers_export_subscribers>
+            <contactlab_subscribers_import_subscribers>
+                <schedule>
+                    <cron_expr>30 02 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>contactlab_subscribers/cron::addImportSubscribersQueue</model>
+                </run>
+            </contactlab_subscribers_import_subscribers>
+        </jobs>
+    </crontab>
+</config>
