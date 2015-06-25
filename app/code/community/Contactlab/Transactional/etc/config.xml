@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Transactional>
-            <version>0.8.2</version>
+            <version>0.8.3</version>
             <description>Magento transactional email sending through ContactLab Smart Relay</description>
         </Contactlab_Transactional>
     </modules>
@@ -37,11 +37,11 @@
     <default>
         <contactlab_transactional>
             <global>
-                <enabled>0</enabled>
+                <!--enabled>0</enabled-->
             </global>
             <queue>
-                <contactlab_transactional_model_task_sendemailrunner_interval>1</contactlab_transactional_model_task_sendemailrunner_interval>
-                <contactlab_transactional_model_task_sendemailrunner_retries>10</contactlab_transactional_model_task_sendemailrunner_retries>
+                <!--contactlab_transactional_model_task_sendemailrunner_interval>1</contactlab_transactional_model_task_sendemailrunner_interval>
+                <contactlab_transactional_model_task_sendemailrunner_retries>10</contactlab_transactional_model_task_sendemailrunner_retries-->
             </queue>
         </contactlab_transactional>
     </default>

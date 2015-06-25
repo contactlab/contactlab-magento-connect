@@ -14,9 +14,16 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
         if ($task->getConfigFlag("contactlab_commons/soap/enable")) {
             $this->_checkSubscriberDataExchangeStatus();
         }
-        if ($task->getConfigFlag("contactlab_subscribers/global/check_uk_before_export")) {
+        if ($task->getConfig("contactlab_subscribers/global/check_uk_before_export") == '1') {
             if (!$this->_checkUk()) {
                 throw new Exception("UK Table inconsistent, please fix it with the \"Update unique Keys\" button in the task page!");
+            }
+        } else if ($task->getConfig("contactlab_subscribers/global/check_uk_before_export") == '2') {
+            if (!$this->_checkUk(true)) {
+                $this->_repairUk(true);
+                if (!$this->_checkUk()) {
+                    throw new Exception("UK Table inconsistent, please fix it with the \"Update unique Keys\" button in the task page!");
+                }
             }
         }
     	$this->setExporter(Mage::getModel("contactlab_subscribers/exporter_subscribers")
@@ -48,11 +55,30 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
         return Mage::getStoreConfig("contactlab_subscribers/global/memory_limit");
     }
 
-    public function _checkUk() {
+    /**
+     * Check UK table.
+     * @param boolean $skipMessages
+     * @return boolean
+     */
+    private function _checkUk($skipMessages = false) {
         /* @var $helper Contactlab_Subscribers_Helper_Uk */
         $helper = Mage::helper('contactlab_subscribers/uk');
         $this->getTask()->setSuppressSuccessUk(true);
+        $this->getTask()->setSkipMessages($skipMessages);
         return $helper->updateAll(false, $this->getTask());
     }
 
+    /**
+     * Repair UK table.
+     * @param boolean $skipMessages
+     * @return boolean
+     */
+    private function _repairUk($skipMessages = false)
+    {
+        /* @var $helper Contactlab_Subscribers_Helper_Uk */
+        $helper = Mage::helper('contactlab_subscribers/uk');
+        $this->getTask()->setSuppressSuccessUk(true);
+        $this->getTask()->setSkipMessages($skipMessages);
+        return $helper->updateAll(true, $this->getTask());
+    }
 }

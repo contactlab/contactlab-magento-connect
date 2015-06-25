@@ -28,6 +28,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
 
     /** Update keys. */
     public function update($doit = false) {
+        /* @var $wr Varien_Db_Adapter_Pdo_Mysql */
         $wr = $this->_getWriteAdapter();
         $session = Mage::getSingleton('adminhtml/session');
         $this->_purge($wr, $doit, true, $session);
@@ -36,7 +37,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
 
     /** Insert existing records. */
-    private function _insertExistingRecords($adapter, $doit, $session) {
+    private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $this->_makeCouples($adapter, $doit, $session);
         $this->_deleteDuplicatedSubscribers($adapter, $doit, $session);
 
@@ -48,8 +49,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
 
     /** Delete duplicated subscribers. */
-    private function _deleteDuplicatedSubscribers($adapter, $doit, $session) {
-        // FIXME: SURE!?
+    private function _deleteDuplicatedSubscribers(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
         $select = $adapter
@@ -94,7 +94,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * Insert all record from newsletter_subscriber
      * where customer_id and subscriber_id are not in uk table
      */
-    private function _insertFromNewsletterSubscriber($adapter, $doit, $session) {
+    private function _insertFromNewsletterSubscriber(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
@@ -102,24 +102,35 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                 ->select()->from(array('s' => $subscribersTable), array(
                     'subscriber_id' => 'subscriber_id',
                     'customer_id' => 'if(customer_id = 0, NULL, customer_id)')
-                )
-                ->where("customer_id not in (select customer_id from $ukTable where customer_id is not null) and subscriber_id not in (select subscriber_id from $ukTable where subscriber_id is not null)");
+                )/*
+                 * -- Performance hint, ignore duplicated
+                ->where("customer_id not in (select customer_id from $ukTable where customer_id is not null) and subscriber_id not in (select subscriber_id from $ukTable where subscriber_id is not null)")*/;
 
+        Mage::log($select->assemble());
+        if (!$doit) {
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
             $this->addSuccess("No newsletter subscribers to insert", $session);
             return $this;
         }
+        }
         if ($doit) {
             // backward compatibility
             if ($this->_useCoreInsertFrom()) {
-                $sql = $adapter->insertFromSelect($select, $ukTable, array('subscriber_id', 'customer_id'));
+                $sql = $adapter->insertFromSelect($select,
+                        $ukTable, array('subscriber_id', 'customer_id'),
+                        Varien_Db_Adapter_Interface::INSERT_IGNORE);
             } else {
-                $sql = $this->_insertFromSelect($adapter, $select, $ukTable, array('subscriber_id', 'customer_id'));
+                $sql = $this->_insertFromSelect($adapter, $select,
+                        $ukTable,
+                        array('subscriber_id', 'customer_id'),
+                        Varien_Db_Adapter_Interface::INSERT_IGNORE);
             }
             Mage::log($sql);
+            $rv = $adapter->query($sql);
+            $count = $rv->rowCount();
             $this->addError("$count missing subscribers inserted", $session);
-            return $adapter->query($sql);
+            return $rv;
         } else {
             $this->addNotice("Would insert $count missing subscribers", $session);
             return $this;
@@ -130,7 +141,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * Insert all record from customers
      * where customer_id is no in uk table and it's not a newsletter subscriber
      */
-    private function _insertFromCustomers($adapter, $doit, $session) {
+    private function _insertFromCustomers(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $ukTable = $this->getMainTable();
         $customers = "customer/entity";
         $customersTable = $this->getTable($customers);
@@ -164,7 +175,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * Update all uk rows where subscriber_id is not set.
      */
-    private function _updateSubscriberId($adapter, $doit, $session) {
+    private function _updateSubscriberId(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
@@ -196,7 +207,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * Update all uk rows where customer_id is not set.
      */
-    private function _updateCustomerId($adapter, $doit, $session) {
+    private function _updateCustomerId(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
@@ -228,7 +239,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * Couple rows discupled.
      */
-    private function _makeCouples($adapter, $doit, $session) {
+    private function _makeCouples(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
@@ -261,7 +272,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         return $this;
     }
 
-    private function _truncate($adapter, $session) {
+    private function _truncate(Varien_Db_Adapter_Pdo_Mysql $adapter, $session) {
         $sql = "truncate table " . $this->getMainTable();
         $adapter->query($sql);
         $this->addSuccess("Table truncated", $session);
@@ -277,7 +288,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
     
     /** Remove null null records. */
-    private function _purge($adapter, $doit, $messages, $session) {
+    private function _purge(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $messages, $session) {
         $select = $adapter->select()
                 ->from($this->getMainTable())
                 ->where('subscriber_id is null and customer_id is null');
@@ -305,7 +316,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         return $this;
     }
 
-    private function _getCount($adapter, Varien_Db_Select $select) {
+    private function _getCount(Varien_Db_Adapter_Pdo_Mysql $adapter, Varien_Db_Select $select) {
         $countSelect = $adapter->select()
                 ->from(
                 array("t" => $select), array("c" => new Zend_Db_Expr('count(1)')));
@@ -318,7 +329,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * For backward compatibility
      */
-    private function _insertFromSelect($adapter, Varien_Db_Select $select, $table, array $fields = array(), $mode = false) {
+    private function _insertFromSelect(Varien_Db_Adapter_Pdo_Mysql $adapter, Varien_Db_Select $select, $table, array $fields = array(), $mode = false) {
         $query = 'INSERT';
         if ($mode == $adapter::INSERT_IGNORE) {
             $query .= ' IGNORE';
@@ -376,6 +387,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * @param Mage_Adminhtml_Model_Session $session
      */
     public function addSuccess($message, $session) {
+        if ($this->skipMessages()) {
+            return;
+        }
         if ($this->hasTask() && $this->getTask()->getSuppressSuccessUk()) {
             return;
         }
@@ -393,6 +407,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * @param Mage_Adminhtml_Model_Session $session
      */
     public function addError($message, $session) {
+        if ($this->skipMessages()) {
+            return;
+        }
         if (!is_null($session) && $session instanceof Mage_Adminhtml_Model_Session) {
             $session->addError($message);
         }
@@ -408,6 +425,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      */
     public function addNotice($message, $session) {
         $this->setHasNotices();
+        if ($this->skipMessages()) {
+            return;
+        }
         if (!is_null($session) && $session instanceof Mage_Adminhtml_Model_Session) {
             $session->addNotice($message);
         }
@@ -416,12 +436,22 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         }
     }
 
-    public function setHasNotices() {
-        $this->_hasNotices = true;
+    public function setHasNotices($value = true) {
+        $this->_hasNotices = $value;
     }
 
     public function getHasNotices() {
         return $this->_hasNotices;
+    }
+
+    private function skipMessages()
+    {
+        if ($this->hasTask()) {
+            if ($this->getTask()->getSkipMessages()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

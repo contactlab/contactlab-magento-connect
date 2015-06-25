@@ -20,6 +20,8 @@ class Contactlab_Subscribers_Model_Uk extends Mage_Core_Model_Abstract {
     public function update($doit = false) {
         /* @var $resource Contactlab_Subscribers_Model_Resource_Uk */
         $resource = $this->getResource();
+        $this->setHasNotices(false);
+        $resource->setHasNotices(false);
         $resource->setTask($this->getTask());
         $resource->update($doit);
         if ($resource->getHasNotices()) {

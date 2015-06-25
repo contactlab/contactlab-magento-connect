@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Commons>
-            <version>0.8.16</version>
+            <version>0.8.17</version>
             <description>Magento/ContactLab Common functions</description>
         </Contactlab_Commons>
     </modules>
@@ -135,23 +135,20 @@
     <default>
         <contactlab_commons>
             <global>
-                <days_of_old_tasks>3</days_of_old_tasks>
-                <debug>0</debug>
+                <!--days_of_old_tasks>3</days_of_old_tasks>
+                <debug>0</debug-->
                 <platform_version>2.2.3</platform_version>
             </global>
             <connection>
-                <type>1</type>
+                <!--type>1</type>
                 <import_local_path>/tmp</import_local_path>
                 <export_local_path>/tmp</export_local_path>
                 <remote_server>sftp-clab.housing.tomato.it</remote_server>
                 <import_remote_path>incoming/exporter</import_remote_path>
-                <export_remote_path>incoming/updater</export_remote_path>
-                <!-- TODO Remove in prod -->
-                <sftp_username>magento-test</sftp_username>
-                <sftp_password></sftp_password>
+                <export_remote_path>incoming/updater</export_remote_path-->
             </connection>
             <soap>
-            	<wsdl_url><![CDATA[https://soap.contactlab.it/soap/services?wsdl]]></wsdl_url>
+            	<!--wsdl_url><![CDATA[https://soap.contactlab.it/soap/services?wsdl]]></wsdl_url-->
             </soap>
         </contactlab_commons>
     </default>
