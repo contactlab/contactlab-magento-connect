@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Template>
-            <version>0.8.20</version>
+            <version>0.8.22</version>
             <description>Abandoned cart / Wishlist remind and generic email sending through ContactLab XML Delivery</description>
         </Contactlab_Template>
     </modules>
@@ -90,6 +90,17 @@
             </contactlab_commons_task_collection_load_old_tasks>
         </events>
     </global>
+    <frontend>
+        <routers>
+            <contactlab_template>
+                <use>default</use>
+                <args>
+                    <module>Contactlab_Template</module>
+                    <frontName>contactlab_template</frontName>
+                </args>
+            </contactlab_template>
+        </routers>
+    </frontend>
     <admin>
         <routers>
             <contactlab_template>
@@ -143,36 +154,36 @@
     <default>
         <contactlab_template>
             <global>
-                <enabled>0</enabled>
+                <!--enabled>0</enabled-->
             </global>
             <queue>
-                <delivery_method>manual</delivery_method>
+                <!--delivery_method>manual</delivery_method>
                 <export_remote_path>xmld</export_remote_path>
                 <contactlab_template_model_task_processnewsletterqueuerunner_interval>10</contactlab_template_model_task_processnewsletterqueuerunner_interval>
                 <contactlab_template_model_task_processnewsletterqueuerunner_retries>3</contactlab_template_model_task_processnewsletterqueuerunner_retries>
                 <contactlab_template_model_task_checknewsletterqueuerunner_interval>2</contactlab_template_model_task_checknewsletterqueuerunner_interval>
-                <contactlab_template_model_task_checknewsletterqueuerunner_retries>30</contactlab_template_model_task_checknewsletterqueuerunner_retries>
+                <contactlab_template_model_task_checknewsletterqueuerunner_retries>30</contactlab_template_model_task_checknewsletterqueuerunner_retries-->
             </queue>
             <generic>
-                <send_to_not_subscribed>0</send_to_not_subscribed>
+                <!--send_to_not_subscribed>0</send_to_not_subscribed-->
             </generic>
             <wishlist>
-                <enabled>0</enabled>
+                <!--enabled>0</enabled>
                 <send_to_not_subscribed>0</send_to_not_subscribed>
                 <min_minutes_from_last_update>120</min_minutes_from_last_update>
                 <min_value>5</min_value>
                 <max_value></max_value>
                 <min_products>1</min_products>
-                <and_or>AND</and_or>
+                <and_or>AND</and_or-->
             </wishlist>
             <cart>
-                <enabled>0</enabled>
+                <!--enabled>0</enabled>
                 <send_to_not_subscribed>0</send_to_not_subscribed>
                 <min_minutes_from_last_update>120</min_minutes_from_last_update>
                 <min_value>5</min_value>
                 <max_value></max_value>
                 <min_products>1</min_products>
-                <and_or>AND</and_or>
+                <and_or>AND</and_or-->
             </cart>
         </contactlab_template>
     </default>

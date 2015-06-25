@@ -137,7 +137,6 @@ app/etc/modules/Readytec_ViewedProducts.xml
 app/etc/modules/Webformat_LoginWithPayPal.xml
 app/.htaccess
 app/locale/de_DE/
-app/locale/en_US/contactlab/
 app/locale/en_US/IWD_All.csv
 app/locale/en_US/IWD_Opc.csv
 app/locale/en_US/Mage_Adminhtml.csv
@@ -576,3 +575,6 @@ app/etc/modules/Webformat_CollectionBenchmark.xml
 PATCH_SUPEE-1533_EE_1.12.x_v1-2015-02-10-08-19-16.sh
 PATCH_SUPEE-5345_CE_1.7.0.2_v1-2015-02-10-08-11-22.sh
 app/etc/applied.patches.list
+app/design/adminhtml/default/default/layout/webformat/
+app/design/adminhtml/default/default/template/webformat/
+app/etc/modules/Webformat_CategoryMirror.xml
