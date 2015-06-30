@@ -22,7 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             <active>true</active>
             <codePool>community</codePool>
             <depends>
-                <Mage_AdminNotification/>
+                <Mage_AdminNotification />
             </depends>
         </Contactlab_Commons>
     </modules>
