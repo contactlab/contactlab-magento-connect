@@ -21,6 +21,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         <Contactlab_Commons>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_AdminNotification />
+            </depends>
         </Contactlab_Commons>
     </modules>
 </config>
