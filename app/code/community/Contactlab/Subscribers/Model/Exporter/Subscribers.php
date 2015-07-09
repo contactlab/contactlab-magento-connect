@@ -43,115 +43,77 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->fAttributesMap = array_flip($this->helper->getAttributesMap($this->getTask()));
         $this->fAddressAttributes = array_flip($this->helper->getAddressesAttributesMap());
 
-        $subscribersInCustomers = Mage::getModel('customer/customer')->getCollection();
-
-        $w = 'subscriber_status = ' . Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED;
-        $w = $this->_manageExportPolicySql($w, array(
-            'e' => 'updated_at',
-            'e' => 'created_at',
-            $this->r->getTableName('newsletter_subscriber') => 'last_updated_at'
-        ));
-
-        if (!$this->_mustExportNotSubscribed()) {
-            $subscribersInCustomers->getSelect()
-                ->where('e.entity_id in (select customer_id from ' . $this->r->getTableName('newsletter_subscriber')
-                . ' where ' . $w . ')');
-        }
-
-        // Fills array of types with attributes id array
-        foreach ($this->helper->fillBackendTypesFromArray($attributesCustomer) as $backendType => $ids) {
-            $alias = 'ce' . $backendType;
-            $w = 'e.entity_id = ' . $alias . '.entity_id and length(' . $alias . '.value) > 0 and '
-                    . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
-            $subscribersInCustomers->getSelect()->joinLeft(
-                array(
-                    $alias => $this->r->getTableName('customer_entity_' . $backendType)),
-                        $w, array($backendType . '_value' => 'GROUP_CONCAT(DISTINCT CONCAT('
-                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")'));
-        }
-
-        // Stats
-        $this->_addStatsToSelect($subscribersInCustomers);
-        $this->_addAddressesToSelect($subscribersInCustomers);
-        $this->_manageExportPolicy($subscribersInCustomers,
-            array(
-                'e' => array('created_at', 'updated_at'),
-                $this->r->getTableName('newsletter_subscriber') => 'last_updated_at',
-            ));
-        $this->_addCustomerExportCollection($subscribersInCustomers);
-
-        $subscribersInCustomers->getSelect()->group('e.entity_id');
-
-        Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
-
-        $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
-        foreach (array('billing', 'shipping') as $addressType) {
-            if ($this->_mustExportAddress($addressType)) {
-                foreach ($this->fAddressAttributes as $k) {
-                    $prefilled[$addressType . '_' . $k] = '';
-                }
-            }
-        }
-
         $counter = 0;
         $start = microtime(true);
-        $max = $subscribersInCustomers->count();
+        $max = $this->_createCounterSubscribersInCustomersCollection()->getSize();
         $this->getTask()->setMaxValue($max);
         Mage::helper("contactlab_commons")->logNotice(sprintf("Counting time: %0.4f", microtime(true) - $start));
 
         $start = microtime(true);
 
-        foreach ($subscribersInCustomers as $item) {
-            $counter++;
-            $toFill['is_customer'] = 1;
-            if (!$item->hasUk()) {
-                $msg = sprintf("FATAL ERROR, %s subscriber has no UK record!", $item->getEmail());
-                $this->getTask()->addEvent($msg, true);
-                throw new Exception($msg);
-            }
-            $toFill['entity_id'] = $item->getUk();
-            $toFill = array_merge($toFill, $prefilled);
-            $toFill['email'] = $item->getEmail();
-            $this->_setAttributeKeys($toFill, $item);
-            $this->_setAddressesAttributeKeys($toFill, $item);
-
-            $this->_fillStoreAttributes($toFill, $item);
-            foreach ($this->statsAttributesMap as $k => $v) {
-                $toFill[$k] = $item->getData($v);
-            }
-            $this->_manageCustomerClsFlag($toFill, $item);
-
-            $this->found = true;
-            $this->customers++;
-            $writer = new XMLWriter();
-            $writer->openMemory();
-            $writer->startElement("RECORD");
-            $writer->writeAttribute('ACTION', 'U');
-            foreach ($toFill as $k => $v) {
-                if ($k !== $this->getSubscribedFlagName()) {
-                    $k = strtoupper($k);
+        $limit = 50000;
+        $page = 1;
+        $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        while (true) {
+            $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer, $prefilled);
+            $subscribersInCustomers->getSelect()->limitPage($page, $limit);
+            Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
+            $found = false;
+            while ($item = $subscribersInCustomers->fetchItem()) {
+                $found = true;
+                $counter++;
+                $toFill['is_customer'] = 1;
+                if (!$item->hasUk()) {
+                    $msg = sprintf("FATAL ERROR, %s subscriber has no UK record!", $item->getEmail());
+                    $this->getTask()->addEvent($msg, true);
+                    throw new Exception($msg);
                 }
-                $writer->writeElement($k, $v);
-            }
-            $writer->endElement();
-            gzwrite($this->gz, $writer->outputMemory());
+                $toFill['entity_id'] = $item->getUk();
+                $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+                $toFill = array_merge($toFill, $prefilled);
+                $toFill['email'] = $item->getEmail();
+                $this->_setAttributeKeys($toFill, $item);
+                $this->_setAddressesAttributeKeys($toFill, $item);
 
-            if ($counter % 500 == 0) {
-                Mage::helper("contactlab_commons")->logNotice(sprintf("Exporting %6s / %-6s", $counter, $max));
-                $this->getTask()->setProgressValue($counter);
+                $this->_fillStoreAttributes($toFill, $item);
+                foreach ($this->statsAttributesMap as $k => $v) {
+                    $toFill[$k] = $item->getData($v);
+                }
+                $this->_manageCustomerClsFlag($toFill, $item);
+
+                $this->found = true;
+                $this->customers++;
+                $writer = new XMLWriter();
+                $writer->openMemory();
+                $writer->setIndent(true);
+                $writer->startElement("RECORD");
+                $writer->writeAttribute('ACTION', 'U');
+                foreach ($toFill as $k => $v) {
+                    if ($k !== $this->getSubscribedFlagName()) {
+                        $k = strtoupper($k);
+                    }
+                    $writer->writeElement($k, $v);
+                }
+                $writer->endElement();  
+                gzwrite($this->gz, $writer->outputMemory());
+
+                if ($counter % 2000 == 0) {
+                    Mage::helper("contactlab_commons")->logNotice(sprintf("Exporting %6s / %-6s", $counter, $max));
+                    $this->getTask()->setProgressValue($counter);
+                }
             }
+            $this->_setUkIsExported();
+            if (!$found) {
+                break;
+            }
+            $page++;
         }
         Mage::helper("contactlab_commons")->logNotice(sprintf("Loop time: %0.4f", microtime(true) - $start));
 
         $this->_addNotCustomerRecords();
         $this->_addDeletedRecords();
 
-        if ($this->ukQuery != "") {
-            $this->ukQuery = sprintf('update %s set is_exported = 1 where entity_id in (%s)',
-                $this->r->getTableName('contactlab_subscribers/uk'),
-                $this->ukQuery);
-            $this->_query($this->ukQuery);
-        }
+        $this->_setUkIsExported();
 
         Mage::helper("contactlab_commons")->flushDbProfiler();
         if (!$this->found) {
@@ -170,6 +132,95 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     }
 
     /**
+     * Create subscribers in customers collection.
+     * @return Mage_Customer_Model_Resource_Customer_Collection
+     */
+    private function _createSubscribersInCustomersCollection($attributesCustomer, $prefilled)
+    {
+        /**
+         * @var $subscribersInCustomers Mage_Customer_Model_Resource_Customer_Collection
+         */
+        $rv = Mage::getModel('customer/customer')->getCollection();
+        $w = 'subscriber_status = ' . Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED;
+        $w = $this->_manageExportPolicySql($w, array(
+            'e' => 'updated_at',
+            'e' => 'created_at',
+            $this->r->getTableName('newsletter_subscriber') => 'last_updated_at'
+        ));
+
+        if (!$this->_mustExportNotSubscribed()) {
+            $rv->getSelect()
+                ->where('e.entity_id in (select customer_id from ' . $this->r->getTableName('newsletter_subscriber')
+                . ' where ' . $w . ')');
+        }
+
+        // Fills array of types with attributes id array
+        foreach ($this->helper->fillBackendTypesFromArray($attributesCustomer) as $backendType => $ids) {
+            $alias = 'ce' . $backendType;
+            $w = 'e.entity_id = ' . $alias . '.entity_id and length(' . $alias . '.value) > 0 and '
+                    . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
+            $rv->getSelect()->joinLeft(
+                array(
+                    $alias => $this->r->getTableName('customer_entity_' . $backendType)),
+                        $w, array($backendType . '_value' => 'GROUP_CONCAT(DISTINCT CONCAT('
+                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")'));
+        }
+
+        // Stats
+        $this->_addStatsToSelect($rv);
+        $this->_addAddressesToSelect($rv);
+        $this->_manageExportPolicy($rv,
+            array(
+                'e' => array('created_at', 'updated_at'),
+                $this->r->getTableName('newsletter_subscriber') => 'last_updated_at',
+            ));
+        $this->_addCustomerExportCollection($rv);
+
+        $rv->getSelect()->group('e.entity_id');
+
+        foreach (array('billing', 'shipping') as $addressType) {
+            if ($this->_mustExportAddress($addressType)) {
+                foreach ($this->fAddressAttributes as $k) {
+                    $prefilled[$addressType . '_' . $k] = '';
+                }
+            }
+        }
+        return $rv;
+    }
+
+    /**
+     * Create count subscribers in customers collection.
+     * @return Mage_Customer_Model_Resource_Customer_Collection
+     */
+    private function _createCounterSubscribersInCustomersCollection()
+    {
+        /**
+         * @var $subscribersInCustomers Mage_Customer_Model_Resource_Customer_Collection
+         */
+        $rv = Mage::getModel('customer/customer')->getCollection();
+        $w = 'subscriber_status = ' . Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED;
+        $w = $this->_manageExportPolicySql($w, array(
+            'e' => 'updated_at',
+            'e' => 'created_at',
+            $this->r->getTableName('newsletter_subscriber') => 'last_updated_at'
+        ));
+
+        if (!$this->_mustExportNotSubscribed()) {
+            $rv->getSelect()
+                ->where('e.entity_id in (select customer_id from ' . $this->r->getTableName('newsletter_subscriber')
+                . ' where ' . $w . ')');
+        }
+
+        $this->_manageExportPolicy($rv,
+            array(
+                'e' => array('created_at', 'updated_at'),
+                $this->r->getTableName('newsletter_subscriber') => 'last_updated_at',
+            ));
+        $this->_addCustomerExportCollection($rv);
+        return $rv;
+    }
+
+    /**
      * Called after the export.
      */
     public function afterFileCopy() {
@@ -179,26 +230,88 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     /** Not customer records. */
     private function _addNotCustomerRecords() {
         Mage::helper("contactlab_commons")->logDebug("_addNotCustomerRecords");
-        $subscribersNotInCustomers = Mage::getModel('newsletter/subscriber')->getCollection();
-        $this->_manageExportPolicy($subscribersNotInCustomers,
-            array('main_table' => 'last_updated_at'));
-        if (!$this->_mustExportNotSubscribed()) {
-            $subscribersNotInCustomers
-                ->addFieldToFilter('subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
-        }
-        $this->_addNewsletterSubscriberExportCollection($subscribersNotInCustomers);
-
-        $subscribersNotInCustomers
-            ->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
+        $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($prefilled);
 
         $counter = 0;
-
-
-        Mage::helper("contactlab_commons")->logDebug("Prima del count, subscribersNotInCustomers");
-        Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
-        $max = $subscribersNotInCustomers->count();
+        $max = $subscribersNotInCustomers->getSize();
         $this->getTask()->setMaxValue($max);
-        $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+
+        $limit = 200000;
+        $page = 1;
+        $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
+        while (true) {
+            $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($prefilled);
+            $subscribersNotInCustomers->getSelect()->limitPage($page, $limit);
+            Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
+            $found = false;
+        
+            while ($item = $subscribersNotInCustomers->fetchItem()) {
+                $counter++;
+                $found = true;
+                $toFill1 = array();
+
+                $toFill1['is_customer'] = 0;
+                if (!$item->hasUk()) {
+                    $msg = sprintf("FATAL ERROR, %s customer has no UK record!", $item->getSubscriberEmail());
+                    $this->getTask()->addEvent($msg, true);
+                    throw new Exception($msg);
+                }
+                $toFill1['entity_id'] = $item->getUk();
+                $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+                $toFill = array_merge($toFill1, $prefilled);
+                $toFill['email'] = $item->getSubscriberEmail();
+                $this->_manageNewsletterClsFlag($toFill, $item);
+                $this->_fillStoreAttributes($toFill, $item);
+
+                /*foreach($item->getData() as $attributename => $attributevalue){
+                    if (array_key_exists($attributename, $namemap)) {
+                        if (array_key_exists($namemap[$attributename], $toFill)) {
+                            $toFill[$namemap[$attributename]] = $item->getData($attributename);
+                        }
+                    }
+                }*/
+                $this->found = true;
+                $this->newsletterSubscribers++;
+                $writer = new XMLWriter();
+                $writer->openMemory();
+                $writer->setIndent(true);
+                $writer->startElement("RECORD");
+                $writer->writeAttribute('ACTION', 'U');
+                foreach ($toFill as $k => $v) {
+                    if ($k !== $this->getSubscribedFlagName()) {
+                        $k = strtoupper($k);
+                    }
+                    $writer->writeElement($k, $v);
+                }
+                $writer->endElement();
+                gzwrite($this->gz, $writer->outputMemory());
+                if ($counter % 2000 == 0) {
+                    Mage::helper("contactlab_commons")->logNotice(sprintf("Exporting %6s / %-6s", $counter, $max));
+                    $this->getTask()->setProgressValue($counter);
+                }
+            }
+            $this->_setUkIsExported();
+            if (!$found) {
+                break;
+            }
+            $page++;
+        }
+    }
+
+
+    private function _createSubscribersNotInCustomers($prefilled)
+    {
+        $rv = Mage::getModel('newsletter/subscriber')->getCollection();
+        $this->_manageExportPolicy($rv,
+            array('main_table' => 'last_updated_at'));
+        if (!$this->_mustExportNotSubscribed()) {
+            $rv->addFieldToFilter('subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
+        }
+        $this->_addNewsletterSubscriberExportCollection($rv);
+        //$this->_addSubscriberFields($rv);
+
+        $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
         foreach (array('billing', 'shipping') as $addressType) {
             if ($this->_mustExportAddress($addressType)) {
                 foreach ($this->fAddressAttributes as $k) {
@@ -206,46 +319,11 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 }
             }
         }
-
-        Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
-
-        foreach ($subscribersNotInCustomers as $item) {
-            $counter++;
-            $toFill = array();
-
-            $toFill['is_customer'] = 0;
-            if (!$item->hasUk()) {
-                $msg = sprintf("FATAL ERROR, %s customer has no UK record!", $item->getSubscriberEmail());
-                $this->getTask()->addEvent($msg, true);
-                throw new Exception($msg);
-            }
-            $toFill['entity_id'] = $item->getUk();
-            $toFill = array_merge($toFill, $prefilled);
-            $toFill['email'] = $item->getSubscriberEmail();
-            $this->_manageNewsletterClsFlag($toFill, $item);
-            $this->_fillStoreAttributes($toFill, $item);
-
-            $this->found = true;
-            $this->newsletterSubscribers++;
-            $writer = new XMLWriter();
-            $writer->openMemory();
-            $writer->startElement("RECORD");
-            $writer->writeAttribute('ACTION', 'U');
-            foreach ($toFill as $k => $v) {
-                if ($k !== $this->getSubscribedFlagName()) {
-                    $k = strtoupper($k);
-                }
-                $writer->writeElement($k, $v);
-            }
-            $writer->endElement();
-            gzwrite($this->gz, $writer->outputMemory());
-            if ($counter % 500 == 0) {
-                Mage::helper("contactlab_commons")->logNotice(sprintf("Exporting %6s / %-6s", $counter, $max));
-                $this->getTask()->setProgressValue($counter);
-            }
-        }
+        
+        return $rv;
     }
 
+    
     private function _addDeletedRecords() {
         $deletedEntities = Mage::getModel('contactlab_commons/deleted')
                 ->getCollection()
@@ -258,16 +336,16 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->deletedEntities = array();
         $prefilled = array_fill_keys(array_keys($this->fAttributesMap), '');
 
-        foreach ($deletedEntities as $deletedEntity) {
+        while ($deletedEntity = $deletedEntities->fetchItem()) {
             $counter++;
-            $toFill = array();
+            $toFill1 = array();
 
             $this->found = true;
             $this->deleted++;
 
-            $toFill['is_customer'] = $deletedEntity->getIsCustomer();
-            $toFill['entity_id'] = $deletedEntity->getEntityId();
-            $toFill = array_merge($toFill, $prefilled);
+            $toFill1['is_customer'] = $deletedEntity->getIsCustomer();
+            $toFill1['entity_id'] = $deletedEntity->getEntityId();
+            $toFill = array_merge($toFill1, $prefilled);
             $toFill['email'] = $deletedEntity->getEmail();
 
             $writer = new XMLWriter();
@@ -310,7 +388,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 return;
             }
             $values = explode($this->limiter, $data->getData($addressType . '_' . $type . '_value'));
-            foreach ($values as $index => $key) {
+            foreach ($values as $key) {
                 $pos = strpos($key, '_');
                 if ($pos === false) {
                     continue;
@@ -333,7 +411,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 continue;
             }
             $values = explode($this->limiter, $data->getData($type . '_value'));
-            foreach ($values as $index => $key) {
+            foreach ($values as $key) {
                 $pos = strpos($key, '_');
                 if ($pos === false) {
                     continue;
@@ -563,7 +641,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _query($sql) {
         $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $write->query($sql);
-        Mage::helper("contactlab_commons")->logDebug($sql);
+        // Mage::helper("contactlab_commons")->logDebug($sql);
     }
 
 
@@ -639,4 +717,23 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $this->_resetMustResetExportDatesFlag();
         }
     }
+
+    private function _setUkIsExported()
+    {
+        if ($this->ukQuery != "") {
+            $this->ukQuery = sprintf('update %s set is_exported = 1 where entity_id in (%s)',
+                $this->r->getTableName('contactlab_subscribers/uk'),
+                $this->ukQuery);
+            $this->_query($this->ukQuery);
+            $this->ukQuery = "";
+        }
+    }
+
+    private function _addSubscriberFields($rv)
+    {
+        $rv->getSelect()->joinLeft(
+                    array('fields' => $this->r->getTableName('contactlab_subscribers/newsletter_subscriber_fields')),
+                            'fields.subscriber_id = main_table.subscriber_id');
+    }
+
 }
