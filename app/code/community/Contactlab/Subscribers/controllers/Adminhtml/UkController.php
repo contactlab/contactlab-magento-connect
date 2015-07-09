@@ -16,7 +16,9 @@ class Contactlab_Subscribers_Adminhtml_UkController extends Mage_Adminhtml_Contr
                 throw new Zend_Exception("Unique keys update not allowed");
             }
             $this->doUpdate($doIt);
-            $session->addSuccess($helper->__('Unique keys updated successfully.'));
+            if ($doIt) {
+                $session->addSuccess($helper->__('Unique keys updated successfully.'));
+            }
         } catch (Exception $e) {
             $session->addError($e);
         }
