@@ -111,7 +111,7 @@
 "Sender email", "Email del mittente"
 "Sender name", "Nome del mittente"
 "Recipients", "Destinatari"
-"Use ; delimiter for recipients separator", "Utilizzare il carattere ; per separare destinatari multipli"
+"Use ; as the delimiter to separate recipients.", "Utilizzare il carattere ; per separare destinatari multipli"
 "Email Template", "Template email"
 "Cron configuration example", "Esempio configurazione Cron"
 "Error notification email", "Email di errore"
