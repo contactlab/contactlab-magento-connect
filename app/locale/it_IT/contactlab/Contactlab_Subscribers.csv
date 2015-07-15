@@ -40,7 +40,7 @@
 "Interval between statistic clear attempts","Intervallo tra tentativi di pulizia delle statistiche"
 "Interval between statistic fill attempts","Intervallo tra tentativi di calcolo delle statistiche"
 "Interval between synchronous subscription state update attempts","Intervallo tra successivi tentativi di aggiornamento sincrono stato iscrizione"
-"Last export's date and time","Data ultima esportazione"
+"Last export date and time","Data ultima esportazione"
 "Newsletter subscriber to customer operation","Operazione di iscrizione cliente già subscriber"
 "Number of export attempts","Numero di tentativi di export"
 "Total number of import attempts","Numero di tentativi di import"
