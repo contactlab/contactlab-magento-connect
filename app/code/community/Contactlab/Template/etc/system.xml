@@ -138,7 +138,7 @@
                     <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
                     <fields>
                         <contactlab_template_model_task_processnewsletterqueuerunner_interval translate="label">
-                            <label>Interval between sending attempts</label>
+                            <label>Interval between send attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>200</sort_order>
                             <show_in_default>1</show_in_default>
@@ -146,7 +146,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_template_model_task_processnewsletterqueuerunner_interval>
                         <contactlab_template_model_task_processnewsletterqueuerunner_retries translate="label">
-                            <label>Number of sending attempts</label>
+                            <label>Number of send attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>210</sort_order>
                             <show_in_default>1</show_in_default>

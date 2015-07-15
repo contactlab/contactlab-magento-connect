@@ -74,8 +74,8 @@
 "API Authentication key", "Chiave Autenticazione API"
 "Delivery method", "Metodo di delivery"
 "Email group ID", "ID Gruppo email"
-"Interval between sending attempts", "Intervallo tra tentativi di invio"
-"Number of sending attempts", "Numero di tentativi di invio"
+"Interval between send attempts", "Intervallo tra tentativi di invio"
+"Number of send attempts", "Numero di tentativi di invio"
 "Interval between check attempts", "Intervallo tra check report invio"
 "Number of check attempts", "Numero di tentativi di check report invio"
 
