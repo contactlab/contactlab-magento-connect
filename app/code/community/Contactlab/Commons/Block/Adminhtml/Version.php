@@ -18,7 +18,7 @@ class Contactlab_Commons_Block_Adminhtml_Version extends Mage_Adminhtml_Block_Ab
      * @return string
      */
     public function getTitle() {
-        return $this->__("Plugin versions");
+        return $this->__("Plugin version");
     }
     
     /**
