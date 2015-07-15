@@ -343,7 +343,7 @@
                             </depends>
                         </email_sender_name>
                         <recipients translate="label">
-                            <label>Recipients email</label>
+                            <label>Recipient email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
