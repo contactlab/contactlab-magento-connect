@@ -263,8 +263,8 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Edit_Form extends 
 
         $fieldset->addField('and_or', 'select', array(
             'required' => true,
-            'label' => $h->__('And / Or condition values'),
-            'title' => $h->__('And / Or condition values'),
+            'label' => $h->__('And/or condition values'),
+            'title' => $h->__('And/or condition values'),
             'name' => 'and_or',
             'values'   => $andOr->toOptionArray(),
             'value'    => $model->getId() !== null ? $model->getAndOr() : 'AND'));

@@ -279,7 +279,7 @@
                             <config_path>contactlab_template/cart/max_products</config_path>
                         </max_products>
                         <and_or translate="label">
-                            <label>And / Or condition values</label>
+                            <label>And/or condition values</label>
                             <frontend_type>select</frontend_type>
                             <source_model>contactlab_template/system_config_source_andOr</source_model>
                             <sort_order>90</sort_order>
@@ -393,7 +393,7 @@
                             <config_path>contactlab_template/wishlist/max_products</config_path>
                         </max_products>
                         <and_or translate="label">
-                            <label>And / Or condition values</label>
+                            <label>And/or condition values</label>
                             <frontend_type>select</frontend_type>
                             <source_model>contactlab_template/system_config_source_andOr</source_model>
                             <sort_order>90</sort_order>
