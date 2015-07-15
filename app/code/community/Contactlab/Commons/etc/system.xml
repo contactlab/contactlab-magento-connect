@@ -162,7 +162,7 @@
                             <show_in_store>1</show_in_store>
                         </enable>
                         <wsdl_url translate="label">
-                            <label>WSDL url</label>
+                            <label>WSDL URL</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -184,7 +184,7 @@
                             </depends>
                         </uid>
                         <apikey translate="label">
-                            <label>Api key</label>
+                            <label>API key</label>
                             <frontend_type>password</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>

@@ -53,19 +53,19 @@
 "Test recipients", "Indirizzi email di test"
 "Abandoned cart","Carrello abbandonato"
 "Enable Abandoned Cart","Abilita invio Abandoned Cart"
-"Minimum minutes value to consider a Abandoned Cart in email sending","Numero minimo di minuti perché un carrello sia considerato <em>abbandonato</em>"
-"Maximum minutes value to consider a Abandoned Cart in email sending","Numero massimo di minuti perché un carrello sia considerato <em>abbandonato</em>"
-"Cart minimum amount value","Valore minimo del carrello"
-"Cart maximum amount value","Valore massimo del carrello"
+"Minimum number of minutes before sending an Abandoned Cart email","Numero minimo di minuti perché un carrello sia considerato <em>abbandonato</em>"
+"Maximum number of minutes before sending an Abandoned Cart email","Numero massimo di minuti perché un carrello sia considerato <em>abbandonato</em>"
+"Cart minimum value","Valore minimo del carrello"
+"Cart maximum value","Valore massimo del carrello"
 "Minimum number of products in cart","Numero di prodotti minimo nel carrello"
 "Maximum number of products in cart","Numero di prodotti massimo nel carrello"
 "And/or condition values","Considerare le condizioni numero/valore in and/or?"
 
 "Enable Wishlist remind","Abilita invio wishlist remind"
-"Minimum minutes value to consider a Wishlist in email sending","Numero minimo di minuti per considerare una wishlist nell'invio dell'email"
-"Maximum minutes value to consider a Wishlist in email sending","Numero massimo di minuti per considerare una wishlist nell'invio dell'email"
-"Wishlist minimum amount value","Valore minimo wishlist"
-"Wishlist maximum amount value","Valore massimo wishlist"
+"Minimum number of minutes before sending a Wishlist Reminder email","Numero minimo di minuti per considerare una wishlist nell'invio dell'email"
+"Maximum number of minutes before sending a Wishlist Reminder email","Numero massimo di minuti per considerare una wishlist nell'invio dell'email"
+"Wishlist minimum value","Valore minimo wishlist"
+"Wishlist maximum value","Valore massimo wishlist"
 "Wishlist minimum item number","Numero minimo di prodotti in wishlist"
 "Wishlist maximum item number","Numero massimo di prodotti in wishlist"
 
@@ -98,9 +98,9 @@
 "Minimum number of products", "Numero minimo di prodotti"
 "Maximum number of products", "Numero massimo di prodotti"
 
-"Send abandoned cart email to not subscribed customers", "Invia il Carrello Abbandonato ai clienti non iscritti"
-"Send wishlist remind email to not subscribed customers", "Invia la Wishlist remind ai clienti non iscritti"
 "Send generic campaign to non-subscribed customers", "Invia campagne generiche ai clienti non iscritti alla newsletter"
+"Send Abandoned Cart email to non-subscribed customers", "Invia il Carrello Abbandonato ai clienti non iscritti"
+"Send wishlist remind email to non-subscribed customers", "Invia la Wishlist remind ai clienti non iscritti"
 
 
 
