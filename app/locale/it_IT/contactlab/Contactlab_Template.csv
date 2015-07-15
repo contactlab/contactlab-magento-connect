@@ -98,9 +98,9 @@
 "Minimum number of products", "Numero minimo di prodotti"
 "Maximum number of products", "Numero massimo di prodotti"
 
-"Send generic campaign to not subscribed customers", "Invia campagne generiche ai clienti non iscritti alla newsletter"
 "Send abandoned cart email to not subscribed customers", "Invia il Carrello Abbandonato ai clienti non iscritti"
 "Send wishlist remind email to not subscribed customers", "Invia la Wishlist remind ai clienti non iscritti"
+"Send generic campaign to non-subscribed customers", "Invia campagne generiche ai clienti non iscritti alla newsletter"
 
 
 
