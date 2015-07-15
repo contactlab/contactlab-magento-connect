@@ -289,7 +289,7 @@
 
 
                 <error_email translate="label">
-                    <label>Error notify email</label>
+                    <label>Error notification email</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>60</sort_order>
                     <show_in_default>1</show_in_default>
@@ -312,7 +312,7 @@
 &lt;/crontab&gt;</pre>]]></old_comment>
                     <fields>
                         <enable translate="label">
-                            <label>Enable error notify email</label>
+                            <label>Enable error notification email</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
