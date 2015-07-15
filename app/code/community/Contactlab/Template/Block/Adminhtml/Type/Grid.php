@@ -78,7 +78,7 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
 
 
         $this->addColumn('is_cron_enabled', array(
-            'header' => $this->__('Enable for cron execution'),
+            'header' => $this->__('Enable for Cron execution'),
             'index' => 'is_cron_enabled',
             'type' => 'options',
             'width' => 1,

@@ -114,8 +114,8 @@ class Contactlab_Template_Block_Adminhtml_Type_Edit_Form extends Mage_Adminhtml_
         ));
         $toDisable[] = $fieldset->addField('is_cron_enabled', 'select', array(
             'name'      => 'is_cron_enabled',
-            'label'     => Mage::helper('contactlab_template')->__('Enable for cron execution'),
-            'title'     => Mage::helper('contactlab_template')->__('Enable for cron execution'),
+            'label'     => Mage::helper('contactlab_template')->__('Enable for Cron execution'),
+            'title'     => Mage::helper('contactlab_template')->__('Enable for Cron execution'),
             'after_element_html'   => "<small>" . Mage::helper('contactlab_template')->__('Default for new templates') . "</small>",
             'options'   => array(
                 1 => Mage::helper('adminhtml')->__('Yes'),

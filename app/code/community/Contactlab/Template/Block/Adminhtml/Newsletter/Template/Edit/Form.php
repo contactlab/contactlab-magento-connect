@@ -157,15 +157,15 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Edit_Form extends 
         ));
 
         $fieldset->addField('is_cron_enabled', 'select', array(
-            'label'      => $h->__('Activate for cron execution'),
-            'title'      => $h->__('Does the template is active for cron?'),
+            'label'      => $h->__('Activate for Cron execution'),
+            'title'      => $h->__('Does the template is active for Cron?'),
             'name'       => 'is_cron_enabled',
             'values'   => $yesNo->toOptionArray(),
             'value'    => $model->getId() !== null ? $model->getIsCronEnabled() : 0));
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $fieldset->addField('cron_date_range_start', 'date', array(
             'label'        => $h->__('Enabled start date'),
-            'title'        => $h->__('Start date for cron'),
+            'title'        => $h->__('Start date for Cron'),
             'image'        => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso,
@@ -174,7 +174,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Edit_Form extends 
             'value'        => $model->getId() !== null ? $model->getCronDateRangeStart() : ''));
         $fieldset->addField('cron_date_range_end', 'date', array(
             'label'        => $h->__('Enabled end date'),
-            'title'        => $h->__('End date for cron'),
+            'title'        => $h->__('End date for Cron'),
             'image'        => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso,
