@@ -173,7 +173,7 @@
                             </depends>
                         </wsdl_url>
                         <uid translate="label">
-                            <label>Uid</label>
+                            <label>UID</label>
                             <frontend_type>password</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
