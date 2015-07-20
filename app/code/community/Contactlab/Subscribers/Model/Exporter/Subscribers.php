@@ -5,7 +5,7 @@
  */
 class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commons_Model_Exporter_Abstract {
     /**
-     * Get xml object. 
+     * Get xml object.
      */
     protected function writeXml() {
         $this->limiter = '###';
@@ -94,7 +94,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                     }
                     $writer->writeElement($k, $v);
                 }
-                $writer->endElement();  
+                $writer->endElement();
                 gzwrite($this->gz, $writer->outputMemory());
 
                 if ($counter % 2000 == 0) {
@@ -239,13 +239,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         $limit = 200000;
         $page = 1;
-        $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
         while (true) {
             $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($prefilled);
             $subscribersNotInCustomers->getSelect()->limitPage($page, $limit);
             Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
             $found = false;
-        
+
             while ($item = $subscribersNotInCustomers->fetchItem()) {
                 $counter++;
                 $found = true;
@@ -309,7 +308,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $rv->addFieldToFilter('subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
         }
         $this->_addNewsletterSubscriberExportCollection($rv);
-        //$this->_addSubscriberFields($rv);
+        $this->_addSubscriberFields($rv);
 
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
         foreach (array('billing', 'shipping') as $addressType) {
@@ -319,11 +318,11 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 }
             }
         }
-        
+
         return $rv;
     }
 
-    
+
     private function _addDeletedRecords() {
         $deletedEntities = Mage::getModel('contactlab_commons/deleted')
                 ->getCollection()
@@ -421,7 +420,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 if (!array_key_exists($k, $this->customerAttributes)) {
                     continue;
                 }
-                $toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] = 
+                $toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] =
                         $this->helper->decode($this->customerModel, 'customer', $this->customerAttributes[$k], $v);
             }
         }

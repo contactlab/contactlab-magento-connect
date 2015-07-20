@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout version="0.1.0">
+
+<!--Default layout, loads most of the pages-->
+
+    <default>
+
+       <reference name="left">
+           <remove name="left.newsletter" />
+           <block type="contactlab_subscribers/subscribe" name="contactlab.newsletter" template="contactlab/subscribers/subscribe.phtml"/>
+           <block type="contactlab_subscribers/modify" name="contactlab.newsletter.modify" template="contactlab/subscribers/modify.phtml"/>
+       </reference>
+
+    </default>
+    
+    <contactlab_modify_showform>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+            <reference name="content">
+               <block type="contactlab_subscribers/update" name="contactlab.newsletter" template="contactlab/subscribers/modifyform.phtml"/>
+            </reference>
+        </reference>
+    </contactlab_modify_showform>
+</layout>

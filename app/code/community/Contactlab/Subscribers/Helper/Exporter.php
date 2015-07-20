@@ -39,8 +39,16 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'dob' => 'dob',
             'gender' => 'gender',
             'email' => 'email',
-            'created_at' => 'created_at'
-        ), $this->_getCustomAttributesMap($task));
+            'created_at' => 'created_at',
+            /**
+             * Adding new fields from extended newsletter subscription form
+             */
+            'privacy' => 'privacy',
+            'mobilephone' => 'mobilephone',
+            'notes' => 'notes',
+            'custom_1' => 'custom_1',
+            'custom_2' => 'custom_2'
+            ), $this->_getCustomAttributesMap($task));
     }
 
     /** Attributes map for addresses. */
@@ -89,7 +97,29 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
         );
     }
 
-    
+    /**
+     *     Map new subscriber fields names to customer attribute names
+     */
+    public function getSubscribertoCustomerAttributeMap() {
+        return array(
+            'first_name' => 'firstname',
+            'last_name' => 'lastname',
+            'company' => 'billing_company',
+            'gender' => 'gender',
+            'dob' => 'dob',
+            'privacy_accepted' => 'privacy',
+            'country' => 'billing_country',
+            'city' => 'billing_city',
+            'address' => 'billing_street',
+            'zip_code' => 'billing_postcode',
+            'phone' => 'billing_telephone',
+            'cell_phone' => 'mobilephone',
+            'notes' => 'notes',
+            'custom_1' => 'custom_1',
+            'custom_2' => 'custom_2'
+        );
+        
+    }
     /** Entity type id from name. */
     public function getEntityTypeId($name) {
         $types = Mage::getModel("eav/entity_type")->getCollection();
