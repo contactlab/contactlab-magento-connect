@@ -49,7 +49,7 @@
                             <comment>Enable or disable ContactLab module</comment>
                         </enabled>
                         <days_of_old_tasks translate="label">
-                            <label>Number of days to consider a task as an obsolete task</label>
+                            <label>Days before a task is regarded as obsolete</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

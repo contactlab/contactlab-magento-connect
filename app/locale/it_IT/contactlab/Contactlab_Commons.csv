@@ -47,7 +47,7 @@
 "new","Nuovo"
 "New task","Nuovo task"
 "No","No"
-"Number of days to consider a task as an obsolete task","Numero di giorni per considerare un task obsoleto"
+"Days before a task is regarded as obsolete","Numero di giorni prima di considerare un task obsoleto"
 "Planned at","Pianificazione"
 "Remote path for export","Path server remoto per l'export"
 "Remote path for import","Path server remoto per l'import"
