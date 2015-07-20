@@ -239,7 +239,6 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         $limit = 200000;
         $page = 1;
-        $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
         while (true) {
             $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($prefilled);
             $subscribersNotInCustomers->getSelect()->limitPage($page, $limit);
