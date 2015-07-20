@@ -46,7 +46,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable or disable Contactlab module</comment>
+                            <comment>Enable or disable ContactLab module</comment>
                         </enabled>
                         <days_of_old_tasks translate="label">
                             <label>Number of days to consider a task as an obsolete task</label>
