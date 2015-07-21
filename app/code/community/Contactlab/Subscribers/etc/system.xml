@@ -75,7 +75,7 @@
                             <depends>
                                 <export_policy>2</export_policy>
                             </depends>
-                            <comment>GMT timezone</comment>
+                            <comment>GMT time zone</comment>
                         </last_export>
                         <export_not_subscribed>
                             <label>Always export non-subscribed users</label>
