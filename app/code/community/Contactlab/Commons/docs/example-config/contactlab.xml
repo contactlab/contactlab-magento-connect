@@ -50,7 +50,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                 <soap_call_set_subscribed></soap_call_set_subscribed><!-- 0/1 default 0 -->
             </global>
             <subscriber_to_customer>
-                <email_on_unsubscribe></email_on_unsubscribe><!-- 0/1, default 0. Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked. -->
+                <email_on_unsubscribe></email_on_unsubscribe><!-- 0/1, default 0. Unsubscribe the customer from the Newsletter if they do not select the subscription checkbox. -->
                 <unsubscribe_if_not_confirm></unsubscribe_if_not_confirm><!-- 0/1, default 0 -->
             </subscriber_to_customer>
         </contactlab_subscribers>

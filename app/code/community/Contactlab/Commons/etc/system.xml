@@ -268,7 +268,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked.</comment>
+                            <comment>Unsubscribe the customer from the Newsletter if they do not select the subscription checkbox.</comment>
                             <config_path>contactlab_subscribers/subscriber_to_customer/unsubscribe_if_not_confirm</config_path>
                         </unsubscribe_if_not_confirm>
                         <email_on_unsubscribe translate="label">

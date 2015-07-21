@@ -64,7 +64,7 @@
 "Subscribers","Iscritti alla newsletter"
 "The fields enabled in this section will be <strong>included</strong> during the subscribers export.","I campi abilitati in questa sezione saranno <strong>inclusi</strong> nell'export dei subscribers."
 "Delete subscription if user does not confirm","Togliere iscrizione se l'utente non conferma"
-"Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked.","Togliere l'iscrizione alla newsletter se l'utente lascia vuota la casella dell'iscrizione in fase di registrazione"
+"Unsubscribe the customer from the Newsletter if they do not select the subscription checkbox.","Togliere l'iscrizione alla newsletter se l'utente lascia vuota la casella dell'iscrizione in fase di registrazione"
 "Please run the <strong>Queue statistics update task</strong> on the <strong>Tasks</strong> page after you change one or both <strong>period length</strong> setting.<br>To ensure that all customers statistics are updated in ContactLab, select <strong>All subscribers only for the next export</strong> in the <strong>Export Policy</strong> field of the <strong>the Magento to ContactLab Configuration > Setup dialog.</strong>.","Ricalcolare le <strong>Statistiche clienti</strong> dalla pagina dei <strong>Tasks</strong> dopo aver modificato la lunghezza di uno o di entrambi i periodi. Per garantire che tutte le statistiche vengano esportate durante la prossima esportazione, selezionare il valore <strong>Tutti i subscribers limitatamente alla prossima esportazione</strong> nell'opzione <strong>Modalità di export</strong>"
 
 "Magento &rArr; ContactLab Configuration", "Configurazione Magento &rArr; ContactLab"
