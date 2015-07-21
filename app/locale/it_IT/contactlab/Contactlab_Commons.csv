@@ -96,7 +96,7 @@
 "SOAP configuration", "Configurazione SOAP"
 "Behavior", "Comportamento"
 "Enable SOAP calls","Abilita chiamate SOAP a ContactLab"
-"Data updater config identifier","ID Configurazione Data updater"
+"DataUpdater configuration ID","ID configurazione DataUpdater"
 "Data exporter config identifier","ID Configurazione Data exporter"
 "<strong>Subscriber DataExchange is in Status <em>%s</em></stong>","<strong>DataExchange è <em>%s</em></stong>"
 "<strong>Subscriber DataExchange is in Status <em>%s</em></stong>","<strong>DataExchange è <em>%s</em></stong>"

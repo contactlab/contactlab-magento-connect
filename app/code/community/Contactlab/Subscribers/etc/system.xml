@@ -134,7 +134,7 @@
                             <config_path>contactlab_commons/connection/export_remote_path</config_path>
                         </export_remote_path>
                         <data_updater_config_identifier translate="label" module="contactlab_commons">
-                            <label>Data updater config identifier</label>
+                            <label>DataUpdater configuration ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
