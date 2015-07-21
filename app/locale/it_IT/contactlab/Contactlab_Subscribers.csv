@@ -73,7 +73,7 @@
 "Aggregated fields (Statistics)", "Campi Aggregati (Statistiche)"
 "Server importer path", "Percorso file importazione"
 "DataExporter configuration ID", "ID Configurazione Data exporter"
-"Leave empty to use environment memory limit (see <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">this page</a> for more info about the right syntax)", "Lasciare vuoto per usare il memory limit di default (fare riferimento a <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">questa pagina</a> per maggiori informazioni sulla corretta sintassi del parametro)"
+"Leave blank to use the memory limit of your environment (follow <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">this link</a> for more about the correct syntax)", "Lasciare vuoto per usare il memory limit di default (fare riferimento a <a href=""http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes"">questa pagina</a> per maggiori informazioni sulla corretta sintassi del parametro)"
 "Are you sure to truncate the UK table?", "Si è sicuri di voler troncare i dati della tabella UK?"
 "UK table contains ContactLab Identifiers that are associated with Magento Customers and Newsletter Subscribers", "La tabella UK contiene gli ID ContactLab associati ai Customers Magento ed ai Newsletter Subscribers"
 "Use these panel to reset, check and update UK table", "Usare questo pannello per resettare, controllare ed aggiornare la tabella UK"

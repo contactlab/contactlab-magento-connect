@@ -166,7 +166,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Leave empty to use environment memory limit (see <a href="http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes">this page</a> for more info about the right syntax)]]></comment>
+                            <comment><![CDATA[Leave blank to use the memory limit of your environment (follow <a href="http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes">this link</a> for more about the correct syntax)]]></comment>
                         </memory_limit>
                     </fields>
                 </global>
