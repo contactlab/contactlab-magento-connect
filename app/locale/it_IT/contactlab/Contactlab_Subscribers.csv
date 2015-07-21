@@ -14,7 +14,7 @@
 "Enable field 5 (text)","Abilita il campo custom 5<br><strong>tipo testo</strong>"
 "Enable field 6 (date/time)","Abilita il campo custom 6<br><strong>tipo data/ora</strong>"
 "Enable field 7 (date/time)","Abilita il campo custom 7<br><strong>tipo data/ora</strong>"
-"Enable or disable Contactlab Subscribers module", "Abilita o disabilita l'esportazione degli iscritti"
+"Enable or disable ContactLab Subscribers module", "Abilita o disabilita l'esportazione degli iscritti"
 "Enable import execution after export","Abilita esecuzione Importer dopo l'export"
 "Receive subscription states using SOAP calls","Abilita chiamata SOAP per la ricezione dello stato iscrizione"
 "Set subscription states using SOAP calls","Abilita chiamata SOAP per l'impostazione dello stato iscrizione"
