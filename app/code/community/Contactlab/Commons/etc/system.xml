@@ -24,7 +24,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
             		<!--comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that clears old tasks from queue every day at 10:35AM</p>
+<p>This configuration example clears old tasks from the queue every day at 10:35 AM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_commons_clear_queue&gt;
@@ -376,7 +376,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
             		<comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that clears old tasks from queue every day at 10:35AM</p>
+<p>This configuration example clears old tasks from the queue every day at 10:35 AM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_subscribers_clear_queue&gt;
