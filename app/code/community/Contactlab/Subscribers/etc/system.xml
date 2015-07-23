@@ -330,7 +330,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <expanded>0</expanded>
-                    <comment><![CDATA[Please run the <strong>Queue statistics update task</strong> on the <strong>Tasks</strong> page after you change one or both <strong>period length</strong> setting.<br>To ensure that all customers statistics are updated in ContactLab, select <strong>All subscribers only for the next export</strong> in the <strong>Export Policy</strong> field of the <strong>the Magento to ContactLab Configuration > Setup dialog.</strong>.]]></comment>
+                    <comment><![CDATA[To ensure that all customer statistics are updated in ContactLab, select <strong>All subscribers only for the next export</strong> in the <strong>Export policy</strong> field of the <strong>Magento to ContactLab Configuration > Setup</strong> dialog.]]></comment>
                     <fields>
                         <period_1 translate="label">
                             <label>First period length</label>
@@ -351,7 +351,7 @@
                             <comment>Second period length in days</comment>
                         </period_2>
                         <contactlab_subscribers_model_task_clearstatsrunner_interval translate="label">
-                            <label>Interval between statistic clear attempts</label>
+                            <label>Interval between clear statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -360,7 +360,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_interval>
                         <contactlab_subscribers_model_task_clearstatsrunner_retries translate="label">
-                            <label>Number of statistic clear attempts</label>
+                            <label>Number of clear statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -369,7 +369,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_retries</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_retries>
                         <contactlab_subscribers_model_task_calcstatsrunner_interval translate="label">
-                            <label>Interval between statistic fill attempts</label>
+                            <label>Interval between fill statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -378,7 +378,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_calcstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_calcstatsrunner_interval>
                         <contactlab_subscribers_model_task_calcstatsrunner_retries translate="label">
-                            <label>Number of statistic fill attempts</label>
+                            <label>Number of fill statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
