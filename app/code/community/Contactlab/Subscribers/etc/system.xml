@@ -440,7 +440,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that queues an export job every day at 9:30PM</p>
+<p>This configuration example queues an export job every day at 9:30 PM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_subscribers_export_subscribers&gt;
