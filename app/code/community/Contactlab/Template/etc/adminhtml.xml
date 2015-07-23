@@ -44,7 +44,7 @@
                                         <sort_order>110</sort_order>
                                     </contactlab_template_cart>
                                     <contactlab_template_wishlist translate="title" module="contactlab_template">
-                                        <title><![CDATA[Recurring Email &mdash; Wishlist Remind]]></title>
+                                        <title><![CDATA[Recurring Email &mdash; Wishlist Reminder]]></title>
                                         <sort_order>120</sort_order>
                                     </contactlab_template_wishlist>
                                 </children>

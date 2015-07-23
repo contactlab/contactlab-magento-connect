@@ -295,7 +295,7 @@
 
 
         <contactlab_template_wishlist translate="label" module="contactlab_template">
-            <label><![CDATA[Recurring Email &mdash; Wishlist Remind]]></label>
+            <label><![CDATA[Recurring Email &mdash; Wishlist Reminder]]></label>
             <tab>contactlab</tab>
             <frontend_type>text</frontend_type>
             <sort_order>70</sort_order>
@@ -304,7 +304,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <wishlist translate="label">
-                    <label>Wishlist remind</label>
+                    <label>Wishlist Reminder</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -313,7 +313,7 @@
                     <expanded>0</expanded>
                     <fields>
                         <enabled translate="label">
-                            <label>Enable Wishlist remind</label>
+                            <label>Enable Wishlist Reminder</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -323,7 +323,7 @@
                             <config_path>contactlab_template/wishlist/enabled</config_path>
                         </enabled>
                         <send_to_not_subscribed translate="label">
-                            <label>Send wishlist remind email to non-subscribed customers</label>
+                            <label>Send Wishlist Reminder email to non-subscribed customers</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>

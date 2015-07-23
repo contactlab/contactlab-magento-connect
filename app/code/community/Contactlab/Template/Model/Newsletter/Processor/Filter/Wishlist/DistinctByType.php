@@ -16,6 +16,6 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Wishlist_DistinctByT
      * @return string
      */
     public function getName() {
-        return "Filter only addresses that has not a mail in queue with the same template type (Wishlist Remind)";
+        return "Filter only addresses that has not a mail in queue with the same template type (Wishlist Reminder)";
     }
 }
