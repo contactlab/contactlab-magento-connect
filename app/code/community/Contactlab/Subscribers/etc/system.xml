@@ -157,7 +157,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[ContactLab <code>WebFormCode</code>. Multiple comma separated values <strong>are also permitted</strong>.]]></comment>
+                            <comment><![CDATA[ContactLab <code>WebFormCode</code>. Multiple comma separated values are also permitted.]]></comment>
                         </web_form_code>
                         <memory_limit>
                             <label>Memory limit</label>

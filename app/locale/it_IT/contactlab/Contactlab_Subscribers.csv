@@ -86,6 +86,6 @@
 "Queue <strong>export subscribers</strong> task", "Accoda manualmente un task di <strong>esportazione</strong>"
 "Queue <strong>import subscribers</strong> task", "Accoda manualmente un task di <strong>importazione</strong>"
 "Use this panel to manually queue import, export and statistics reset tasks", "Utilizzare le funzioni di questo pannello per<br>accodare manualmente i task di import, export e ricalcolo delle statistiche"
-"ContactLab <code>WebFormCode</code>. Multiple comma separated values <strong>are also permitted</strong>.", "ContactLab <code>WebFormCode</code>. Sono permessi anche <strong>valori multipli</strong>, separati da virgola."
+"ContactLab <code>WebFormCode</code>. Multiple comma separated values are also permitted.", "ContactLab <code>WebFormCode</code>. Sono permessi anche valori multipli, separati da virgola."
 "Only check", "Controlla solamente"
 "Check and repair", "Controlla e ripara eventuali errori"
