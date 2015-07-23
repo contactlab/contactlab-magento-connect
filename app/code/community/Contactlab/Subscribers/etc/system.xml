@@ -533,7 +533,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_importsubscribersrunner_interval</config_path>
                         </contactlab_subscribers_model_task_importsubscribersrunner_interval>
                         <contactlab_subscribers_model_task_importsubscribersrunner_retries translate="label">
-                            <label>Total number of import attempts</label>
+                            <label>Number of import attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

@@ -43,7 +43,7 @@
 "Last export date and time","Data ultima esportazione"
 "Newsletter subscriber to customer operation","Operazione di iscrizione cliente già subscriber"
 "Number of export attempts","Numero di tentativi di export"
-"Total number of import attempts","Numero di tentativi di import"
+"Number of import attempts","Numero di tentativi di import"
 "Number of StartSubscriberDataExchangeRunner SOAP calls attempts","Numero di tentativi di chiamata SOAP StartSubscriberDataExchangeRunner"
 "Number of clear statistics attempts","Numero di tentativi di pulizia delle statistiche"
 "Number of fill statistics attempts","Numero di tentativi di calcolo delle statistiche"
