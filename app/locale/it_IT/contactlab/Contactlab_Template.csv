@@ -66,8 +66,8 @@
 "Maximum number of minutes before sending a Wishlist Reminder email","Numero massimo di minuti per considerare una wishlist nell'invio dell'email"
 "Wishlist minimum value","Valore minimo wishlist"
 "Wishlist maximum value","Valore massimo wishlist"
-"Wishlist minimum item number","Numero minimo di prodotti in wishlist"
-"Wishlist maximum item number","Numero massimo di prodotti in wishlist"
+"Minimum number of items in wishlist","Numero minimo di prodotti in wishlist"
+"Maximum number of items in wishlist","Numero massimo di prodotti in wishlist"
 
 "XML Delivery parameters", "Parametri XML Delivery"
 "API Authentication UID", "UID Autenticazione API"

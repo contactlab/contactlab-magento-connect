@@ -373,7 +373,7 @@
                             <config_path>contactlab_template/wishlist/max_value</config_path>
                         </max_value>
                         <min_products translate="label">
-                            <label>Wishlist minimum item number</label>
+                            <label>Minimum number of items in wishlist</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
@@ -383,7 +383,7 @@
                             <config_path>contactlab_template/wishlist/min_products</config_path>
                         </min_products>
                         <max_products translate="label">
-                            <label>Wishlist maximum item number</label>
+                            <label>Maximum number of items in wishlist</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
