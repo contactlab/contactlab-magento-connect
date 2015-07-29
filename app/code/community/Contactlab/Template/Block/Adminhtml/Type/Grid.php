@@ -64,13 +64,13 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
             ),
         ));
         $this->addColumn('dnd_period', array(
-            'header' => $this->__('Dnd period length'),
+            'header' => $this->__('DND period length'),
             'index' => 'dnd_period',
             'width' => 1,
             'type' => 'text'
         ));
         $this->addColumn('dnd_mail_number', array(
-            'header' => $this->__('Dnd max mail number'),
+            'header' => $this->__('DND max mail number'),
             'index' => 'dnd_mail_number',
             'width' => 1,
             'type' => 'text'
