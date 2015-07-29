@@ -57,7 +57,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
             'type' => 'datetime'
         ));
         $this->addColumn('planned_at', array(
-            'header' => $this->__('Planned at'),
+            'header' => $this->__('Planned'),
             'align' => 'left',
             'index' => 'planned_at',
             'width' => 1,
