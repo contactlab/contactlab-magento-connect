@@ -120,7 +120,7 @@
 "Recipient email", "Destinatari"
 "API Soap service up and running", "Servizio API Soap up and running"
 "Plugin version", "Versione del plugin installata"
-"Consume tasks", "Esecuzione dei task accodati"
+"Run tasks", "Esecuzione dei task accodati"
 "Check unique Keys", "Check integrità tabella UK"
 "Update unique Keys", "Aggiornamento tabella UK"
 "Truncate unique Keys", "Reset tabella UK"
