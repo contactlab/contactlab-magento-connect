@@ -59,7 +59,7 @@
 "Send unsubscribed notification email","Manda l'email di conferma disiscrizione"
 "Specify the field that contains the subscription flag in ContactLab database (for example: _cls1).","Specificare qui il nome del campo che contiene il flag di sottoscrizione nel database ContactLab (es. __cls1)."
 "Statistics","Statistiche"
-"Subscribed flag name","Name del campo &quot;__clsX&quot;"
+"Subscribed flag name","Nome del campo &quot;__clsX&quot;"
 "Subscribers configuration","Configurazione iscritti alla newsletter"
 "Subscribers","Iscritti alla newsletter"
 "The fields enabled in this section will be <strong>included</strong> during the subscribers export.","I campi abilitati in questa sezione saranno <strong>inclusi</strong> nell'export dei subscribers."
