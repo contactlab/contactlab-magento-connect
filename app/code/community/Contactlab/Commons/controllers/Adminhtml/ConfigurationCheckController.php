@@ -9,7 +9,7 @@ class Contactlab_Commons_Adminhtml_ConfigurationCheckController extends Mage_Adm
      * Index of release notes.
      */
     public function indexAction() {
-        $this->_title($this->__('Cron configuration check'));
+        $this->_title($this->__('Cron Configuration Check'));
         $this->loadLayout()->_setActiveMenu('newsletter/contactlab');
         return $this->renderLayout();
     }
