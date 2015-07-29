@@ -3,7 +3,7 @@
     <modules>
         <Contactlab_Subscribers>
             <version>0.8.20</version>
-            <description>Subscriber sync Magento/ContactLab and ContactLab/Magento</description>
+            <description>Subscriber sync Magento/ContactLab and ContactLab/Magento.</description>
         </Contactlab_Subscribers>
     </modules>
     <global>
