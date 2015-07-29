@@ -38,7 +38,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
      */
     protected function _prepareColumns() {
         $this->addColumn('task_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'task_id',
             'width' => 1
