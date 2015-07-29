@@ -50,7 +50,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
             'width' => 1
         ));
         $this->addColumn('created_at', array(
-            'header' => $this->__('Created at'),
+            'header' => $this->__('Created'),
             'align' => 'left',
             'index' => 'created_at',
             'width' => 1,

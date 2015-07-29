@@ -62,7 +62,7 @@ class Contactlab_Commons_Block_Adminhtml_Events_Grid extends Mage_Adminhtml_Bloc
             'width' => 300
         ));
         $this->addColumn('created_at', array(
-            'header' => $this->__('Created At'),
+            'header' => $this->__('Created'),
             'align' => 'left',
             'index' => 'created_at',
             'width' => 1
