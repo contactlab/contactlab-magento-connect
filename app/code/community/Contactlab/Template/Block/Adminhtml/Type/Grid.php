@@ -35,7 +35,7 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
      */
     protected function _prepareColumns() {
         $this->addColumn('entity_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'entity_id',
             'width' => 1,
