@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/wiki/contactlab/contactlab-magento-connect/image/contactlab.png)
+
 # ContactLab Connect for Magento
 
 The ContactLab Connect for Magento plug-in is a simple and effective way to manage your communications with online customers. It combines the digital messaging platform from ContactLab with the e-commerce capabilities of Magento to provide a simple, flexible, and highly configurable e-communications environment:
@@ -13,4 +15,4 @@ The ContactLab Connect for Magento plug-in is a simple and effective way to mana
 - Manage both newsletter subscribers (guests) and e-commerce subscribers (customers)
 - Compatible with Magento multi-store and multi-Website installations
 
-To learn how to install, configure and use ContactLab Connect for Magento, go to the Wiki pages.
+To learn how to install, configure and use ContactLab Connect for Magento, go to the [Wiki pages](https://github.com/contactlab/contactlab-magento-connect/wiki).
