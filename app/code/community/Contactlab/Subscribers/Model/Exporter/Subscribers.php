@@ -162,8 +162,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $rv->getSelect()->joinLeft(
                 array(
                     $alias => $this->r->getTableName('customer_entity_' . $backendType)),
-                        $w, array($backendType . '_value' => 'GROUP_CONCAT(DISTINCT CONCAT('
-                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")'));
+                        $w, array($backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
+                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")')));
         }
 
         // Stats
@@ -239,7 +239,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         $limit = 200000;
         $page = 1;
-        $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
+        // $namemap = $this->helper->getSubscribertoCustomerAttributeMap();
         while (true) {
             $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($prefilled);
             $subscribersNotInCustomers->getSelect()->limitPage($page, $limit);
@@ -564,8 +564,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $collection->getSelect()->joinLeft(
                 array(
                     $alias => $this->r->getTableName('customer_address_entity_' . $backendType)),
-                        $w, array($type . '_' . $backendType . '_value' => 'GROUP_CONCAT(DISTINCT CONCAT('
-                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")'));
+                        $w, array($type . '_' . $backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
+                    . $alias . '.attribute_id, "_", '.$alias.'.value) SEPARATOR "' . $this->limiter . '")')));
         }
     }
 
