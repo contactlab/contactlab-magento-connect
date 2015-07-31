@@ -1,13 +1,27 @@
 #!/usr/bin/env bash
 
-# DEPRECATED
-cd $(dirname $0)
+me=`basename "$0"`
 
-P=./app/etc/modules/Contactlab*
-tar --exclude='.svn' -cvzf /tmp/contactlab-magento-step2.tgz $P
+if [ $# -ne 2 ]
+  then
+      echo "Usage: ${me} <repository-input-path> <tar-output-path>" 
+      exit 1
+fi
 
-P="./lib/contactlab ./app/code/community/Contactlab ./app/locale/en_US/contactlab ./app/locale/en_US/template/email/contactlab_commons ./app/locale/it_IT/contactlab ./app/design/adminhtml/default/default/layout/contactlab ./app/design/adminhtml/default/default/template/contactlab ./js/contactlab_commons ./skin/adminhtml/default/default/images/contactlab"
+p_in=${1%/}
+p_out=${2%/}
 
-tar --exclude='.svn' -cvzf /tmp/contactlab-magento-step1.tgz $P
+conf="${p_in}/app/etc/modules/Contactlab*"
+plugin="${p_in}/lib/contactlab \
+        ${p_in}/app/code/community/Contactlab \
+        ${p_in}/app/locale/en_US/contactlab \
+        ${p_in}/app/locale/en_US/template/email/contactlab_commons \
+        ${p_in}/app/locale/it_IT/contactlab \
+        ${p_in}/app/design/adminhtml/default/default/layout/contactlab \
+        ${p_in}/app/design/adminhtml/default/default/template/contactlab \
+        ${p_in}/js/contactlab_commons ${p_in}/skin/adminhtml/default/default/images/contactlab"
+
+tar -cvzf ${p_out}/contactlab-magento-step1-plugin.tgz $plugin
+tar -cvzf ${p_out}/contactlab-magento-step2-conf.tgz $conf
 
 exit
