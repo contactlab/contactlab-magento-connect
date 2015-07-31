@@ -27,7 +27,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Enable or disable Contactlab Subscribers module</comment>
+                            <comment>Enable or disable ContactLab Subscribers module</comment>
                         </enabled>
                         <export_filename translate="label">
                             <label>Export filename</label>
@@ -36,7 +36,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Export filename (es, subscribers_{Ymd}.xml)<br>Use {Ymd} syntax to replace current data.<br>The <a href='http://php.net/manual/en/function.date.php'>date() php function</a>'s style is used.]]></comment>
+                            <comment><![CDATA[Export filename (for example: subscribers_{Ymd}.xml)<br>Use {Ymd} syntax to replace the date.<br>The <a href='http://php.net/manual/en/function.date.php'>PHP date() function</a>'s format is used.]]></comment>
                         </export_filename>
                         <export_shipping_address translate="label">
                             <label>Export shipping address</label>
@@ -57,7 +57,7 @@
                             <show_in_store>1</show_in_store>
                         </export_billing_address>
                         <export_policy>
-                            <label>Export Policy</label>
+                            <label>Export policy</label>
                             <frontend_type>select</frontend_type>
                             <source_model>contactlab_subscribers/system_config_source_export_policy</source_model>
                             <sort_order>50</sort_order>
@@ -66,7 +66,7 @@
                             <show_in_store>1</show_in_store>
                         </export_policy>
                         <last_export>
-                            <label>Last export's date and time</label>
+                            <label>Last export date and time</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -75,10 +75,10 @@
                             <depends>
                                 <export_policy>2</export_policy>
                             </depends>
-                            <comment>GMT timezone</comment>
+                            <comment>GMT time zone.</comment>
                         </last_export>
                         <export_not_subscribed>
-                            <label>Always export not subscribed users</label>
+                            <label>Always export non-subscribed users</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
@@ -96,7 +96,7 @@
                             <show_in_store>1</show_in_store>
                         </reset_export_dates_before_next_export>
                         <check_uk_before_export translate="label">
-                            <label>Check UK Table consistency before every export</label>
+                            <label>Check UK table consistency before every export</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <source_model>contactlab_subscribers/system_config_source_export_checkUkPolicy</source_model>
@@ -104,7 +104,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Attention: this could slow down the export process</comment>
+                            <comment>Note: This can slow down the export process.</comment>
                         </check_uk_before_export>
                         <soap_call_after_export translate="label">
                             <label>Enable import execution after export</label>
@@ -122,7 +122,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Specify here the field that contain the subscription flag in ContactLab database (es. __cls1).]]></comment>
+                            <comment><![CDATA[Specify the field that contains the subscription flag in ContactLab database (for example: _cls1).]]></comment>
                         </subscribed_flag_name>
                         <export_remote_path translate="label">
                             <label>Remote path for export</label>
@@ -134,7 +134,7 @@
                             <config_path>contactlab_commons/connection/export_remote_path</config_path>
                         </export_remote_path>
                         <data_updater_config_identifier translate="label" module="contactlab_commons">
-                            <label>Data updater config identifier</label>
+                            <label>DataUpdater configuration ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
@@ -157,7 +157,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Contactlab <code>WebFormCode</code>. Also <strong>multiple values are permitted</strong>, comma separated.]]></comment>
+                            <comment><![CDATA[ContactLab <code>WebFormCode</code>. Multiple comma separated values are also permitted.]]></comment>
                         </web_form_code>
                         <memory_limit>
                             <label>Memory limit</label>
@@ -166,7 +166,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Leave empty to use environment memory limit (see <a href="http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes">this page</a> for more info about the right syntax)]]></comment>
+                            <comment><![CDATA[Leave blank to use the memory limit of your environment (follow <a href="http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes">this link</a> for more about the correct syntax)]]></comment>
                         </memory_limit>
                     </fields>
                 </global>
@@ -330,7 +330,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <expanded>0</expanded>
-                    <comment><![CDATA[Please do <strong>Recalc Customer Statistics</strong> into <strong>Tasks</strong> page after you change one or both statistics period length.<br>To ensure that all customers statistics' are updated in Contactlab, please select <strong>All subscribers only for the next export</strong> option in <strong>Export Policy</strong> configuration option.]]></comment>
+                    <comment><![CDATA[To ensure that all customer statistics are updated in ContactLab, select <strong>All subscribers only for the next export</strong> in the <strong>Export policy</strong> field of the <strong>Magento to ContactLab Configuration > Setup</strong> dialog.]]></comment>
                     <fields>
                         <period_1 translate="label">
                             <label>First period length</label>
@@ -351,7 +351,7 @@
                             <comment>Second period length in days</comment>
                         </period_2>
                         <contactlab_subscribers_model_task_clearstatsrunner_interval translate="label">
-                            <label>Interval between statistic clear attempts</label>
+                            <label>Interval between clear statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -360,7 +360,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_interval>
                         <contactlab_subscribers_model_task_clearstatsrunner_retries translate="label">
-                            <label>Number of statistic clear attempts</label>
+                            <label>Number of clear statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -369,7 +369,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_clearstatsrunner_retries</config_path>
                         </contactlab_subscribers_model_task_clearstatsrunner_retries>
                         <contactlab_subscribers_model_task_calcstatsrunner_interval translate="label">
-                            <label>Interval between statistic fill attempts</label>
+                            <label>Interval between fill statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -378,7 +378,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_calcstatsrunner_interval</config_path>
                         </contactlab_subscribers_model_task_calcstatsrunner_interval>
                         <contactlab_subscribers_model_task_calcstatsrunner_retries translate="label">
-                            <label>Number of statistic fill attempts</label>
+                            <label>Number of fill statistics attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -396,7 +396,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <expanded>0</expanded>
-                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <comment><![CDATA[All time values are specified in <strong>minutes</strong>.]]></comment>
                     <fields>
                         <contactlab_subscribers_model_task_exportsubscribersrunner_interval translate="label">
                             <label>Interval between export attempts</label>
@@ -415,7 +415,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_subscribers_model_task_exportsubscribersrunner_retries>
                         <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval translate="label">
-                            <label>Interval between StartSubscriberDataExchangeRunner SOAP Calls</label>
+                            <label>Interval between StartSubscriberDataExchangeRunner SOAP calls</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -423,7 +423,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_subscribers_model_task_startsubscriberdataexchangerunner_interval>
                         <contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries translate="label">
-                            <label>Number of StartSubscriberDataExchangeRunner SOAP Calls attempts</label>
+                            <label>Number of StartSubscriberDataExchangeRunner SOAP calls attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -440,7 +440,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that queues an export job every day at 9:30PM</p>
+<p>This configuration example queues an export job every day at 9:30 PM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_subscribers_export_subscribers&gt;
@@ -491,10 +491,10 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <config_path>contactlab_subscribers/global/import_filename</config_path>
-                            <comment><![CDATA[Import filename (es, event_info_{Ymd}.xml)<br>Use {Ymd} syntax to replace current data.<br>The <a href='http://php.net/manual/en/function.date.php'>date() php function</a>'s style is used.]]></comment>
+                            <comment><![CDATA[Import filename (for example: event_info_{Ymd}.xml)<br>Use {Ymd} syntax to replace the date.<br>The <a href='http://php.net/manual/en/function.date.php'>PHP date() function</a>'s format is used.]]></comment>
                         </import_filename>
                         <import_remote_path translate="label">
-                            <label>Path server importer</label>
+                            <label>Server importer path</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -503,7 +503,7 @@
                             <config_path>contactlab_commons/connection/import_remote_path</config_path>
                         </import_remote_path>
                         <data_exporter_config_identifier translate="label">
-                            <label>DataExporter Configuration Id</label>
+                            <label>DataExporter configuration ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -521,7 +521,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <expanded>0</expanded>
-                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <comment><![CDATA[All time values are specified in <strong>minutes</strong>.]]></comment>
                     <fields>
                         <contactlab_subscribers_model_task_importsubscribersrunner_interval translate="label">
                             <label>Interval between import attempts</label>
@@ -533,7 +533,7 @@
                             <config_path>contactlab_subscribers/queue/contactlab_subscribers_model_task_importsubscribersrunner_interval</config_path>
                         </contactlab_subscribers_model_task_importsubscribersrunner_interval>
                         <contactlab_subscribers_model_task_importsubscribersrunner_retries translate="label">
-                            <label>Total number of import attempts</label>
+                            <label>Number of import attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>

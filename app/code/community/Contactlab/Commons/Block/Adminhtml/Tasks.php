@@ -17,7 +17,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks extends Mage_Adminhtml_Block_Widg
         $this->removeButton("add");
 		$this->addCommandButton("tasks", "clear", 'contactlab_commons', "Clear old tasks", 'Are you sure you want to do this?', '*/*/clear');
 		if (Mage::helper('contactlab_commons')->isDebug()) {
-			$this->addCommandButton("tasks", "consume", 'contactlab_commons', "Consume tasks",
+			$this->addCommandButton("tasks", "consume", 'contactlab_commons', "Run tasks",
 					null, '*/*/consume');
 		}
     }

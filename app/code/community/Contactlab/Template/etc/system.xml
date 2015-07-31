@@ -20,7 +20,7 @@
                     <expanded>0</expanded>
                     <fields>
                         <enabled translate="label">
-                            <label>Enable cron sending for this store</label>
+                            <label>Enable Cron to send from this store</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -58,7 +58,7 @@
                             <show_in_store>1</show_in_store>
                         </enabled>
                         <send_to_not_subscribed translate="label">
-                            <label>Send generic campaign to not subscribed customers</label>
+                            <label>Send generic campaign to non-subscribed customers</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
@@ -135,10 +135,10 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <expanded>0</expanded>
-                    <comment><![CDATA[All values are specified in <strong>minutes</strong>.]]></comment>
+                    <comment><![CDATA[All time values are specified in <strong>minutes</strong>.]]></comment>
                     <fields>
                         <contactlab_template_model_task_processnewsletterqueuerunner_interval translate="label">
-                            <label>Interval between sending attempts</label>
+                            <label>Interval between send attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>200</sort_order>
                             <show_in_default>1</show_in_default>
@@ -146,7 +146,7 @@
                             <show_in_store>1</show_in_store>
                         </contactlab_template_model_task_processnewsletterqueuerunner_interval>
                         <contactlab_template_model_task_processnewsletterqueuerunner_retries translate="label">
-                            <label>Number of sending attempts</label>
+                            <label>Number of send attempts</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>210</sort_order>
                             <show_in_default>1</show_in_default>
@@ -209,7 +209,7 @@
                             <config_path>contactlab_template/cart/enabled</config_path>
                         </enabled>
                         <send_to_not_subscribed translate="label">
-                            <label>Send abandoned cart email to not subscribed customers</label>
+                            <label>Send Abandoned Cart email to non-subscribed customers</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
@@ -219,7 +219,7 @@
                             <config_path>contactlab_template/cart/send_to_not_subscribed</config_path>
                         </send_to_not_subscribed>
                         <min_minutes_from_last_update translate="label">
-                            <label>Minimum minutes value to consider a Abandoned Cart in email sending</label>
+                            <label>Minimum number of minutes before sending an Abandoned Cart email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -229,7 +229,7 @@
                             <config_path>contactlab_template/cart/min_minutes_from_last_update</config_path>
                         </min_minutes_from_last_update>
                         <max_minutes_from_last_update translate="label">
-                            <label>Maximum minutes value to consider a Abandoned Cart in email sending</label>
+                            <label>Maximum number of minutes before sending an Abandoned Cart email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -239,7 +239,7 @@
                             <config_path>contactlab_template/cart/max_minutes_from_last_update</config_path>
                         </max_minutes_from_last_update>
                         <min_value translate="label">
-                            <label>Cart minimum amount value</label>
+                            <label>Cart minimum value</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -249,7 +249,7 @@
                             <config_path>contactlab_template/cart/min_value</config_path>
                         </min_value>
                         <max_value translate="label">
-                            <label>Cart maximum amount value</label>
+                            <label>Cart maximum value</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -279,7 +279,7 @@
                             <config_path>contactlab_template/cart/max_products</config_path>
                         </max_products>
                         <and_or translate="label">
-                            <label>And / Or condition values</label>
+                            <label>And/or condition values</label>
                             <frontend_type>select</frontend_type>
                             <source_model>contactlab_template/system_config_source_andOr</source_model>
                             <sort_order>90</sort_order>
@@ -295,7 +295,7 @@
 
 
         <contactlab_template_wishlist translate="label" module="contactlab_template">
-            <label><![CDATA[Recurring Email &mdash; Wishlist Remind]]></label>
+            <label><![CDATA[Recurring Email &mdash; Wishlist Reminder]]></label>
             <tab>contactlab</tab>
             <frontend_type>text</frontend_type>
             <sort_order>70</sort_order>
@@ -304,7 +304,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <wishlist translate="label">
-                    <label>Wishlist remind</label>
+                    <label>Wishlist Reminder</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
@@ -313,7 +313,7 @@
                     <expanded>0</expanded>
                     <fields>
                         <enabled translate="label">
-                            <label>Enable Wishlist remind</label>
+                            <label>Enable Wishlist Reminder</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -323,7 +323,7 @@
                             <config_path>contactlab_template/wishlist/enabled</config_path>
                         </enabled>
                         <send_to_not_subscribed translate="label">
-                            <label>Send wishlist remind email to not subscribed customers</label>
+                            <label>Send Wishlist Reminder email to non-subscribed customers</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
@@ -333,7 +333,7 @@
                             <config_path>contactlab_template/wishlist/send_to_not_subscribed</config_path>
                         </send_to_not_subscribed>
                         <min_minutes_from_last_update translate="label">
-                            <label>Minimum minutes value to consider a Wishlist in email sending</label>
+                            <label>Minimum number of minutes before sending a Wishlist Reminder email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -343,7 +343,7 @@
                             <config_path>contactlab_template/wishlist/min_minutes_from_last_update</config_path>
                         </min_minutes_from_last_update>
                         <max_minutes_from_last_update translate="label">
-                            <label>Maximum minutes value to consider a Wishlist in email sending</label>
+                            <label>Maximum number of minutes before sending a Wishlist Reminder email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -353,7 +353,7 @@
                             <config_path>contactlab_template/wishlist/max_minutes_from_last_update</config_path>
                         </max_minutes_from_last_update>
                         <min_value translate="label">
-                            <label>Wishlist minimum amount value</label>
+                            <label>Wishlist minimum value</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
@@ -363,7 +363,7 @@
                             <config_path>contactlab_template/wishlist/min_value</config_path>
                         </min_value>
                         <max_value translate="label">
-                            <label>Wishlist maximum amount value</label>
+                            <label>Wishlist maximum value</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -373,7 +373,7 @@
                             <config_path>contactlab_template/wishlist/max_value</config_path>
                         </max_value>
                         <min_products translate="label">
-                            <label>Wishlist minimum item number</label>
+                            <label>Minimum number of items in wishlist</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
@@ -383,7 +383,7 @@
                             <config_path>contactlab_template/wishlist/min_products</config_path>
                         </min_products>
                         <max_products translate="label">
-                            <label>Wishlist maximum item number</label>
+                            <label>Maximum number of items in wishlist</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
@@ -393,7 +393,7 @@
                             <config_path>contactlab_template/wishlist/max_products</config_path>
                         </max_products>
                         <and_or translate="label">
-                            <label>And / Or condition values</label>
+                            <label>And/or condition values</label>
                             <frontend_type>select</frontend_type>
                             <source_model>contactlab_template/system_config_source_andOr</source_model>
                             <sort_order>90</sort_order>

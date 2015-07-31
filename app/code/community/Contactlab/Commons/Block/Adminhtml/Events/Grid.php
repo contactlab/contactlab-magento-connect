@@ -48,7 +48,7 @@ class Contactlab_Commons_Block_Adminhtml_Events_Grid extends Mage_Adminhtml_Bloc
      */
     protected function _prepareColumns() {
         $this->addColumn('task_event_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'task_event_id',
             'width' => 1,
@@ -62,7 +62,7 @@ class Contactlab_Commons_Block_Adminhtml_Events_Grid extends Mage_Adminhtml_Bloc
             'width' => 300
         ));
         $this->addColumn('created_at', array(
-            'header' => $this->__('Created At'),
+            'header' => $this->__('Created'),
             'align' => 'left',
             'index' => 'created_at',
             'width' => 1

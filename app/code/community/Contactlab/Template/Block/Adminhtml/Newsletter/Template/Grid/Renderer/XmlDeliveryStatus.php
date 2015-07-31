@@ -38,8 +38,8 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
         $rv .= "<table class=\"data\" cellspacing=\"0\">";
         $rv .= "<thead>";
         $rv .= "<tr class=\"headings\">";
-        $rv .= "<th>" . $helper->__('Created at') ."</th>";
-        $rv .= "<th>" . $helper->__('Planned at') ."</th>";
+        $rv .= "<th>" . $helper->__('Created') ."</th>";
+        $rv .= "<th>" . $helper->__('Planned') ."</th>";
         $rv .= "<th>" . $helper->__('Status') ."</th>";
         $rv .= "</tr>";
         $rv .= "</thead>";

@@ -23,7 +23,7 @@
                             <action>contactlab_commons/adminhtml_releaseNotes</action>
                         </release_notes>
                         <configuration_check translate="title" module="contactlab_commons">
-                            <title>Cron configuration check</title>
+                            <title>Cron Configuration Check</title>
                             <sort_order>1040</sort_order>
                             <action>contactlab_commons/adminhtml_configurationCheck</action>
                         </configuration_check>
@@ -39,7 +39,7 @@
 	                <newsletter>
 	                    <children>
 	                        <contactlab translate="title" module="contactlab_commons">
-	                            <title>Contactlab</title>
+	                            <title>ContactLab</title>
 	                            <sort_order>1000</sort_order>
 	                            <children>
 	                                <tasks translate="title">
@@ -90,7 +90,7 @@
 	                                    <sort_order>1030</sort_order>
                                         </release_notes>
                                         <configuration_check>
-	                                    <title>Cron configuration check</title>
+	                                    <title>Cron Configuration Check</title>
 	                                    <sort_order>1040</sort_order>
                                         </configuration_check>
 	                            </children>
@@ -102,7 +102,7 @@
                             <config>
                                 <children>
                                     <contactlab_commons translate="title" module="contactlab_commons">
-                                        <title>Contactlab</title>
+                                        <title>ContactLab</title>
                                         <sort_order>10</sort_order>
                                     </contactlab_commons>
                                 </children>

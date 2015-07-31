@@ -9,7 +9,7 @@ class Contactlab_Commons_Block_Adminhtml_ConfigurationCheck extends Mage_Adminht
      */
      protected function _construct()
      {
-         $this->_headerText = "Cron configuration check";
+         $this->_headerText = "Cron Configuration Check";
          parent::_construct();
      }
      

@@ -3,7 +3,7 @@
     <modules>
         <Contactlab_Template>
             <version>0.8.22</version>
-            <description>Abandoned cart / Wishlist remind and generic email sending through ContactLab XML Delivery</description>
+            <description>Abandoned Cart, Wishlist Reminder and generic emails sent using ContactLab XML Delivery.</description>
         </Contactlab_Template>
     </modules>
     <global>

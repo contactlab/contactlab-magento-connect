@@ -35,7 +35,7 @@ class Contactlab_Commons_Block_Adminhtml_Logs_Grid extends Mage_Adminhtml_Block_
      */
     protected function _prepareColumns() {
         $this->addColumn('log_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'log_id',
             'width' => 1,
@@ -43,7 +43,7 @@ class Contactlab_Commons_Block_Adminhtml_Logs_Grid extends Mage_Adminhtml_Block_
             'renderer' => 'contactlab_commons/adminhtml_logs_renderer_default'
         ));
         $this->addColumn('created_at', array(
-            'header' => $this->__('Created at'),
+            'header' => $this->__('Created'),
             'align' => 'left',
             'index' => 'created_at',
             'width' => 1,

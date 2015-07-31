@@ -9,7 +9,7 @@ class Contactlab_Commons_Block_Adminhtml_ReleaseNotes extends Mage_Adminhtml_Blo
      */
      protected function _construct()
      {
-         $this->_headerText = "Contactlab Relase Notes";
+         $this->_headerText = "ContactLab Relase Notes";
          parent::_construct();
      }
      
