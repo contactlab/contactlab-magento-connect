@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Template>
-            <version>0.8.22</version>
+            <version>0.8.23</version>
             <description>Abandoned Cart, Wishlist Reminder and generic emails sent using ContactLab XML Delivery.</description>
         </Contactlab_Template>
     </modules>
