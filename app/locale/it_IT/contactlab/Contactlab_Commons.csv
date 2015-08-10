@@ -128,3 +128,7 @@
 "Debug an email address", "Test di invio su una mail di test"
 "Installed version: %s", "Versione installata: %s"
 "Cron Configuration Check", "Check della configurazione dei Cron"
+"Closed / Hidden", "Chiuso / Nascosto"
+"hidden/close", "Chiuso / Nascosto"
+"Enable multi-website subscription", "Abilita iscrizione alla newsletter multi-website"
+"Enable multi-website newsletter subscription", "Abilita iscrizione alla newsletter multi-website"
