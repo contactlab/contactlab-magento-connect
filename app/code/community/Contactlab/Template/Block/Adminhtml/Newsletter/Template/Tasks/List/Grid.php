@@ -74,7 +74,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_List_Grid
             'renderer' => 'contactlab_commons/adminhtml_events_renderer_status'
         ));
         $this->addColumn('task_created_at', array(
-            'header' => $this->__('Created at'),
+            'header' => $this->__('Created'),
             'align' => 'left',
             'index' => 'task_created_at',
             'width' => 200,
