@@ -50,7 +50,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
         return sprintf('<a title="%s" href="%s">%s</a>',
             $helper->__('Show full XML Delivery status information for this template'),
             $this->_getUrlForTemplateId($templateId),
-            implode(', ', $rv));
+            implode('<br />', $rv));
     }
 
     /**
