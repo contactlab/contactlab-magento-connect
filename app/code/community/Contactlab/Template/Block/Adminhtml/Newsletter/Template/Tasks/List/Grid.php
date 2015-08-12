@@ -37,7 +37,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_List_Grid
      */
     protected function _prepareColumns() {
         $this->addColumn('task_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'task_id',
             'width' => 1,

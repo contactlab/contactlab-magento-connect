@@ -39,7 +39,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Detail_Grid
      */
     protected function _prepareColumns() {
         $this->addColumn('queued_at', array(
-            'header' => $this->__('Queued at'),
+            'header' => $this->__('Queued'),
             'align' => 'left',
             'index' => 'queued_at',
             'width' => 1,
