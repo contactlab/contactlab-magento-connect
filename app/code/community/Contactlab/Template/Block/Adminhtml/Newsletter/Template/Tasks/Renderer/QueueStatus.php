@@ -27,7 +27,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Renderer_Que
             $label = 'recipients';
         }
         return sprintf('<a title="%s" href="%s">%s [%s %s]</a>',
-            $this->_helper->__('Queue detail'),
+            $this->_helper->__('Queue Detail'),
             $this->_getQueueDetailUrl($row->getQueueId()),
             $this->_getQueueStatus($row->getQueueStatus()),
             $count, $label);

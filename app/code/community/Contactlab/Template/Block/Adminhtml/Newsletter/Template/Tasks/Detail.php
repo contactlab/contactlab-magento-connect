@@ -12,7 +12,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Detail
     public function __construct() {
         $this->_blockGroup = 'contactlab_template';
         $this->_controller = 'adminhtml_newsletter_template_tasks_detail';
-        $this->_headerText = $this->__("Queue detail");
+        $this->_headerText = $this->__("Queue Detail");
 
         parent::__construct();
         $this->_removeButton('add');

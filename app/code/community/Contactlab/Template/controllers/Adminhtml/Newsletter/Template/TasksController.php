@@ -36,7 +36,7 @@ class Contactlab_Template_Adminhtml_Newsletter_Template_TasksController
      * Queue detail action.
      */
     public function detailAction() {
-        $this->_title($this->__('Newsletter Templates'))->_title($this->__('Queue detail'));
+        $this->_title($this->__('Newsletter Templates'))->_title($this->__('Queue Detail'));
         $this->loadLayout();
         $queueId = $this->getRequest()->getParam('queue_id');
         if (!$queueId) {
@@ -45,7 +45,7 @@ class Contactlab_Template_Adminhtml_Newsletter_Template_TasksController
         Mage::register('queue_id', $queueId);
         $this->_setActiveMenu('newsletter/template');
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Newsletter Templates'),
-            Mage::helper('newsletter')->__('Queue detail'));
+            Mage::helper('newsletter')->__('Queue Detail'));
 
         $this->renderLayout();
     }
