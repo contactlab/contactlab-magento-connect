@@ -83,7 +83,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_List_Grid
             'type' => 'range'
         ));
         $this->addColumn('task_planned_at', array(
-            'header' => $this->__('Planned at'),
+            'header' => $this->__('Planned'),
             'align' => 'left',
             'index' => 'task_planned_at',
             'width' => 200,
