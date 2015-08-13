@@ -28,7 +28,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Renderer_Que
         }
         return sprintf('<a title="%s" href="%s">%s [%s %s]</a>',
             $this->_helper->__('Queue Detail'),
-            $this->_getQueueDetailUrl($row->getQueueId()),
+            $this->_getQueueDetailUrl($row->getQueueId(), $row->getTemplateId()),
             $this->_getQueueStatus($row->getQueueStatus()),
             $count, $label);
     }
@@ -36,6 +36,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Renderer_Que
     /**
      * Get queue status.
      * @param $status
+     * @return string
      */
     private function _getQueueStatus($status)
     {
@@ -73,12 +74,13 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Renderer_Que
 
     /**
      * @param $queueId
+     * @param $templateId
      * @return string
      */
-    private function _getQueueDetailUrl($queueId)
+    private function _getQueueDetailUrl($queueId, $templateId)
     {
         return Mage::helper('adminhtml')
             ->getUrl('contactlab_template/adminhtml_newsletter_template_tasks/detail',
-                array('queue_id' => $queueId));
+                array('queue_id' => $queueId, 'template_id' => $templateId));
     }
 }

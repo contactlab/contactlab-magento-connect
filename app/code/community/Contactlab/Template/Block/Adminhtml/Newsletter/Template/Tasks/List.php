@@ -13,5 +13,14 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_List
 
         parent::__construct();
         $this->_removeButton('add');
+        $this->_addBackButton();
+    }
+
+    /**
+     * Back url to newsletter template page.
+     * @return string
+     */
+    public function getBackUrl() {
+        return $this->getUrl('adminhtml/newsletter_template');
     }
 }
