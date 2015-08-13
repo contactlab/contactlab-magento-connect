@@ -43,6 +43,11 @@
                     <subscriber>Contactlab_Subscribers_Model_Newsletter_Subscriber</subscriber>
                 </rewrite>
             </newsletter>
+            <newsletter_resource>
+                <rewrite>
+                    <subscriber>Contactlab_Subscribers_Model_Resource_Newsletter_Subscriber</subscriber>
+                </rewrite>
+            </newsletter_resource>
             <contactlab_subscribers>
                 <class>Contactlab_Subscribers_Model</class>
                 <resourceModel>contactlab_subscribers_resource</resourceModel>
