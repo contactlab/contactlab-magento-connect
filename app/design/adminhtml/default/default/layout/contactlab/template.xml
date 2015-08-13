@@ -13,18 +13,22 @@
     <contactlab_template_adminhtml_types_edit>
         <update handle="editor"/>
         <reference name="content">
-            <block type="contactlab_template/adminhtml_type_edit" name="contactlab_template_edit" template="contactlab/template/type/edit.phtml" />
+            <block type="contactlab_template/adminhtml_type_edit" name="contactlab_template_edit"
+                   template="contactlab/template/type/edit.phtml" />
         </reference>
     </contactlab_template_adminhtml_types_edit>
     <adminhtml_newsletter_template_edit>
         <reference name="content">
-            <block type="contactlab_template/adminhtml_newsletter_template_edit_js" name="template_edit_js" template="contactlab/template/edit/js.phtml" after="-"/>
-            <block type="contactlab_template/adminhtml_newsletter_template_edit_validation" name="template_edit_validation" template="contactlab/template/edit/validation.phtml" after="-"/>
+            <block type="contactlab_template/adminhtml_newsletter_template_edit_js" name="template_edit_js"
+                   template="contactlab/template/edit/js.phtml" after="-"/>
+            <block type="contactlab_template/adminhtml_newsletter_template_edit_validation"
+                   name="template_edit_validation" template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_newsletter_template_edit>
     <adminhtml_system_config_edit>
         <reference name="content">
-            <block type="core/template" name="adminhtml_system_config_edit_validation_min_max" template="contactlab/template/edit/validation.phtml" after="-"/>
+            <block type="core/template" name="adminhtml_system_config_edit_validation_min_max"
+                   template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_system_config_edit>
     <contactlab_commons_adminhtml_tasks_index>
@@ -47,4 +51,14 @@
             </block>
         </reference>
     </contactlab_commons_adminhtml_tasks_index>
+    <contactlab_template_adminhtml_newsletter_template_tasks_list>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_newsletter_template_tasks_list" name="contactlab_template_adminhtml_newsletter_template_tasks_list"/>
+        </reference>
+    </contactlab_template_adminhtml_newsletter_template_tasks_list>
+    <contactlab_template_adminhtml_newsletter_template_tasks_detail>
+        <reference name="content">
+            <block type="contactlab_template/adminhtml_newsletter_template_tasks_detail" name="contactlab_template_adminhtml_newsletter_template_tasks_detail"/>
+        </reference>
+    </contactlab_template_adminhtml_newsletter_template_tasks_detail>
 </layout>
