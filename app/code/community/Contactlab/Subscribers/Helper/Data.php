@@ -155,8 +155,7 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
             if (!$this->_checkCanUnsubscribe($task, $model, $datetime)) {
                 return false;
             }
-            $model
-                ->setStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
+            $model->setStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
                 ->setLastSubscribedAt(NULL)
                 ->save();
             if ($logit) {
