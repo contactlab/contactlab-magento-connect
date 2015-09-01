@@ -21,4 +21,12 @@ class Contactlab_Commons_Adminhtml_EventsController extends Mage_Adminhtml_Contr
         return $this->loadLayout(false)->renderLayout();
     }
 
+    /**
+     * Is this controller allowed?
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/tasks');
+    }
 }

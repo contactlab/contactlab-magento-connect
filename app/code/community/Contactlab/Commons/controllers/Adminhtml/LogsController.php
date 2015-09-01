@@ -29,4 +29,12 @@ class Contactlab_Commons_Adminhtml_LogsController extends Mage_Adminhtml_Control
         $this->_redirect('*/*');
     }
 
+    /**
+     * Is this controller allowed?
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/logs');
+    }
 }

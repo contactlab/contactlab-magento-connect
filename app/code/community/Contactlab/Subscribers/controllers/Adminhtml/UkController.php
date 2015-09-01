@@ -60,4 +60,13 @@ class Contactlab_Subscribers_Adminhtml_UkController extends Mage_Adminhtml_Contr
         $helper = Mage::helper('contactlab_subscribers/uk');
         $helper->addTruncateUkTask();
     }
+
+    /**
+     * Is this controller allowed?
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/stats');
+    }
 }

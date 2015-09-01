@@ -294,4 +294,12 @@ class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Contro
 		$this->_redirect('*/*');
 	}
 
+	/**
+	 * Is this controller allowed?
+	 * @return bool
+	 */
+	protected function _isAllowed()
+	{
+		return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/tasks');
+	}
 }

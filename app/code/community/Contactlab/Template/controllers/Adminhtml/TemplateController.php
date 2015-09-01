@@ -40,4 +40,13 @@ class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Co
             }
         }
     }
+
+    /**
+     * Is this controller allowed?
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/template_scan');
+    }
 }

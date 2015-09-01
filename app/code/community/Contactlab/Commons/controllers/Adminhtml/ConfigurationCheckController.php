@@ -13,4 +13,13 @@ class Contactlab_Commons_Adminhtml_ConfigurationCheckController extends Mage_Adm
         $this->loadLayout()->_setActiveMenu('newsletter/contactlab');
         return $this->renderLayout();
     }
+
+    /**
+     * Is this controller allowed?
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/configuration_check');
+    }
 }
