@@ -47,6 +47,11 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
         }
     }
     
+    /**
+     * @param Mage_Customer_Model_Customer $customer
+     * @return Mage_Core_Model_Abstract|null
+     * @throws Exception
+     */
     public function doUpdateCustomerStats(Mage_Customer_Model_Customer $customer) {
         $stats = Mage::getModel('contactlab_subscribers/stats')
                 ->getCollection()
@@ -65,7 +70,10 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
         return $rv;
     }
 
-    /** Add clear statistics task to queue. */
+    /**
+     * Add clear statistics task to queue.
+     * @return Contactlab_Commons_Model_Task
+     */
     public function addClearStatsQueue() {
         return Mage::getModel("contactlab_commons/task")
                 ->setTaskCode("ClearStatisticsTask")
@@ -128,9 +136,12 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
     public function unsubscribe(Contactlab_Commons_Model_Task $task, $email, $uk, $datetime, $logit = false) {
         if (!empty($uk)) {
             // $uk, int value of xml string content, not empty if it's a number > 0
+            /** @var $ukModel Contactlab_Subscribers_Model_Uk */
             $ukModel = Mage::getModel('contactlab_subscribers/uk')->load($uk);
             if ($ukModel->hasEntityId() && $ukModel->hasSubscriberId()) {
-                $model = Mage::getModel("newsletter/subscriber")->load($ukModel->getSubscriberId());
+                /** @var $model Contactlab_Subscribers_Model_Newsletter_Subscriber */
+                $model = Mage::getModel("newsletter/subscriber")
+                    ->load($ukModel->getSubscriberId());
             }
         }
         // 03/02/2015 - Disabled match by email address
@@ -144,8 +155,7 @@ class Contactlab_Subscribers_Helper_Data extends Mage_Core_Helper_Abstract {
             if (!$this->_checkCanUnsubscribe($task, $model, $datetime)) {
                 return false;
             }
-            $model
-                ->setStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
+            $model->setStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
                 ->setLastSubscribedAt(NULL)
                 ->save();
             if ($logit) {

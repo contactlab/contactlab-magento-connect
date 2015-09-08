@@ -2,6 +2,11 @@
 
 /**
  * Task model.
+ *
+ * @method int getTaskId()
+ * @method int getStoreId()
+ * @method Contactlab_Commons_Model_Task setTaskCode($value)
+ * @method Contactlab_Commons_Model_Task setDescription($value)
  */
 class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 
@@ -80,7 +85,7 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
             "style" => "font-weight: bold"
         ),
         self::STATUS_HIDDEN => array(
-            "description" => "Hidden",
+            "description" => "Closed / Hidden",
             "color" => "lightgrey",
             "style" => "font-weight: normal"
         )
@@ -161,6 +166,7 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
      *
      * @param string $title
      * @param string $description
+     * @return $this
      */
     private function _addCritical($title, $description) {
         $t = Mage::getModel('adminnotification/inbox');
@@ -177,7 +183,11 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
     }
 
 
-	/** On set model name, reset interval and retries. */
+    /**
+     * On set model name, reset interval and retries.
+     * @param $model
+     * @return Contactlab_Commons_Model_Task
+     */
     public function setModelName($model) {
         $rv = parent::setModelName($model);
         $this->_resetIntervalAndMaxRetries();

@@ -1,33 +1,76 @@
 <?php
 
 /**
- * Configure link renderer.
+ * XML Delivery status column renderer
  */
-class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlDeliveryStatus extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract {
+class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlDeliveryStatus
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+{
 
     /**
      * Renders grid column
      *
-     * @param Varien_Object $row        	
+     * @param Varien_Object $row
      * @return string
      */
-    public function render(Varien_Object $row) {
-        return $this->renderTasks($row->getTemplateId());
+    public function render(Varien_Object $row)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->renderTasksCount($row->getTemplateId());
     }
 
-    public function renderTasks($templateId) {
-        $rv = "";
-        /* @var $queueCollection Mage_Newsletter_Model_Resource_Queue_Collection */
+    /**
+     * Render tasks with status count.
+     * @param $templateId
+     * @return string
+     */
+    public function renderTasksCount($templateId)
+    {
+        /* @var $queueCollection Contactlab_Template_Model_Resource_Newsletter_Queue_Collection */
         $queueCollection = Mage::getResourceModel("newsletter/queue_collection");
-        $queueCollection->addFieldToFilter('template_id', $templateId);
-        $queueCollection->join(array('task' => 'contactlab_commons/task'),
-                'main_table.task_id = task.task_id',
-                array(
-                    'status' => 'status',
-                    'task_created_at' => 'created_at',
-                    'task_planned_at' => 'planned_at'
-                ));
-        $queueCollection->addOrder('task_id', Varien_Data_Collection::SORT_ORDER_DESC);
+        $queueCollection->getQueueByTemplateId($templateId)->addTaskData();
+
+        // Hidden tasks shown as closed.
+        $statusHiddenClosedExpr = new Zend_Db_Expr("if (task.status = 'hidden', 'closed', task.status)");
+        $queueCollection->getSelect()
+            ->group($statusHiddenClosedExpr)
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns(array('status' => $statusHiddenClosedExpr, 'queue_count' => new Zend_Db_Expr('count(1)')));
+        $rv = array();
+        while ($item = $queueCollection->fetchItem()) {
+            if ($item->getStatus() === 'hidden') {
+                $item->setStatus('closed');
+            }
+            $rv[] = sprintf('%s: %d',
+                Contactlab_Commons_Block_Adminhtml_Events_Renderer_Status::renderTask($item),
+                $item->getQueueCount());
+        }
+        if (empty($rv)) {
+            return '';
+        }
+        /* @var $helper Contactlab_Template_Helper_Data */
+        $helper = Mage::helper('contactlab_commons');
+        $link = sprintf('<a title="%s" href="%s">%s</a>',
+            $helper->__('Show full XML Delivery status information for this template'),
+            $this->_getUrlForTemplateId($templateId),
+            $helper->__('Full XML Delivery status'));
+
+        return sprintf('%s<br>%s', implode('<br />', $rv), $link);
+    }
+
+    /**
+     * Render tasks with status.
+     * @param $templateId
+     * @deprecated
+     * @return string
+     */
+    public function renderTasks($templateId)
+    {
+        $rv = "";
+        /* @var $queueCollection Contactlab_Template_Model_Resource_Newsletter_Queue_Collection */
+        $queueCollection = Mage::getResourceModel("newsletter/queue_collection");
+        $queueCollection->getQueueByTemplateId($templateId)->addTaskData();
+
         if ($queueCollection->count() == 0) {
             return $rv;
         }
@@ -38,13 +81,13 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
         $rv .= "<table class=\"data\" cellspacing=\"0\">";
         $rv .= "<thead>";
         $rv .= "<tr class=\"headings\">";
-        $rv .= "<th>" . $helper->__('Created at') ."</th>";
-        $rv .= "<th>" . $helper->__('Planned at') ."</th>";
-        $rv .= "<th>" . $helper->__('Status') ."</th>";
+        $rv .= "<th>" . $helper->__('Created') . "</th>";
+        $rv .= "<th>" . $helper->__('Planned') . "</th>";
+        $rv .= "<th>" . $helper->__('Status') . "</th>";
         $rv .= "</tr>";
         $rv .= "</thead>";
         $rv .= "<tbody>";
-        
+
         $found = false;
         $nr = 0;
         foreach ($queueCollection as $queue) {
@@ -52,8 +95,8 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
                 $nr = $nr + 1;
             }
             $a = sprintf('<a href="%s" title="%s">',
-                    Mage::helper("adminhtml")->getUrl("contactlab_commons/adminhtml_events",
-                        array('id' => $queue->getTaskId())), $helper->__('Task events'));
+                Mage::helper("adminhtml")->getUrl("contactlab_commons/adminhtml_events",
+                    array('id' => $queue->getTaskId())), $helper->__('Task events'));
             $rv .= "<tr";
             if ($queue->getStatus() === 'closed' && $nr > 1) {
                 $rv .= ' style="display: none" class="template-' . $templateId . '-row"';
@@ -81,5 +124,17 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
         $rv .= "</tbody>";
         $rv .= "</table>";
         return $rv;
+    }
+
+    /**
+     * Get Url for template task list.
+     * @param int $templateId
+     * @return string
+     */
+    private function _getUrlForTemplateId($templateId)
+    {
+        return Mage::helper('adminhtml')
+            ->getUrl('contactlab_template/adminhtml_newsletter_template_tasks/list',
+                array('template_id' => $templateId));
     }
 }

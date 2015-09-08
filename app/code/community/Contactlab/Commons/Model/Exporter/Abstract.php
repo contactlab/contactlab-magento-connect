@@ -1,8 +1,17 @@
 <?php
 
-/** Abstract Exporter Model. */
+/**
+ * Abstract Exporter Model.
+ * @property resource gz
+ *
+ * @method Contactlab_Commons_Model_Task getTask
+ */
 abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Commons_Model_AbstractImportExport {
-    /** Export the xml file. */
+    /** Export the xml file.
+     * @param Contactlab_Commons_Model_Task_Interface $task
+     * @return string
+     * @throws Zend_Exception
+     */
     public final function export(Contactlab_Commons_Model_Task_Interface $task) {
         if (!$this->isEnabled()) {
             Mage::helper("contactlab_commons")->logWarn("Module export is disabled");

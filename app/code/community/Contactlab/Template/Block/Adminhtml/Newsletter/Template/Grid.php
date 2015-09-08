@@ -21,7 +21,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid extends Mage_
 
         $this->addColumn('template_type_name',
             array(
-                'header'=>Mage::helper('newsletter')->__('Template type'),
+                'header'=>Mage::helper('newsletter')->__('Template Type'),
                 'index'=>'template_type_name',
                 'width' => 1
         ));

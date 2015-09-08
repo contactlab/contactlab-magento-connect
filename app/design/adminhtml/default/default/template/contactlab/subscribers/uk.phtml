@@ -1,28 +1,28 @@
 <div class="grid box-right" style="margin-top: 50px">
     <div class="hor-scroll">
-        <h3 style="margin-top: 30px">Uk table</h3>
+        <h3 style="margin-top: 30px">UK table</h3>
         <table class="data" cellspacing="0">
             <thead>
                 <tr class="headings">
-                    <th colspan="2"><?php echo $this->__('Use these panel to reset, check and update UK table') ?></th>
+                    <th colspan="2"><?php echo $this->__('Use this panel to reset, check and update the UK table') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="even">
-                    <td><?php echo $this->__('Use this function to completely remove all the associated UK records.<br/>After this operation, it will be neccessary queue an UK update task.') ?></td>
+                    <td><?php echo $this->__('Use this to completely remove all the associated UK records.<br/>After this operation, you need to queue a UK table update task.') ?></td>
                     <td><?php echo $this->getChildHtml('contactlab.commons.uk.truncate') ?></td>
                 </tr>
                 <tr class="even">
-                    <td><?php echo $this->__('Use this function to check the integrity of the UK table. If some errors have been found, please queue an UK update task.') ?></td>
+                    <td><?php echo $this->__('Use this to check the integrity of the UK table.<br/>If some errors are found, please queue a UK table update task.') ?></td>
                     <td><?php echo $this->getChildHtml('contactlab.commons.uk.check') ?></td>
                 </tr>
                 <tr>
-                    <td><?php echo $this->__('Use this function to queue an update UK table task.') ?></td>
+                    <td><?php echo $this->__('Use this to queue a UK table update task.') ?></td>
                     <td><?php echo $this->getChildHtml('contactlab.commons.uk.update') ?></td>
                 </tr>
             </tbody>
         </table>
         <p><em><?php echo $this->__('UK table contains ContactLab Identifiers that are associated with Magento Customers and Newsletter Subscribers') ?>.</em></p>
-        <p><strong><?php echo $this->__('Every reset operation neet to be agreed with the Contactlab customer care.') ?></strong></p>
+        <p><strong><?php echo $this->__('Every reset operation needs to be agreed with ContactLab customer care.') ?></strong></p>
     </div>
 </div>

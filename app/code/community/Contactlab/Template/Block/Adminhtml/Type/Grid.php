@@ -35,7 +35,7 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
      */
     protected function _prepareColumns() {
         $this->addColumn('entity_id', array(
-            'header' => $this->__('Id'),
+            'header' => $this->__('ID'),
             'align' => 'left',
             'index' => 'entity_id',
             'width' => 1,
@@ -64,13 +64,13 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
             ),
         ));
         $this->addColumn('dnd_period', array(
-            'header' => $this->__('Dnd period length'),
+            'header' => $this->__('DND period length'),
             'index' => 'dnd_period',
             'width' => 1,
             'type' => 'text'
         ));
         $this->addColumn('dnd_mail_number', array(
-            'header' => $this->__('Dnd max mail number'),
+            'header' => $this->__('DND max mail number'),
             'index' => 'dnd_mail_number',
             'width' => 1,
             'type' => 'text'
@@ -78,7 +78,7 @@ class Contactlab_Template_Block_Adminhtml_Type_Grid extends Mage_Adminhtml_Block
 
 
         $this->addColumn('is_cron_enabled', array(
-            'header' => $this->__('Enable for cron execution'),
+            'header' => $this->__('Enable for Cron execution'),
             'index' => 'is_cron_enabled',
             'type' => 'options',
             'width' => 1,

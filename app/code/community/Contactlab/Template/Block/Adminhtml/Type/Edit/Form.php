@@ -114,8 +114,8 @@ class Contactlab_Template_Block_Adminhtml_Type_Edit_Form extends Mage_Adminhtml_
         ));
         $toDisable[] = $fieldset->addField('is_cron_enabled', 'select', array(
             'name'      => 'is_cron_enabled',
-            'label'     => Mage::helper('contactlab_template')->__('Enable for cron execution'),
-            'title'     => Mage::helper('contactlab_template')->__('Enable for cron execution'),
+            'label'     => Mage::helper('contactlab_template')->__('Enable for Cron execution'),
+            'title'     => Mage::helper('contactlab_template')->__('Enable for Cron execution'),
             'after_element_html'   => "<small>" . Mage::helper('contactlab_template')->__('Default for new templates') . "</small>",
             'options'   => array(
                 1 => Mage::helper('adminhtml')->__('Yes'),
@@ -133,16 +133,16 @@ class Contactlab_Template_Block_Adminhtml_Type_Edit_Form extends Mage_Adminhtml_
         $fieldsetDnd->addField('dnd_period', 'text', array(
             'name'      => 'dnd_period',
             'class' => 'validate-not-negative-number validate-digits',
-            'label'     => Mage::helper('contactlab_template')->__('Dnd period length'),
-            'title'     => Mage::helper('contactlab_template')->__('Dnd period length'),
+            'label'     => Mage::helper('contactlab_template')->__('DND period length'),
+            'title'     => Mage::helper('contactlab_template')->__('DND period length'),
             'required'  => false,
             'value'     => $model->getDndPeriod(),
         ));
         $fieldsetDnd->addField('dnd_mail_number', 'text', array(
             'name'      => 'dnd_mail_number',
             'class' => 'validate-not-negative-number validate-digits',
-            'label'     => Mage::helper('contactlab_template')->__('Dnd max mail number'),
-            'title'     => Mage::helper('contactlab_template')->__('Dnd max mail number'),
+            'label'     => Mage::helper('contactlab_template')->__('DND max mail number'),
+            'title'     => Mage::helper('contactlab_template')->__('DND max mail number'),
             'required'  => false,
             'value'     => $model->getDndMailNumber(),
         ));

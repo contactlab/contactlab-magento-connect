@@ -3,7 +3,7 @@
     <modules>
         <Contactlab_Commons>
             <version>0.8.17</version>
-            <description>Magento/ContactLab Common functions</description>
+            <description>Magento/ContactLab Common functions.</description>
         </Contactlab_Commons>
     </modules>
     <global>

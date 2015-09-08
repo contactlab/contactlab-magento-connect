@@ -11,7 +11,7 @@ class Contactlab_Template_Block_Adminhtml_Type extends Mage_Adminhtml_Block_Widg
     public function __construct() {
         $this->_blockGroup = 'contactlab_template';
         $this->_controller = 'adminhtml_type';
-        $this->_headerText = $this->__("Template types");
+        $this->_headerText = $this->__("Template Types");
 
         parent::__construct();
     }

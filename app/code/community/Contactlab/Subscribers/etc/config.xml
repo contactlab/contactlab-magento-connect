@@ -2,8 +2,8 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.8.20</version>
-            <description>Subscriber sync Magento/ContactLab and ContactLab/Magento</description>
+            <version>0.8.21</version>
+            <description>Subscriber sync Magento/ContactLab and ContactLab/Magento.</description>
         </Contactlab_Subscribers>
     </modules>
     <global>
@@ -43,6 +43,11 @@
                     <subscriber>Contactlab_Subscribers_Model_Newsletter_Subscriber</subscriber>
                 </rewrite>
             </newsletter>
+            <newsletter_resource>
+                <rewrite>
+                    <subscriber>Contactlab_Subscribers_Model_Resource_Newsletter_Subscriber</subscriber>
+                </rewrite>
+            </newsletter_resource>
             <contactlab_subscribers>
                 <class>Contactlab_Subscribers_Model</class>
                 <resourceModel>contactlab_subscribers_resource</resourceModel>

@@ -26,9 +26,12 @@ class Contactlab_Commons_Block_Adminhtml_Events_Renderer_Status extends Mage_Adm
     	$open = "<span class=\"task-status-" . $row->getStatus() . "\" id=\"task-status-" . $row->getTaskId() . "\">";
 		$close = "</span>";
         $status = $row->getStatus();
-        $name = Contactlab_Commons_Model_Task::$statuses[$status];
+        $statusDef = Contactlab_Commons_Model_Task::$statuses[$status];
+        if ($status === 'hidden') {
+            $status = 'hidden/close';
+        }
         return sprintf($open . "<span title=\"%s\" style=\"color: %s; %s\">%s</span>" . $close,
-                $h->__($name['description']), $name['color'], $name['style'],
+                $h->__($statusDef['description']), $statusDef['color'], $statusDef['style'],
                     $h->__($status));
     }
 

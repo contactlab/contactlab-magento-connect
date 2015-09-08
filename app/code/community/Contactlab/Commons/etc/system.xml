@@ -24,7 +24,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
             		<!--comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that clears old tasks from queue every day at 10:35AM</p>
+<p>This configuration example clears old tasks from the queue every day at 10:35 AM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_commons_clear_queue&gt;
@@ -46,10 +46,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable or disable Contactlab module</comment>
+                            <comment>Enable or disable ContactLab module</comment>
                         </enabled>
                         <days_of_old_tasks translate="label">
-                            <label>Number of days to consider a task as an obsolete task</label>
+                            <label>Days before a task is regarded as obsolete</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -162,7 +162,7 @@
                             <show_in_store>1</show_in_store>
                         </enable>
                         <wsdl_url translate="label">
-                            <label>WSDL url</label>
+                            <label>WSDL URL</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -173,7 +173,7 @@
                             </depends>
                         </wsdl_url>
                         <uid translate="label">
-                            <label>Uid</label>
+                            <label>UID</label>
                             <frontend_type>password</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
@@ -184,7 +184,7 @@
                             </depends>
                         </uid>
                         <apikey translate="label">
-                            <label>Api key</label>
+                            <label>API key</label>
                             <frontend_type>password</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
@@ -268,7 +268,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Unsubscribe the customer during Newsletter subscriber to customer operation if the check of subscription is left unchecked.</comment>
+                            <comment>Unsubscribe the customer from the Newsletter if they do not select the subscription checkbox.</comment>
                             <config_path>contactlab_subscribers/subscriber_to_customer/unsubscribe_if_not_confirm</config_path>
                         </unsubscribe_if_not_confirm>
                         <email_on_unsubscribe translate="label">
@@ -284,12 +284,23 @@
                             </depends>
                             <config_path>contactlab_subscribers/subscriber_to_customer/email_on_unsubscribe</config_path>
                         </email_on_unsubscribe>
+                        <enable_multiwebsite_subscription translate="label comment">
+                            <label>Enable multi-website subscription</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Enable multi-website newsletter subscription</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>1000</sort_order>
+                            <config_path>contactlab_subscribers/global/enable_multiwebsite_subscription</config_path>
+                        </enable_multiwebsite_subscription>
                     </fields>
                 </behavior>
 
 
                 <error_email translate="label">
-                    <label>Error notify email</label>
+                    <label>Error notification email</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>60</sort_order>
                     <show_in_default>1</show_in_default>
@@ -312,7 +323,7 @@
 &lt;/crontab&gt;</pre>]]></old_comment>
                     <fields>
                         <enable translate="label">
-                            <label>Enable error notify email</label>
+                            <label>Enable error notification email</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -343,13 +354,13 @@
                             </depends>
                         </email_sender_name>
                         <recipients translate="label">
-                            <label>Recipients email</label>
+                            <label>Recipient email</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Use ; delimiter for recipients separator</comment>
+                            <comment>Use ; as the delimiter to separate recipients.</comment>
                             <depends>
                                 <enable>1</enable>
                             </depends>
@@ -376,7 +387,7 @@
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
             		<comment><![CDATA[<h3>Example configuration</h3>
-<p>This is an example of configuration that clears old tasks from queue every day at 10:35AM</p>
+<p>This configuration example clears old tasks from the queue every day at 10:35 AM.</p>
 <pre>&lt;crontab&gt;
     &lt;jobs&gt;
         &lt;contactlab_subscribers_clear_queue&gt;
