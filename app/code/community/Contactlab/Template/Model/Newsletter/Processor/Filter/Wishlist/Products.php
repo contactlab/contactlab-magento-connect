@@ -9,9 +9,10 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Wishlist_Products
      *
      * @param Varien_Data_Collection_Db $collection
      * @param array $parameters = array()
-     * @return $collection
+     * @return Varien_Data_Collection_Db $collection
      */
     public function applyFilter(Varien_Data_Collection_Db $collection, $parameters = array()) {
+        /** @var $rs Mage_Core_Model_Resource */
         $rs = $resource = Mage::getSingleton('core/resource');
         $wishlist = $rs->getTablename('wishlist/wishlist');
         $wishlistItem = $rs->getTablename('wishlist/item');

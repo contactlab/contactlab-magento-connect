@@ -1,6 +1,17 @@
 <?php
 
-/** Newsletter queue model rewrite. */
+/**
+ * Newsletter queue model rewrite.
+ *
+ * @method getQueueId()
+ * @method getTaskId()
+ *
+ * @method setQueueId($value)
+ * @method setTaskId($value)
+ * @method setXmlDelivery(Contactlab_Template_Model_Newsletter_XmlDelivery $value)
+ *
+ * @method hasQueueId()
+ */
 class Contactlab_Template_Model_Newsletter_Queue extends Mage_Newsletter_Model_Queue {
     /**
      * Subscribers collection
@@ -192,6 +203,7 @@ class Contactlab_Template_Model_Newsletter_Queue extends Mage_Newsletter_Model_Q
     public function finishQueueAndLinks() {
         $this->_finishQueue();
         $this->_finishQueueLinks();
+
         return $this;
     }
 

@@ -21,7 +21,7 @@
         <reference name="content">
             <block type="contactlab_template/adminhtml_newsletter_template_edit_js" name="template_edit_js"
                    template="contactlab/template/edit/js.phtml" after="-"/>
-            <block type="contactlab_template/adminhtml_newsletter_template_edit_validation"
+            <block type="core/template"
                    name="template_edit_validation" template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_newsletter_template_edit>

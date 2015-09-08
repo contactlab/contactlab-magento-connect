@@ -2,15 +2,26 @@
 
 /**
  * XMLDelivery report file check.
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery_Check setTask(Contactlab_Commons_Model_Task $task)
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery_Check setParentTask(Contactlab_Commons_Model_Task $task)
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery_Check setXmlFile(String $xmlFile)
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery_Check setStoreId(String $storeId)
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery_Check setQueueId(int $queueId)
  *
+ * @method Contactlab_Commons_Model_Task getTask()
+ * @method Contactlab_Commons_Model_Task getParentTask()
+ * @method String getXmlFile()
+ * @method String getStoreId()
+ * @method int getQueueId()
  */
 class Contactlab_Template_Model_Newsletter_XmlDelivery_Check extends Varien_Object {
     /**
      * Do check.
-     *
      * @return string
+     * @throws Exception
      */
     public function doCheck() {
+        $rv = false;
         $sftp = new Contactlab_Commons_Model_Ssh_Net_SFTP(
                 $this->_getConfig("contactlab_commons/connection/remote_server"));
         if (!$sftp->login(
@@ -79,6 +90,7 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery_Check extends Varien_Obje
      * @return void
      */
     public function finishQueueAndLinks() {
+        /** @var $queue Contactlab_Template_Model_Newsletter_Queue */
         $queue = Mage::getModel('newsletter/queue')->load($this->getQueueId());
         if ($queue->hasQueueId()) {
             $queue->finishQueueAndLinks();
@@ -112,7 +124,7 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery_Check extends Varien_Obje
      * Get config.
      *
      * @param string $path
-     * @return void
+     * @return String
      */
     private function _getConfig($path) {
         return Mage::getStoreConfig($path, $this->getStoreId());

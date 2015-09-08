@@ -5,8 +5,17 @@
  *
  * @method int getTaskId()
  * @method int getStoreId()
+ * @method int getMaxRetries()
+ * @method int getNumberOfRetries()
+ * @method getTaskData()
+ * @method setAutoDelete(bool $value)
+ * @method setSuppressNotification(bool $value)
+ *
+ * @method Contactlab_Commons_Model_Task setTaskData($value)
+ *
  * @method Contactlab_Commons_Model_Task setTaskCode($value)
  * @method Contactlab_Commons_Model_Task setDescription($value)
+ * @method Contactlab_Commons_Model_Task setPlannedAt($value)
  */
 class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 

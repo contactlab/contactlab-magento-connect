@@ -1,6 +1,62 @@
 <?php
 
-/** Newsletter template model rewrite. */
+/**
+ * Newsletter template model rewrite.
+ * @method getAndOr()
+ * @method getMaxProducts()
+ * @method getMinProducts()
+ * @method getMaxValue()
+ * @method getMinValue()
+ * @method getMaxMinutesFromLastUpdate()
+ * @method getMinMinutesFromLastUpdate()
+ * @method getPriority()
+ * @method getQueueDelayTime()
+ * @method getCronDateRangeEnd()
+ * @method getCronDateRangeStart()
+ * @method getIsCronEnabled()
+ * @method getProductImageSize()
+ * @method getDefaultProductSnippet()
+ * @method getIsTestMode()
+ * @method getFlgHtmlTxt()
+ * @method getTemplateTextPlain()
+ * @method getTemplateTypeId()
+ * @method getReplyTo()
+ * @method getEnableXmlDelivery()
+ * @method getDontRunNow()
+ * @method getStoreId()
+ * @method getDebugAddress()
+ * @method getDebugInfo()
+ *
+ * @method setAndOr($value)
+ * @method setMaxProducts($value)
+ * @method setMinProducts($value)
+ * @method setMaxValue($value)
+ * @method setMinValue($value)
+ * @method setMaxMinutesFromLastUpdate($value)
+ * @method setMinMinutesFromLastUpdate($value)
+ * @method setPriority($value)
+ * @method setQueueDelayTime($value)
+ * @method setCronDateRangeEnd($value)
+ * @method setCronDateRangeStart($value)
+ * @method setIsCronEnabled($value)
+ * @method setProductImageSize($value)
+ * @method setDefaultProductSnippet($value)
+ * @method setIsTestMode($value)
+ * @method setFlgHtmlTxt($value)
+ * @method setTemplateTextPlain($value)
+ * @method setTemplateTypeId($value)
+ * @method setReplyTo($value)
+ * @method setEnableXmlDelivery($value)
+ * @method setDebugInfo($value)
+ * @method setTemplateTypeModel($value)
+ * @method setDebugAddress($value)
+ *
+ * @method hasTemplateTypeId()
+ * @method hasTemplateTypeModel()
+ * @method hasQueueDelayTime()
+ * @method hasDebugAddress()
+ * @method hasDebugInfo()
+ */
 class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Model_Template {
     /**
      * Process template queue.
@@ -40,7 +96,6 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
 
             $c++;
         }
-
         if ($processor->getSendToAllCustomers()) {
             foreach ($processor->loadSubscribers($this, true) as $item) {
                 if (is_null($queue)) {
@@ -92,6 +147,8 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
 
     /**
      * Get Template type model.
+     *
+     * @return Contactlab_Template_Model_Type
      */
     public function getTemplateTypeModel() {
         if (!$this->hasTemplateTypeId()) {
@@ -102,6 +159,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
                 Mage::getModel('contactlab_template/type')
                     ->load($this->getTemplateTypeId()));
         }
+        /** @noinspection PhpUndefinedMethodInspection */
         return parent::getTemplateTypeModel();
     }
 
@@ -120,9 +178,13 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
      *
      * @param Mage_Newsletter_Model_Queue $queue
      * @param string $storeId
+     * @param int $max
      * @return Contactlab_Commons_Model_Task
+     * @throws Exception
      */
     private function _createTask(Mage_Newsletter_Model_Queue $queue, $storeId, $max) {
+        /** @var $queue Contactlab_Template_Model_Newsletter_Queue */
+        /** @var $rv Contactlab_Commons_Model_Task */
         $rv = Mage::getModel("contactlab_commons/task")
                 ->setDescription(sprintf('Process "%s" queue [%d]',
                     $this->getTemplateSubject(), $queue->getId()))
@@ -167,6 +229,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
      * Send to all customers?
      * @param string $code
      * @param string $storeId
+     * @return bool
      */
     public function doSendToAllCustomers($code, $storeId) {
         if ($code !== 'CART' && $code !== 'WISHLIST') {
@@ -218,7 +281,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
 
     /**
      * Validate min and max value
-     * @param type $field
+     * @param String $field
      * @param array $labels
      * @param Contactlab_Template_Helper_Data $helper
      * @param array $errors
@@ -234,5 +297,19 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
                     $helper->__($labels['min']),
                     $helper->__($labels['max']));
         }
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Newsletter_Model_Template
+     */
+    protected function _beforeSave()
+    {
+        // manage "none" store value.
+        if ($this->getStoreId() == 'none') {
+            $this->setData('store_id', null);
+        }
+        return parent::_beforeSave();
     }
 }

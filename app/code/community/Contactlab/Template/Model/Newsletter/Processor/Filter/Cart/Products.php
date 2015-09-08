@@ -9,7 +9,7 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_Cart_Products
      *
      * @param Varien_Data_Collection_Db $collection
      * @param array $parameters = array()
-     * @return $collection
+     * @return Varien_Data_Collection_Db $collection
      */
     public function applyFilter(Varien_Data_Collection_Db $collection, $parameters = array()) {
         $rs = $resource = Mage::getSingleton('core/resource');

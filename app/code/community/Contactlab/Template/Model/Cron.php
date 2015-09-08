@@ -8,17 +8,20 @@ class Contactlab_Template_Model_Cron {
 
     /**
      * Scan for template to be sent.
-     * @param string $storeId
+     * @param int|string $storeId
      */
     public function scan($storeId = -1) {
         $this->logCronCall('scan', $storeId);
+
+        /** @var $h Contactlab_Template_Helper_Data */
         $h = Mage::helper('contactlab_template');
         foreach ($h->getAvailableStores() as $store) {
+            /** @var $store Mage_Core_Model_Store */
             if (!$h->isStoreEnabled($store)) {
                 continue;
             }
             // If a store id has been passed as argument,
-            // check before acll helper.
+            // check before acl helper.
             try {
                 Mage::helper('contactlab_template')->scan($store->getStoreId());
             } catch (Zend_Exception $e) {
@@ -30,7 +33,7 @@ class Contactlab_Template_Model_Cron {
     /**
      * Log function call.
      * @param String $functionName
-     * @param String $storeId
+     * @param bool|String $storeId
      */
     public function logCronCall($functionName, $storeId = false)
     {
