@@ -2,6 +2,15 @@
 
 /**
  * Exporter data helper.
+ * @method Contactlab_Subscribers_Model_Stats setCustomerId($value)
+ * @method setTotalOrdersAmount($value)
+ * @method setTotalOrdersProducts($value)
+ * @method setTotalOrdersCount($value)
+ * @method setAvgOrdersAmount($value)
+ * @method setAvgOrdersProducts($value)
+ * @method setLastOrderDate($value)
+ * @method setLastOrderAmount($value)
+ * @method setLastOrderProducts($value)
  */
 class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
     /**
@@ -11,7 +20,11 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         $this->_init("contactlab_subscribers/stats");
     }
 
-    /** Update customer statistics*/
+    /**
+     * Update customer statistics
+     * @param Mage_Customer_Model_Customer $customer
+     * @return $this
+     */
     public function updateFromCustomer(Mage_Customer_Model_Customer $customer) {
         $this->_updateLastOrder($customer);
         $this->_updateTotalOrder($customer);
@@ -20,8 +33,12 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         return $this;
     }
 
-    /** Update last order statistics. */
+    /**
+     * Update last order statistics.
+     * @param Mage_Customer_Model_Customer $customer
+     */
     private function _updateLastOrder(Mage_Customer_Model_Customer $customer) {
+        /** @var $order Mage_Sales_Model_Order */
         $order = $this->_getLastOrder($customer);
         if ($order) {
             $this->setLastOrderDate($order->getCreatedAt());
@@ -34,12 +51,17 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         }
     }
 
-    /** Update orders statistics for period. */
+    /**
+     * Update orders statistics for period.
+     * @param Mage_Customer_Model_Customer $customer
+     * @param $period
+     */
     private function _updateTotalOrderPeriod(Mage_Customer_Model_Customer $customer, $period) {
         $periodLength = Mage::getStoreConfig("contactlab_subscribers/stats/period_" . $period);
         if (!is_numeric($periodLength) || $periodLength == 0) {
             return;
         }
+        /* @var $coll Mage_Sales_Model_Resource_Order_Collection */
         $coll = Mage::getModel('sales/order')
                 ->getCollection()
                 ->addExpressionFieldToSelect('grand_total', 'sum({{base_grand_total}})', 'base_grand_total')
@@ -57,8 +79,12 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
         }
     }
 
-    /** Update all orders statistics. */
+    /**
+     * Update all orders statistics.
+     * @param Mage_Customer_Model_Customer $customer
+     */
     private function _updateTotalOrder(Mage_Customer_Model_Customer $customer) {
+        /* @var $coll Mage_Sales_Model_Resource_Order_Collection */
         $coll = Mage::getModel('sales/order')
                 ->getCollection()
                 ->addExpressionFieldToSelect('grand_total', 'sum({{base_grand_total}})', 'base_grand_total')
@@ -79,6 +105,7 @@ class Contactlab_Subscribers_Model_Stats extends Mage_Core_Model_Abstract {
 
     /** Get last order of customer $customer. */
     private function _getLastOrder(Mage_Customer_Model_Customer $customer) {
+        /* @var $coll Mage_Sales_Model_Resource_Order_Collection */
         $coll = Mage::getModel('sales/order')
                 ->getCollection()
                 ->setOrder('created_at', 'desc')

@@ -22,7 +22,6 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_TestMode
         }
     }
 
-
     /**
      * Do run in test mode?
      *
@@ -34,8 +33,8 @@ class Contactlab_Template_Model_Newsletter_Processor_Filter_TestMode
 
     /**
      * Get test subscribers mail.
-     *
      * @return array
+     * @throws Zend_Exception
      */
     public function getTestSubscribersMail() {
         $rv = explode(',', Mage::getStoreConfig('contactlab_template/global/test_recipients', $this->getStoreId()));

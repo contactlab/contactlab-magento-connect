@@ -11,18 +11,16 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Filter_Abstract
         implements Contactlab_Template_Model_Newsletter_Processor_Filter_Interface {
 
     /**
-     * Set store id.
-     *
-     * @param String $storeId
-     * @return $this
+     * Set Store Id.
+     * @param String $value
+     * @return mixed
      */
     public function setStoreId($storeId) {
         return parent::setStoreId($storeId);
     }
 
     /**
-     * Get store id.
-     *
+     * Get Store Id.
      * @return string
      */
     public function getStoreId() {

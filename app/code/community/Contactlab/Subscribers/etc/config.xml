@@ -67,10 +67,40 @@
                     <newsletter_subscriber_export>
                         <table>contactlab_subscribers_newsletter_subscriber_export</table>
                     </newsletter_subscriber_export>
+                    <newsletter_subscriber_fields>
+                        <table>contactlab_subscribers_newsletter_subscriber_fields</table>
+                    </newsletter_subscriber_fields>
                 </entities>
             </contactlab_subscribers_resource>
         </models>
         <events>
+            <contactlab_subscribers_subscriber_update>
+                <observers>
+                    <contactlab_subscribers_subscriber_update_fields>
+                        <type>singleton</type>
+                        <class>contactlab_subscribers/observer_fields</class>
+                        <method>updateFields</method>
+                    </contactlab_subscribers_subscriber_update_fields>
+                </observers>
+            </contactlab_subscribers_subscriber_update>
+            <newsletter_subscriber_save_after>
+                <observers>
+                    <contactlab_subscribers_newsletter_subscriber_save_after_fields>
+                        <type>singleton</type>
+                        <class>contactlab_subscribers/observer_fields</class>
+                        <method>afterSubscriberSaved</method>
+                    </contactlab_subscribers_newsletter_subscriber_save_after_fields>
+                </observers>
+            </newsletter_subscriber_save_after>
+            <newsletter_subscriber_delete_before>
+                <observers>
+                    <contactlab_subscribers_newsletter_subscriber_delete_before_fields>
+                        <type>singleton</type>
+                        <class>contactlab_subscribers/observer_fields</class>
+                        <method>beforeSubscriberDeleted</method>
+                    </contactlab_subscribers_newsletter_subscriber_delete_before_fields>
+                </observers>
+            </newsletter_subscriber_delete_before>
             <sales_order_save_after>
                 <observers>
                     <contactlab_commons_model_delete_after>
@@ -99,6 +129,15 @@
                 </observers>
             </controller_front_send_response_after>
         </events>
+        <template>
+            <email>
+                <contactlab_subscribers_modify_email_send_email_template translate="label" module="contactlab_subscribers">
+                    <label>Modify subscriber data email</label>
+                    <file>contactlab_subscribers/modify_subscriber_data.html</file>
+                    <type>html</type>
+                </contactlab_subscribers_modify_email_send_email_template>
+            </email>
+        </template>
     </global>
     <admin>
         <routers>
@@ -106,7 +145,7 @@
                 <use>admin</use>
                 <args>
                     <module>Contactlab_Subscribers</module>
-                    <frontName>contactlab_subscribers</frontName>
+                    <frontName>subscribe</frontName>
                 </args>
             </contactlab_subscribers>
         </routers>
@@ -201,9 +240,35 @@
                     </contactlab_subscribers_newsletter_controller_action_postdispatch>
                 </observers>
             </controller_action_postdispatch>
+
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <contactlab_subscribers_newsletter_fields_add_grid>
+                        <type>model</type>
+                        <class>contactlab_subscribers/newsletter_subscribers_observer</class>
+                        <method>appendCustomColumns</method>
+                    </contactlab_subscribers_newsletter_fields_add_grid>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
+            <core_collection_abstract_load_before>
+                <observers>
+                    <contactlab_subscribers_newsletter_fields_add_grid>
+                        <type>model</type>
+                        <class>contactlab_subscribers/newsletter_subscribers_observer</class>
+                        <method>appendCustomAttributes</method>
+                    </contactlab_subscribers_newsletter_fields_add_grid>
+                </observers>
+            </core_collection_abstract_load_before>
         </events>
     </adminhtml>
     <frontend>
+        <layout>
+            <updates>
+                <contactlab_subscribers>
+                    <file>contactlab/subscribers.xml</file>
+                </contactlab_subscribers>
+            </updates>
+        </layout>
         <events>
             <newsletter_subscriber_save_after>
                 <observers>
@@ -268,6 +333,15 @@
                     </contactlab_subscribers_newsletter_subscriber_save_after>
                 </observers>
             </newsletter_subscriber_save_after>
+            <controller_action_predispatch>
+                <observers>
+                    <contactlab_subscribers_newsletter_controller_action_predispatch>
+                        <type>singleton</type>
+                        <class>contactlab_subscribers/observer_fields</class>
+                        <method>controllerActionPreDispatch</method>
+                    </contactlab_subscribers_newsletter_controller_action_predispatch>
+                </observers>
+            </controller_action_predispatch>
             <controller_action_postdispatch>
                 <observers>
                     <contactlab_subscribers_newsletter_controller_action_postdispatch>
@@ -287,6 +361,15 @@
                 </observers>
             </contactlab_subscribers_uk_subscriber_promoted_to_customer>
         </events>
+        <routers>
+            <contactlab_subscribers>
+                <use>standard</use>
+                <args>
+                    <module>Contactlab_Subscribers</module>
+                    <frontName>contactlab</frontName>
+                </args>
+            </contactlab_subscribers>
+        </routers>        
     </frontend>
     <default>
         <contactlab_subscribers>
