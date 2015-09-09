@@ -72,6 +72,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $limit = 50000;
         $page = 1;
         $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $this->_addAddressFields($preFilled);
+
         while (true) {
             $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer, $preFilled);
             $subscribersInCustomers->getSelect()->limitPage($page, $limit);
@@ -87,7 +89,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                     throw new Exception($msg);
                 }
                 $toFill['entity_id'] = $item->getData('uk');
-                $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+
                 $toFill = array_merge($toFill, $preFilled);
                 $toFill['email'] = $item->getData('email');
                 $this->_setAttributeKeys($toFill, $item);
@@ -201,13 +203,6 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         $rv->getSelect()->group('e.entity_id');
 
-        foreach (array('billing', 'shipping') as $addressType) {
-            if ($this->_mustExportAddress($addressType)) {
-                foreach ($this->fAddressAttributes as $k) {
-                    $preFilled[$addressType . '_' . $k] = '';
-                }
-            }
-        }
         return $rv;
     }
 
@@ -254,6 +249,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _addNotCustomerRecords() {
         Mage::helper("contactlab_commons")->logDebug("_addNotCustomerRecords");
         $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $this->_addAddressFields($preFilled);
         $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($preFilled);
 
         $counter = 0;
@@ -280,11 +276,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                     throw new Exception($msg);
                 }
                 $toFill1['entity_id'] = $item->getData('uk');
-                $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+
                 $toFill = array_merge($toFill1, $preFilled);
                 $toFill['email'] = $item->getData('subscriber_email');
                 $this->_manageNewsletterClsFlag($toFill, $item);
                 $this->_fillStoreAttributes($toFill, $item);
+                $this->_fillNewsletterAttributes($toFill, $item);
 
                 $this->found = true;
                 $this->newsletterSubscribers++;
@@ -333,14 +330,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_addSubscriberFields($rv, 'main_table');
 
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
-        foreach (array('billing', 'shipping') as $addressType) {
-            if ($this->_mustExportAddress($addressType)) {
-                foreach ($this->fAddressAttributes as $k) {
-                    $preFilled[$addressType . '_' . $k] = '';
-                }
-            }
-        }
-        
+
         return $rv;
     }
 
@@ -361,6 +351,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         Mage::helper("contactlab_commons")->logDebug($deletedEntities->getSelect()->assemble());
         $this->deletedEntities = array();
         $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $this->_addAddressFields($preFilled);
 
         /** @var $deletedEntity Contactlab_Commons_Model_Deleted */
         while ($deletedEntity = $deletedEntities->fetchItem()) {
@@ -485,6 +476,21 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         foreach (array('store_id', 'store_name', 'website_id', 'website_name',
             'group_id', 'group_name', 'lang') as $k) {
             $toFill[$k] = $store[$k];
+        }
+    }
+
+    /**
+     * Fill Newsletter attributes fields.
+     * @param array $toFill
+     * @param Varien_Object $item
+     */
+    private function _fillNewsletterAttributes(array &$toFill, Varien_Object $item)
+    {
+        foreach ($this->helper->getSubscriberToCustomerAttributeMap() as $k => $v) {
+            if (!$this->_doManageAddressAttribute($v)) {
+                continue;
+            }
+            $toFill[$v] = $item->getData($k);
         }
     }
 
@@ -855,4 +861,29 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                             "fields.subscriber_id = $table.subscriber_id");
     }
 
+    /**
+     * Do include this field into xml element?
+     * @param String $attributeCode
+     * @return bool
+     */
+    private function _doManageAddressAttribute($attributeCode)
+    {
+        if (preg_match('|^billing_|', $attributeCode)) {
+            return $this->_mustExportAddress('billing');
+        } else if (preg_match('|^shipping|', $attributeCode)) {
+            return $this->_mustExportAddress('shipping');
+        }
+        return true;
+    }
+
+    private function _addAddressFields(array &$preFilled)
+    {
+        foreach (array('billing', 'shipping') as $addressType) {
+            if ($this->_mustExportAddress($addressType)) {
+                foreach ($this->fAddressAttributes as $k) {
+                    $preFilled[$addressType . '_' . $k] = '';
+                }
+            }
+        }
+    }
 }

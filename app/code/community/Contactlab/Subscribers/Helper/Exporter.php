@@ -59,13 +59,14 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'notes' => 'notes',
             'custom_1' => 'custom_1',
             'custom_2' => 'custom_2'
-        ), $this->_getCustomAttributesMap($task));
+        ), array_merge($this->_getCustomAttributesMap($task)), $this->getStatsAttributesMap());
     }
 
     /** Attributes map for addresses. */
     public function getAddressesAttributesMap() {
         return array(
             'country_id' => 'country_id',
+            'country' => 'country',
             'region_id' => 'region_id',
             'region' => 'region',
             'postcode' => 'postcode',
@@ -115,7 +116,7 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
     /**
      *     Map new subscriber fields names to customer attribute names
      */
-    public function getSubscribertoCustomerAttributeMap() {
+    public function getSubscriberToCustomerAttributeMap() {
         return array(
             'first_name' => 'firstname',
             'last_name' => 'lastname',
