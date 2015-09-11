@@ -26,8 +26,8 @@ before_script:
   - mysql -e 'create database contactlab_test;'
 
   - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/contactlab_db.sql.gz
-  - gunzip -c contactlab_db.sql.gz | mysql -eD contactlab_db
-  - gunzip -c contactlab_db.sql.gz | mysql -eD contactlab_test
+  - gunzip -c contactlab_db.sql.gz | mysql -D contactlab_db
+  - gunzip -c contactlab_db.sql.gz | mysql -D contactlab_test
 
   - php cron.php
 script: phpunit tests
