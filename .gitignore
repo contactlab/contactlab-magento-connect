@@ -596,3 +596,13 @@ lib/Net/
 lib/Pelago/
 skin/adminhtml/default/default/images/logo_email.gif
 skin/adminhtml/default/default/images/logo_print.gif
+.modman/
+app/code/community/EcomDev/
+app/etc/local.xml.phpunit
+app/etc/modules/EcomDev_PHPUnit.xml
+app/etc/modules/EcomDev_PHPUnitTest.xml
+app/etc/modules/ZDisable_EcomDev_PHPUnitTest.xml
+lib/EcomDev/
+lib/Spyc
+lib/vfsStream
+phpunit.xml.dist
