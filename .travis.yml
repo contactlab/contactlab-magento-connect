@@ -26,4 +26,6 @@ before_script:
   - gunzip -c contactlab_db.sql.gz | mysql -D contactlab_test
 
   - php cron.php
-script: phpunit tests
+  - pushd shell && php ecomdev-phpunit.php -a magento-config --db-name contactlab_test --base-url http://magento.contactlab.travis/ && popd
+
+script: phpunit
