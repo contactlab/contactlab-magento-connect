@@ -35,7 +35,7 @@ before_script:
   - sed -i -re 's/\{\{key\}\}/17f5448de5bba6da56bd013c43d73df6/g' app/etc/local.xml
   - sed -i -re 's/\{\{db_prefix\}\}//g' app/etc/local.xml
 
-  - mysql -e 'create database contactlab;'
+  - mysql -e 'create database contactlab_db;'
   - mysql -e 'create database contactlab_test;'
   - php cron.php
 script: phpunit tests
