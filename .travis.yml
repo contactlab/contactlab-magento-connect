@@ -1,4 +1,5 @@
 # git init && git remote add origin https://github.com/contactlab/contactlab-magento-connect.git && git pull origin develop && git pull origin  feature/travis-test && git checkout feature/travis-test
+
 language: php
 php:
   - 5.5
@@ -9,6 +10,7 @@ test:
   encoding: utf8
 before_script:
   - curl -s http://getcomposer.org/installer | php
+  - # php composer.phar self-update
   - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/composer.json
   - php composer.phar install
   - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
