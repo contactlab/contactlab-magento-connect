@@ -152,4 +152,11 @@
             </soap>
         </contactlab_commons>
     </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <Contactlab_Commons />
+            </modules>
+        </suite>
+    </phpunit>
 </config>

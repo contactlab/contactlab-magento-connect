@@ -1,8 +1,4 @@
-# git init
-# git remote add origin https://github.com/contactlab/contactlab-magento-connect.git
-# git pull origin develop
-# git pull origin  feature/travis-test
-# git checkout feature/travis-test
+# git init && git remote add origin https://github.com/contactlab/contactlab-magento-connect.git && git pull origin develop && git pull origin  feature/travis-test && git checkout feature/travis-test
 language: php
 php:
   - 5.5
