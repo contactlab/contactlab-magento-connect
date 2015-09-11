@@ -1,3 +1,7 @@
+# git init
+# git remote add origin https://github.com/contactlab/contactlab-magento-connect.git
+# git pull origin develop
+# git checkout feature/travis-test
 language: php
 php:
   - 5.5
@@ -12,7 +16,7 @@ before_script:
   - php composer.phar install
   - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
   - chmod +x modman
-  - modman init
-  - modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
+  - ./modman init
+  - ./modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
   - mysql -e 'create database contactlab;'
 script: phpunit tests
