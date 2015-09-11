@@ -1,6 +1,7 @@
 # git init
 # git remote add origin https://github.com/contactlab/contactlab-magento-connect.git
 # git pull origin develop
+# git pull origin  feature/travis-test
 # git checkout feature/travis-test
 language: php
 php:
@@ -19,23 +20,14 @@ before_script:
   - ./modman init
   - ./modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
 
-  - mv app/etc/local.xml.template app/etc/local.xml
-  - sed -i -re 's/\{\{admin_frontname\}\}/admin/g' app/etc/local.xml
-  - sed -i -re 's/\{\{session_save\}\}/files/g' app/etc/local.xml
-  - sed -i -re 's/\{\{session_save\}\}/files/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_pdo_type\}\}//g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_type\}\}/pdo_mysql/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_model\}\}/mysql4/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_init_statemants\}\}/SET NAMES utf8/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_name\}\}/contactlab_db/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_pass\}\}//g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_user\}\}/travis/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_host\}\}/localhost/g' app/etc/local.xml
-  - sed -i -re 's/\{\{date\}\}/Wed, 28 Aug 2013 09:51:02 +0000/g' app/etc/local.xml
-  - sed -i -re 's/\{\{key\}\}/17f5448de5bba6da56bd013c43d73df6/g' app/etc/local.xml
-  - sed -i -re 's/\{\{db_prefix\}\}//g' app/etc/local.xml
+  - pushd app/etc && wget http://www.webformat.com/4GMVhgIhcUaHIz9s/local.xml && popd
 
   - mysql -e 'create database contactlab_db;'
   - mysql -e 'create database contactlab_test;'
+
+  - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/contactlab_db.sql.gz
+  - gunzip -c contactlab_db.sql.gz | mysql -eD contactlab_db
+  - gunzip -c contactlab_db.sql.gz | mysql -eD contactlab_test
+
   - php cron.php
 script: phpunit tests
