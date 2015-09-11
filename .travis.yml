@@ -7,5 +7,12 @@ test:
   username: travis
   encoding: utf8
 before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/composer.json
+  - php composer.phar install
+  - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
+  - chmod +x modman
+  - modman init
+  - modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
   - mysql -e 'create database contactlab;'
 script: phpunit tests
