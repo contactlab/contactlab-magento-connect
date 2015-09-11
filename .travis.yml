@@ -1,0 +1,11 @@
+language: php
+php:
+  - 5.5
+test:
+  adapter: mysql
+  database: myapp_test
+  username: travis
+  encoding: utf8
+before_script:
+  - mysql -e 'create database contactlab;'
+script: phpunit --bootstrap src/autoload.php tests
