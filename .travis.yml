@@ -8,4 +8,4 @@ test:
   encoding: utf8
 before_script:
   - mysql -e 'create database contactlab;'
-script: phpunit --bootstrap src/autoload.php tests
+script: phpunit tests
