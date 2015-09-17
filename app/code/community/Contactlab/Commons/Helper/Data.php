@@ -44,6 +44,16 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
+     * Private log function.
+     */
+    private function _log($value, $level) {
+        Mage::log(sprintf("%-10s %-6s - %s", "Global",
+                self::$LEVELS [$level], $value), null, "contactlab.log", true);
+        Mage::getModel("contactlab_commons/log")
+                ->setDescription($value)->setLogLevel($level)->save();
+    }
+
+    /**
      * Alert: action must be taken immediately
      */
     public function logAlert($value) {
@@ -79,32 +89,10 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * Informational: informational messages
-     */
-    public function logInfo($value) {
-        $this->_log($value, Zend_Log::INFO);
-    }
-
-    /**
      * Debug: debug messages
      */
     public function logDebug($value) {
         $this->_log($value, Zend_Log::DEBUG);
-    }
-
-    /**
-     * Private log function.
-     */
-    private function _log($value, $level) {
-        Mage::log(sprintf("%-10s %-6s - %s", "Global",
-                self::$LEVELS [$level], $value), null, "contactlab.log", true);
-        Mage::getModel("contactlab_commons/log")
-                ->setDescription($value)->setLogLevel($level)->save();
-    }
-
-    /** Check if debug is enabled. */
-    public function isDebug() {
-        return Mage::getStoreConfigFlag("contactlab_commons/global/debug");
     }
 
     /** Enable Zend DB Profiler. */
@@ -114,6 +102,11 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         Mage::getSingleton('core/resource')->getConnection('core_write')->getProfiler()->setEnabled(true);
         Varien_Profiler::enable();
+    }
+
+    /** Check if debug is enabled. */
+    public function isDebug() {
+        return Mage::getStoreConfigFlag("contactlab_commons/global/debug");
     }
 
     /** Flush Zend DB Profiler. */
@@ -193,7 +186,7 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     /**
      * Log function call.
      * @param String $functionName
-     * @param String $storeId
+     * @param bool|String $storeId
      */
     public function logCronCall($functionName, $storeId = false)
     {
@@ -209,5 +202,12 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
                 "Function %s called. pid: %s, uid: %s, sapi: %s.",
                 $functionName, $pid, $uid, $sapi));
         }
+    }
+
+    /**
+     * Informational: informational messages
+     */
+    public function logInfo($value) {
+        $this->_log($value, Zend_Log::INFO);
     }
 }
