@@ -233,7 +233,7 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
      */
     public function doSendToAllCustomers($code, $storeId) {
         if ($code !== 'CART' && $code !== 'WISHLIST') {
-            $code = 'GENERIG';
+            $code = 'GENERIC';
         }
         $code = strtolower($code);
         return Mage::getStoreConfigFlag("contactlab_template/$code/send_to_not_subscribed", $storeId);
