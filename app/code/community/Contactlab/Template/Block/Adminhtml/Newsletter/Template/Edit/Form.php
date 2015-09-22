@@ -40,7 +40,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Edit_Form extends 
         $fieldSet->addField('store_id', 'select', array(
             'required' => false,
             'name'     => 'store_id',
-            'label'    => $h->__('Store View'),
+            'label'    => Mage::helper('adminhtml')->__('Store View'),
             'values'   => $stores,
             'value'    => $model->getStoreId()));
 
@@ -287,9 +287,11 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Edit_Form extends 
      */
     private function getStoresOptions()
     {
+        /* @var $h Contactlab_Template_Helper_Data */
+        $h = Mage::helper('contactlab_template');
         $stores = Mage::getModel('adminhtml/system_config_source_store')->toOptionArray();
         $stores = array_reverse($stores);
-        $stores['none'] = 'None';
+        $stores['none'] = $h->__('Any');
         $stores = array_reverse($stores);
         return $stores;
     }
