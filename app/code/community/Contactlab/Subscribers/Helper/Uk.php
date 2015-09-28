@@ -6,8 +6,8 @@
 class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
     /**
      * 
-     * @param numeric $customerId
-     * @param numeric $subscriberId
+     * @param int $customerId
+     * @param int $subscriberId
      * @return void
      */
     public function update($customerId, $subscriberId) {
@@ -37,10 +37,20 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
         }
     }
 
+    /**
+     * Search by customer_id
+     * @param int $id
+     * @return bool|Contactlab_Subscribers_Model_Uk
+     */
     public function searchByCustomerId($id) {
         return $this->_search('customer_id', $id);
     }
 
+    /**
+     * Search by subscriber id.
+     * @param int $id
+     * @return bool|Contactlab_Subscribers_Model_Uk
+     */
     public function searchBySubscriberId($id) {
         return $this->_search('subscriber_id', $id);
     }
@@ -55,15 +65,33 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
         return $model->hasEntityId() ? $model : FALSE;
     }
 
+    /**
+     * Does the row exist?
+     * @param $column
+     * @param $id
+     * @return bool
+     */
     private final function _exists($column, $id) {
         return $this->_search($column, $id) ? TRUE : FALSE;
     }
 
+    /**
+     * Insert subscriber id with customer id.
+     * @param int $subscriberId
+     * @param int $customerId
+     * @return Contactlab_Subscribers_Model_Uk
+     */
     private final function _insertSubscriberIdCustomerId($subscriberId, $customerId) {
         $model = Mage::getModel("contactlab_subscribers/uk");
         return $model->setCustomerId($customerId)->setSubscriberId($subscriberId)->save();
     }
 
+    /**
+     * Update subscriberId from customerId
+     * @param $customerId
+     * @param $subscriberId
+     * @return bool
+     */
     private final function _updateSubscriberIdFromCustomerId($customerId, $subscriberId) {
         $model = Mage::getModel("contactlab_subscribers/uk")->load($customerId, 'customer_id');
         if (!$model->hasEntityId()) {
@@ -72,6 +100,12 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
         return $model->setSubscriberId($subscriberId)->save();
     }
 
+    /**
+     * Update CustomerId from SubscriberId
+     * @param $subscriberId
+     * @param $customerId
+     * @return bool|Contactlab_Subscribers_Model_Uk
+     */
     private final function _updateCustomerIdFromSubscriberId($subscriberId, $customerId) {
         $model = Mage::getModel("contactlab_subscribers/uk")->load($subscriberId, 'subscriber_id');
         if (!$model->hasEntityId()) {
@@ -87,6 +121,10 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
     }
 
 
+    /**
+     * @param int $customerId
+     * @return int
+     */
     private function _getSubscriberIdFromCustomerId($customerId) {
         $customer = Mage::getModel("customer/customer")->load($customerId);
         $subscriber = Mage::getModel("newsletter/subscriber")->loadByCustomer($customer);
@@ -96,6 +134,8 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
     /**
      * Update all.
      * @param boolean $doIt
+     * @param Contactlab_Commons_Model_Task $task
+     * @return bool
      */
     public function updateAll($doIt, Contactlab_Commons_Model_Task $task = null) {
         /* @var $model Contactlab_Subscribers_Model_Uk */
@@ -118,6 +158,7 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract {
 
     /**
      * Truncate table
+     * @param Contactlab_Commons_Model_Task $task
      */
     public function truncate(Contactlab_Commons_Model_Task $task = null) {
         /* @var $model Contactlab_Subscribers_Model_Uk */
