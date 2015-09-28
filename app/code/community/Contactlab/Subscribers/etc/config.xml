@@ -287,6 +287,15 @@
                 </observers>
             </contactlab_subscribers_uk_subscriber_promoted_to_customer>
         </events>
+        <routers>
+            <contactlab_subscribers>
+                <use>standard</use>
+                <args>
+                    <module>Contactlab_Subscribers</module>
+                    <frontName>contactlab_subscribers</frontName>
+                </args>
+            </contactlab_subscribers>
+        </routers>
     </frontend>
     <default>
         <contactlab_subscribers>

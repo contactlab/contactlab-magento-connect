@@ -3,19 +3,33 @@
 /**
  * Task model.
  *
- * @method int getTaskId()
- * @method int getStoreId()
- * @method int getMaxRetries()
- * @method int getNumberOfRetries()
- * @method getTaskData()
  * @method setAutoDelete(bool $value)
  * @method setSuppressNotification(bool $value)
+ * @method int getTaskId()
+ * @method Contactlab_Commons_Model_Task setTaskId(int $value)
+ * @method string getTaskCode()
+ * @method Contactlab_Commons_Model_Task setTaskCode(string $value)
+ * @method string getCreatedAt()
+ * @method Contactlab_Commons_Model_Task setCreatedAt(string $value)
+ * @method string getPlannedAt()
+ * @method Contactlab_Commons_Model_Task setPlannedAt(string $value)
+ * @method string getDescription()
+ * @method Contactlab_Commons_Model_Task setDescription(string $value)
+ * @method string getTaskData()
+ * @method Contactlab_Commons_Model_Task setTaskData(string $value)
+ * @method int getNumberOfRetries()
+ * @method Contactlab_Commons_Model_Task setNumberOfRetries(int $value)
+ * @method int getMaxRetries()
+ * @method Contactlab_Commons_Model_Task setMaxRetries(int $value)
+ * @method int getRetriesInterval()
+ * @method Contactlab_Commons_Model_Task setRetriesInterval(int $value)
+ * @method string getModelName()
+ * @method string getStatus()
+ * @method  getMaxValue()
+ * @method  getProgressValue()
+ * @method int getStoreId()
+ * @method Contactlab_Commons_Model_Task setStoreId(int $value)
  *
- * @method Contactlab_Commons_Model_Task setTaskData($value)
- *
- * @method Contactlab_Commons_Model_Task setTaskCode($value)
- * @method Contactlab_Commons_Model_Task setDescription($value)
- * @method Contactlab_Commons_Model_Task setPlannedAt($value)
  */
 class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 
