@@ -13,6 +13,9 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Renderer_Store
      * @return string
      */
     public function render(Varien_Object $row) {
+        if ($row->getStoreId() === null) {
+            return '';
+        }
     	return Mage::app()->getStore($row->getStoreId())->getName();
     }
 }

@@ -18,6 +18,14 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid extends Mage_
                 'index'=>'template_code',
                 'width' => 1
         ));
+        $this->addColumn('store_id',
+            array(
+                'header'=>Mage::helper('newsletter')->__('Store View'),
+                'index'=>'store_id',
+                'width' => 1,
+                'type' => 'store',
+                'renderer' => 'contactlab_commons/adminhtml_tasks_renderer_store'
+            ));
 
         $this->addColumn('template_type_name',
             array(

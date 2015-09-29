@@ -1,7 +1,10 @@
 <?php
 
 
-/** Newsletter XmlDelivery Model. */
+/**
+ * Newsletter XmlDelivery Model.
+ * @method Contactlab_Template_Model_Newsletter_XmlDelivery setTask($value)
+ */
 class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_Abstract {
     /**
      * Send.

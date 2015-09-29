@@ -4,6 +4,11 @@
  * Abstract processor.
  * This abstract class and each implementing class is designed for
  * search and filter subscribers for each template to be queued.
+ *
+ * @method getSendToAllCustomers()
+ * @method getDebugInfo()
+ *
+ * @method setSendToAllCustomers($value)
  */
 abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         extends Varien_Object
@@ -108,9 +113,10 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
     /**
      * Apply filter $filter withi $params array to the cached collection.
      *
-     * @param Contactlab_Template_Model_Newsletter_Processor_Filter_Interface instance $filter
-     * @param $parameters = array()
+     * @param $filter
+     * @param array $parameters = array()
      * @return $this
+     * @throws Zend_Exception
      */
     public function applyFilter($filter, $parameters = array()) {
         if ($this->hasStop() && $this->getStop()) {

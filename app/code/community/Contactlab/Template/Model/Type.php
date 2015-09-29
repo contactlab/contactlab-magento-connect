@@ -2,6 +2,8 @@
 
 /**
  * Template type model.
+ *
+ * @method String getTemplateTypeCode()
  */
 class Contactlab_Template_Model_Type extends Mage_Core_Model_Abstract {
 
