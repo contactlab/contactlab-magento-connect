@@ -111,7 +111,8 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid extends Mage_
         /* @var $collection Mage_Newsletter_Model_Resource_Template_Collection */
         $collection = Mage::getResourceSingleton('newsletter/template_collection')
             ->useOnlyActual();
-        $collection->join(array('template_types' => 'contactlab_template/type'),
+        $collection->getSelect()
+            ->joinLeft(array('template_types' => $collection->getTable('contactlab_template/type')),
                 "main_table.template_type_id = template_types.entity_id",
                 array('template_type_name' => 'name'));
         $this->setCollection($collection);
