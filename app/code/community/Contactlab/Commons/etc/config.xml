@@ -137,7 +137,7 @@
             <global>
                 <!--days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug-->
-                <platform_version>2.2.3</platform_version>
+                <platform_version>2.2.7</platform_version>
             </global>
             <connection>
                 <!--type>1</type>

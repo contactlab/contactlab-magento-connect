@@ -1,9 +1,13 @@
 # Changelog 
 
+## 2.2.7 (2015-09-30)
 
-## unreleased
+- Fixed a bug where previously inserted newsletter templates would not be displayed. ([3c8c906](https://github.com/contactlab/contactlab-magento-connect/commit/3c8c906c6a7beb43d77d313ccc2cfdad28474139))
 
-- Templates are now store view dependant ([831d375](https://github.com/contactlab/contactlab-magento-connect/commit/831d375c550d4f52a2c361d71d55a1aee5193443))
+
+## 2.2.6 (2015-09-29)
+
+- Templates may now be associated to a specific store view ([831d375](https://github.com/contactlab/contactlab-magento-connect/commit/831d375c550d4f52a2c361d71d55a1aee5193443))
 
 
 ## 2.2.5 (2015-09-08)
