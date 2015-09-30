@@ -1,5 +1,9 @@
 # Changelog 
 
+## 2.2.7 (2015-09-30)
+
+- Fixed a bug where previously inserted newsletter templates would not be displayed. ([3c8c906](https://github.com/contactlab/contactlab-magento-connect/commit/3c8c906c6a7beb43d77d313ccc2cfdad28474139))
+
 
 ## 2.2.6 (2015-09-29)
 
