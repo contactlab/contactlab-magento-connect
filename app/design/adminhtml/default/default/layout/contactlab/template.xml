@@ -2,7 +2,7 @@
 <layout version="0.1.0">
     <contactlab_template_adminhtml_types_index>
         <reference name="content">
-            <block type="contactlab_template/adminhtml_type" name="contactlab_template_type" />
+            <block type="contactlab_template/adminhtml_type" name="contactlab_template_type"/>
         </reference>
     </contactlab_template_adminhtml_types_index>
     <contactlab_template_adminhtml_types_grid>
@@ -14,7 +14,7 @@
         <update handle="editor"/>
         <reference name="content">
             <block type="contactlab_template/adminhtml_type_edit" name="contactlab_template_edit"
-                   template="contactlab/template/type/edit.phtml" />
+                   template="contactlab/template/type/edit.phtml"/>
         </reference>
     </contactlab_template_adminhtml_types_edit>
     <adminhtml_newsletter_template_edit>
@@ -47,7 +47,7 @@
                 </block>
                 <block type="adminhtml/template"
                        name="contactlab.template.email"
-                       template="contactlab/template/tasks/debugemail.phtml" />
+                       template="contactlab/template/tasks/debugemail.phtml"/>
             </block>
         </reference>
     </contactlab_commons_adminhtml_tasks_index>

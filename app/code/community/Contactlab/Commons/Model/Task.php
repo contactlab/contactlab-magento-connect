@@ -5,6 +5,8 @@
  *
  * @method int getTaskId()
  * @method int getStoreId()
+ * @method Contactlab_Commons_Model_Task setStoreId($value)
+ * @method Contactlab_Commons_Model_Task setTaskCode($value)
  * @method int getMaxRetries()
  * @method int getNumberOfRetries()
  * @method getTaskData()

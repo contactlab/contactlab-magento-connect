@@ -2,6 +2,11 @@
 
 /**
  * Uk table model.
+ * @method bool getSubscriberId()
+ * @method bool hasEntityId()
+ * @method bool hasSubscriberId()
+ * @method Contactlab_Commons_Model_Task getTask()
+ * @method setHasNotices($true)
  */
 class Contactlab_Subscribers_Model_Uk extends Mage_Core_Model_Abstract {
     /**
@@ -11,19 +16,25 @@ class Contactlab_Subscribers_Model_Uk extends Mage_Core_Model_Abstract {
         $this->_init("contactlab_subscribers/uk");
     }
     
-    /** Remove null null records. */
-    public function purge($doit = true) {
-        $this->getResource()->purge($doit);
+    /**
+     * Remove null null records.
+     * @param bool $doIt
+     */
+    public function purge($doIt = true) {
+        $this->getResource()->purge($doIt);
     }
 
-    /** Update keys. */
-    public function update($doit = false) {
+    /**
+     * Update keys.
+     * @param bool $doIt
+     */
+    public function update($doIt = false) {
         /* @var $resource Contactlab_Subscribers_Model_Resource_Uk */
         $resource = $this->getResource();
         $this->setHasNotices(false);
         $resource->setHasNotices(false);
         $resource->setTask($this->getTask());
-        $resource->update($doit);
+        $resource->update($doIt);
         if ($resource->getHasNotices()) {
             $this->setHasNotices(true);
         }
