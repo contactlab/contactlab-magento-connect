@@ -2,8 +2,13 @@
 var templateTypeOptionsUpdater = (function ($) {
     var my = {}, that = {};
 
+
+    my.getTemplateTypeId = function () {
+        return $("template_type_id").getValue() || 'undefined';
+    };
+
     my.updateTemplateTypeOptions = function () {
-        var options = my.templateTypeOptions[$("template_type_id").getValue()],
+        var options = my.templateTypeOptions[my.getTemplateTypeId()],
             showFilterProducts = options.visible,
             isXmlEnabled = $('enable_xml_delivery').getValue() === '1';
         if ($('is_cron_enabled').getValue() !== (options.useCron ? '1' : '0')) {
@@ -46,7 +51,7 @@ var templateTypeOptionsUpdater = (function ($) {
     };
 
     my.updateTemplateTypeOptionsDefaults = function () {
-        var options = my.templateTypeOptions[$("template_type_id").getValue()];
+        var options = my.templateTypeOptions[my.getTemplateTypeId()];
         my.updateDefault('min_minutes_from_last_update', options.min_minutes_from_last_update);
         my.updateDefault('max_minutes_from_last_update', options.max_minutes_from_last_update);
         my.updateDefault('min_value', options.min_value);
@@ -58,7 +63,7 @@ var templateTypeOptionsUpdater = (function ($) {
     };
 
     my.recalcVisible = function () {
-        var options = my.templateTypeOptions[$("template_type_id").getValue()],
+        var options = my.templateTypeOptions[my.getTemplateTypeId()],
             showFilterProducts = options.visible,
             isXmlEnabled = $('enable_xml_delivery').getValue() === '1',
             isCronEnabled = $('is_cron_enabled').getValue() === '1',
@@ -149,6 +154,7 @@ var templateTypeOptionsUpdater = (function ($) {
 
     my.init = function () {
         my.templateTypeOptions = <?php echo $this->getTemplateTypeOptionsJson() ?>;
+        my.templateTypeOptions['undefined'] = {};
         Event.observe('template_type_id', 'change', my.updateTemplateTypeOptions);
         Event.observe('is_cron_enabled', 'change', my.recalcVisible);
         Event.observe('flg_html_txt', 'change', my.recalcVisible);

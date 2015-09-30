@@ -596,3 +596,5 @@ lib/Net/
 lib/Pelago/
 skin/adminhtml/default/default/images/logo_email.gif
 skin/adminhtml/default/default/images/logo_print.gif
+.modman/
+phpunit.xml.dist
