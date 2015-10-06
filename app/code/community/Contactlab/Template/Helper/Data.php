@@ -11,13 +11,14 @@ class Contactlab_Template_Helper_Data extends Mage_Core_Helper_Abstract {
      *
      * @param int|string $storeId = 0
      * @param string $debugAddress
+     * @param bool $excludeTest Exclude test mode templates
      * @return array
      */
-    public function scan($storeId = 0, $debugAddress = null) {
+    public function scan($storeId = 0, $debugAddress = null, $excludeTest = true) {
         $rv = array();
         /* @var $templates Mage_Newsletter_Model_Resource_Template_Collection */
         $templates = Mage::getResourceModel("newsletter/template_collection")
-            ->loadActiveTemplatesForCron($storeId);
+            ->loadActiveTemplatesForCron($storeId, $excludeTest);
 
         // $helper->logDebug("Scan " . $templates->count() . " templates found");
         $info = array();

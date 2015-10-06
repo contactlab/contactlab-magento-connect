@@ -33,7 +33,7 @@ class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Co
      */
     private function _scanByStore($storeId, $debugAddress) {
 		$session = Mage::getSingleton('adminhtml/session');
-        $rv = Mage::helper('contactlab_template')->scan($storeId, $debugAddress);
+        $rv = Mage::helper('contactlab_template')->scan($storeId, $debugAddress, false);
         if (is_array($rv)) {
             foreach ($rv as $k => $v) {
     			$session->addSuccess(sprintf("%s: %s", $k, $v));
