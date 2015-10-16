@@ -39,15 +39,6 @@ class Contactlab_Subscribers_Model_Checks_WsdlCheck extends Contactlab_Subscribe
     }
 
     /**
-     * Need Database?
-     * @return bool
-     */
-    public function needMageRun()
-    {
-        return true;
-    }
-
-    /**
      * Get position.
      * @return int
      */

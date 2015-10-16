@@ -61,6 +61,10 @@ class Contactlab_Subscribers_Helper_Checks extends Mage_Core_Helper_Abstract
         return $this->_lastChecks;
     }
 
+    /**
+     * Get last checks exit code.
+     * @return string
+     */
     public function getLastExitCode()
     {
         /* @var $check Contactlab_Subscribers_Model_Checks_CheckInterface */
@@ -70,5 +74,33 @@ class Contactlab_Subscribers_Helper_Checks extends Mage_Core_Helper_Abstract
             }
         }
         return Contactlab_Subscribers_Model_Checks_CheckInterface::SUCCESS;
+    }
+
+    /**
+     * Run available essential checks and return last status.
+     * @return bool
+     */
+    public function checkAvailableEssentialChecks() {
+        $this->runAvailableChecks(true);
+        return $this->getLastExitCode() === Contactlab_Subscribers_Model_Checks_CheckInterface::SUCCESS;
+    }
+
+    /**
+     * Throw Last Check Exception.
+     * @param Contactlab_Commons_Model_Task $task
+     * @return Exception
+     */
+    public function getLastCheckException(Contactlab_Commons_Model_Task $task) {
+        $msg = array();
+        /* @var $check Contactlab_Subscribers_Model_Checks_CheckInterface */
+        foreach ($this->_lastChecks as $check) {
+            if ($check->getExitCode() === Contactlab_Subscribers_Model_Checks_CheckInterface::ERROR) {
+                foreach ($check->getErrors() as $error) {
+                    $task->addEvent($error, true);
+                    $msg[] = $error;
+                }
+            }
+        }
+        return new Exception(implode('<br>', $msg));
     }
 }
