@@ -99,6 +99,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 foreach ($this->statsAttributesMap as $k => $v) {
                     $toFill[$k] = $item->getData($v);
                 }
+                $this->_fillCustomerGroupAttributes($toFill, $item);
                 $this->_manageCustomerClsFlag($toFill, $item);
 
                 $this->found = true;
@@ -191,6 +192,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         // Stats
         $this->_addStatsToSelect($rv);
         $this->_addAddressesToSelect($rv);
+        $this->_addCustomerGroupToSelect($rv);
         $this->_manageExportPolicy($rv,
             array(
                 'e' => array('created_at', 'updated_at'),
@@ -474,6 +476,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             'group_id', 'group_name', 'lang') as $k) {
             $toFill[$k] = $store[$k];
         }
+    }
+
+    private function _fillCustomerGroupAttributes(array &$toFill, Varien_Object $item)
+    {
+        $toFill['customer_group_id'] = $item->getData('customer_group_id');
+        $toFill['customer_group_name'] = $item->getData('customer_group_name');
     }
 
     /**
@@ -886,5 +894,23 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 }
             }
         }
+    }
+
+    /**
+     * @param Varien_Data_Collection_Db $collection
+     * @return Varien_Db_Select
+     */
+    private function _addCustomerGroupToSelect(Varien_Data_Collection_Db $collection)
+    {
+        return $collection->getSelect()->joinInner(
+            array(
+                'customer_group' => $this->resource->getTableName('customer/customer_group')
+            ),
+            "customer_group.customer_group_id = e.group_id",
+            array(
+                'customer_group_name' => 'customer_group_code',
+                'customer_group_id' => 'customer_group_id'
+            )
+        );
     }
 }

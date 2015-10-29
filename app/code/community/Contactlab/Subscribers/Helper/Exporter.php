@@ -58,7 +58,9 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'mobilephone' => 'mobilephone',
             'notes' => 'notes',
             'custom_1' => 'custom_1',
-            'custom_2' => 'custom_2'
+            'custom_2' => 'custom_2',
+            'customer_group_id' => 'customer_group_id',
+            'customer_group_name' => 'customer_group_name'
         ), array_merge($this->_getCustomAttributesMap($task)), $this->getStatsAttributesMap());
     }
 
