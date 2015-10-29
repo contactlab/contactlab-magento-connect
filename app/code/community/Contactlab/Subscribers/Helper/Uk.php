@@ -12,29 +12,33 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract
      * @return void
      */
     public function update($customerId, $subscriberId) {
-        if (is_null($customerId) && is_null($subscriberId)) {
-            return;
-        }
-        if (is_null($subscriberId)) {
-            $subscriberId = $this->_getSubscriberIdFromCustomerId($customerId);
-        }
-        if (is_null($subscriberId)) {
-            // Not subscriber customer
-            if (!$this->_exists('customer_id', $customerId)) {
-                $this->_insertSubscriberIdCustomerId(NULL, $customerId);
+        try {
+            if (is_null($customerId) && is_null($subscriberId)) {
+                return;
             }
-        } else if (is_null($customerId)) {
-            // Subscriber not customer
-            if (!$this->_exists('subscriber_id', $subscriberId)) {
-                $this->_insertSubscriberIdCustomerId($subscriberId, NULL);
+            if (is_null($subscriberId)) {
+                $subscriberId = $this->_getSubscriberIdFromCustomerId($customerId);
             }
-        } else {
-            // Subscriber customer
-            if (!$this->_updateCustomerIdFromSubscriberId($subscriberId, $customerId)) {
-                if (!$this->_updateSubscriberIdFromCustomerId($customerId, $subscriberId)) {
-                    $this->_insertSubscriberIdCustomerId($subscriberId, $customerId);
+            if (is_null($subscriberId)) {
+                // Not subscriber customer
+                if (!$this->_exists('customer_id', $customerId)) {
+                    $this->_insertSubscriberIdCustomerId(NULL, $customerId);
+                }
+            } else if (is_null($customerId)) {
+                // Subscriber not customer
+                if (!$this->_exists('subscriber_id', $subscriberId)) {
+                    $this->_insertSubscriberIdCustomerId($subscriberId, NULL);
+                }
+            } else {
+                // Subscriber customer
+                if (!$this->_updateCustomerIdFromSubscriberId($subscriberId, $customerId)) {
+                    if (!$this->_updateSubscriberIdFromCustomerId($customerId, $subscriberId)) {
+                        $this->_insertSubscriberIdCustomerId($subscriberId, $customerId);
+                    }
                 }
             }
+        } catch (Exception $e) {
+            $this->_reportException($e);
         }
     }
 
@@ -165,10 +169,10 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract
      */
     public function addUpdateUkTask() {
         return Mage::getModel("contactlab_commons/task")
-                ->setTaskCode("UpdateUkTask")
-                ->setModelName('contactlab_subscribers/task_updateUkRunner')
-                ->setDescription('Update uk table')
-                ->save();
+            ->setTaskCode("UpdateUkTask")
+            ->setModelName('contactlab_subscribers/task_updateUkRunner')
+            ->setDescription('Update uk table')
+            ->save();
     }
 
     /**
@@ -187,10 +191,10 @@ class Contactlab_Subscribers_Helper_Uk extends Mage_Core_Helper_Abstract
     /** Add truncate uk task. */
     public function addTruncateUkTask() {
         return Mage::getModel("contactlab_commons/task")
-                ->setTaskCode("TruncateUkTask")
-                ->setModelName('contactlab_subscribers/task_truncateUkRunner')
-                ->setDescription('Truncate uk table')
-                ->save();
+            ->setTaskCode("TruncateUkTask")
+            ->setModelName('contactlab_subscribers/task_truncateUkRunner')
+            ->setDescription('Truncate uk table')
+            ->save();
     }
 
     /**
