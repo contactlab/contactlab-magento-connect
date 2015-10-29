@@ -75,7 +75,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_addAddressFields($preFilled);
 
         while (true) {
-            $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer, $preFilled);
+            $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer);
             $subscribersInCustomers->getSelect()->limitPage($page, $limit);
             Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
             $found = false;
@@ -154,12 +154,10 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     /**
      * Create subscribers in customers collection.
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesCustomer
-     * @param array $preFilled
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
     private function _createSubscribersInCustomersCollection(
-        Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesCustomer,
-        array $preFilled)
+        Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesCustomer)
     {
         /**
          * @var $subscribersInCustomers Mage_Customer_Model_Resource_Customer_Collection
@@ -250,7 +248,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         Mage::helper("contactlab_commons")->logDebug("_addNotCustomerRecords");
         $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
         $this->_addAddressFields($preFilled);
-        $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($preFilled);
+        $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers();
 
         $counter = 0;
         $max = $subscribersNotInCustomers->getSize();
@@ -259,7 +257,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $limit = 200000;
         $page = 1;
         while (true) {
-            $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers($preFilled);
+            $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers();
             $subscribersNotInCustomers->getSelect()->limitPage($page, $limit);
             Mage::helper("contactlab_commons")->logDebug($subscribersNotInCustomers->getSelect()->assemble());
             $found = false;
@@ -314,10 +312,9 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
     /**
      * Create subscribers not in customers.
-     * @param $preFilled
      * @return Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection
      */
-    private function _createSubscribersNotInCustomers($preFilled)
+    private function _createSubscribersNotInCustomers()
     {
         /** @var $rv Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection */
         $rv = Mage::getModel('newsletter/subscriber')->getCollection();
@@ -876,6 +873,10 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         return true;
     }
 
+    /**
+     * Add address fields.
+     * @param array $preFilled
+     */
     private function _addAddressFields(array &$preFilled)
     {
         foreach (array('billing', 'shipping') as $addressType) {

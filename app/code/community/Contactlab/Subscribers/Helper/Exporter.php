@@ -9,9 +9,9 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
 
     /** Decode id attributes.
      * @param Mage_Core_Model_Abstract $model
-     * @param $name
-     * @param $attributeName
-     * @param $value
+     * @param string $name
+     * @param string $attributeName
+     * @param string  $value
      * @return string
      */
     public function decode(Mage_Core_Model_Abstract $model, $name, $attributeName, $value) {
@@ -213,7 +213,10 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
         return false;
     }
 
-    /** Manage export policy data after export success. */
+    /**
+     * Manage export policy data after export success.
+     * @param Contactlab_Commons_Model_Task $task
+     */
     public function saveLastExportDatetime(Contactlab_Commons_Model_Task $task) {
         // FIXME diff by store?
         $lastExport = Mage::getModel("core/date")->gmtDate();

@@ -15,9 +15,11 @@
  *
  * @method Contactlab_Commons_Model_Task setTaskData($value)
  *
- * @method Contactlab_Commons_Model_Task setTaskCode($value)
  * @method Contactlab_Commons_Model_Task setDescription($value)
  * @method Contactlab_Commons_Model_Task setPlannedAt($value)
+ *
+ * @method bool getPreventDelete()
+ * @method string getStatus()
  */
 class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 
@@ -143,12 +145,8 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
             $event->setSendAlert(1);
             if (!$this->getSuppressNotification()) {
                 // Changed for backward compatibility to 1.6
-                if ($this->_useCoreAddCritical()) {
-                    Mage::getModel('adminnotification/inbox')
-                        ->addCritical(sprintf("[Task %s]: %s", $this->getTaskId(), $description), "Contactlab");
-                } else {
-                    $this->_addCritical(sprintf("[Task %s]: %s", $this->getTaskId(), $description), "Contactlab");
-                }
+                Mage::helper('contactlab_commons/tasks')
+                    ->addCriticalMessage(sprintf("[Task %s]: %s", $this->getTaskId(), $description));
             } else {
                 $this->setSuppressNotification(false);
             }
@@ -166,33 +164,6 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 
         return $event;
     }
-
-    /** For Mage 1.7 or newer. */
-    private function _useCoreAddCritical() {
-        return Mage::helper("contactlab_commons")->isMageSameOrNewerOf(1, 7);
-    }
-
-    /**
-     * Add new message (Backporting)
-     *
-     * @param string $title
-     * @param string $description
-     * @return $this
-     */
-    private function _addCritical($title, $description) {
-        $t = Mage::getModel('adminnotification/inbox');
-        $date = date('Y-m-d H:i:s');
-        $t->parse(array(array(
-            'severity'    => Mage::helper('adminnotification')->__('critical'),
-            'date_added'  => $date,
-            'title'       => $title,
-            'description' => $description,
-            'url'         => "",
-            'internal'    => true
-        )));
-        return $this;
-    }
-
 
     /**
      * On set model name, reset interval and retries.
@@ -570,7 +541,12 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
 		return $rv;
 	}
 
-    /** Set max value. */
+    /**
+     * Set max value.
+     * @param string $value
+     * @return Contactlab_Commons_Model_Task
+     * @throws Exception
+     */
 	public function setMaxValue($value) {
 		$rv = parent::setMaxValue($value);
 		parent::setProgressValue(0);
@@ -583,12 +559,20 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
         return $this->getConfigFlag("contactlab_commons/global/enabled");
     }
 
-    /** Get config for store id. */
+    /**
+     * Get config for store id.
+     * @param string $path
+     * @return mixed
+     */
     public function getConfig($path) {
         return Mage::getStoreConfig($path, $this->getStoreId());
     }
 
-    /** Get config for store id. */
+    /**
+     * Get config for store id.
+     * @param string $path
+     * @return bool
+     */
     public function getConfigFlag($path) {
         return Mage::getStoreConfigFlag($path, $this->getStoreId());
     }
