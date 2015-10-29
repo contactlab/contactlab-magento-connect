@@ -369,7 +369,7 @@
                     <frontName>contactlab</frontName>
                 </args>
             </contactlab_subscribers>
-        </routers>        
+        </routers>
     </frontend>
     <default>
         <contactlab_subscribers>
