@@ -14,8 +14,11 @@ p_out=${2%/}
 conf="${p_in}/app/etc/modules/Contactlab*"
 plugin="${p_in}/lib/contactlab \
         ${p_in}/app/code/community/Contactlab \
+        ${p_in}/app/design/frontend/base/default/layout/contactlab \
+        ${p_in}/app/design/frontend/base/default/template/contactlab \
         ${p_in}/app/locale/en_US/contactlab \
         ${p_in}/app/locale/en_US/template/email/contactlab_commons \
+        ${p_in}/app/locale/en_US/template/email/contactlab_subscribers \
         ${p_in}/app/locale/it_IT/contactlab \
         ${p_in}/app/design/adminhtml/default/default/layout/contactlab \
         ${p_in}/app/design/adminhtml/default/default/template/contactlab \
