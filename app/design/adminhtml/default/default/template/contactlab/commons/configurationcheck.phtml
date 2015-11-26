@@ -18,6 +18,7 @@
     <?php endforeach; ?>
 </div>
 <div class="box-right">
+    <h2><?php echo $this->__('Crontab scheduled tasks') ?></h2>
     <?php foreach ($this->getCronConfiguration() as $item): ?>
         <h3><?php echo $item->getModule() ?> - <?php echo $item->getName() ?></h3>
         <?php if ($item->hasDescription()): ?>
