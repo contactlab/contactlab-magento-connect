@@ -6,9 +6,9 @@
  * @method getQueueId()
  * @method getTaskId()
  *
- * @method setQueueId($value)
- * @method setTaskId($value)
- * @method setXmlDelivery(Contactlab_Template_Model_Newsletter_XmlDelivery $value)
+ * @method Contactlab_Template_Model_Newsletter_Queue setQueueId($value)
+ * @method Contactlab_Template_Model_Newsletter_Queue setTaskId($value)
+ * @method Contactlab_Template_Model_Newsletter_Queue setXmlDelivery(Contactlab_Template_Model_Newsletter_XmlDelivery $value)
  *
  * @method hasQueueId()
  */

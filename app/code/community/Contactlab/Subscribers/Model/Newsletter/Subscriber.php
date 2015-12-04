@@ -8,6 +8,7 @@
  * @method bool hasSubscriberConfirmCode()
  * @method bool hasStoreId()
  * @method bool hasLastSubscribedAt()
+ * @method array getProductIds()
  *
  * @method Contactlab_Subscribers_Model_Newsletter_Subscriber setLastSubscribedAt($value)
  */

@@ -3,7 +3,8 @@
 /**
  * Contactlab template model newsletter processor filter abstract.
  *
- * @method getSendToAllCustomers()
+ * @method bool getSendToAllCustomers()
+ * @method Contactlab_Template_Model_Newsletter_Processor_Filter_Abstract setSendToAllCustomers($value)
  * @abstract
  */
 abstract class Contactlab_Template_Model_Newsletter_Processor_Filter_Abstract
