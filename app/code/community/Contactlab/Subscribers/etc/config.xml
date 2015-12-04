@@ -141,13 +141,6 @@
     </global>
     <admin>
         <routers>
-            <contactlab_subscribers>
-                <use>admin</use>
-                <args>
-                    <module>Contactlab_Subscribers</module>
-                    <frontName>subscribe</frontName>
-                </args>
-            </contactlab_subscribers>
             <adminhtml>
                 <args>
                     <modules>

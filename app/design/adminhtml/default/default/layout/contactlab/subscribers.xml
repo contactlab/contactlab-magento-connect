@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <contactlab_subscribers_adminhtml_exportsubscribers_index>
-        <reference name="content">
-            <block type="contactlab_subscribers/adminhtml_export" name="contactlab.subscribers.export" />
-        </reference>
-    </contactlab_subscribers_adminhtml_exportsubscribers_index>
-    <contactlab_commons_adminhtml_tasks_index>
+    <adminhtml_contactlab_commons_tasks_index>
         <reference name="content">
             <block type="adminhtml/template" name="contactlab.commons.uk" before="contactlab.commons.version"
                    template="contactlab/subscribers/uk.phtml">
@@ -82,5 +77,5 @@
                 </block>
             </block>
         </reference>
-    </contactlab_commons_adminhtml_tasks_index>
+    </adminhtml_contactlab_commons_tasks_index>
 </layout>

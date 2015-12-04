@@ -21,7 +21,7 @@ class Contactlab_Template_Adminhtml_Contactlab_TemplateController extends Mage_A
             Mage::helper('contactlab_commons')->logEmerg($e);
 			$session->addError($e->getMessage());
         }
-        $this->_redirect('contactlab_commons/adminhtml_tasks/',
+        $this->_redirect('adminhtml/contactlab_commons_tasks',
                 array('address' => $this->getRequest()->getParam('address')));
     }
 

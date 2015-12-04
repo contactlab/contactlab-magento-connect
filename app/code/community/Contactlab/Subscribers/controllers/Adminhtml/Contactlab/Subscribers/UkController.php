@@ -22,7 +22,7 @@ class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_UkController exten
         } catch (Exception $e) {
             $session->addError($e);
         }
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**
@@ -40,7 +40,7 @@ class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_UkController exten
         } catch (Exception $e) {
             $session->addError($e);
         }
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /** Really update uk. */

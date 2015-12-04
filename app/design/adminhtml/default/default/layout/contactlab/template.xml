@@ -31,7 +31,7 @@
                    template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_system_config_edit>
-    <contactlab_commons_adminhtml_tasks_index>
+    <adminhtml_contactlab_commons_tasks_index>
         <reference name="content">
             <block type="adminhtml/template" name="contactlab.template" after="contactlab.commons.uk"
                    template="contactlab/template/tasks/buttons.phtml">
@@ -50,7 +50,7 @@
                        template="contactlab/template/tasks/debugemail.phtml"/>
             </block>
         </reference>
-    </contactlab_commons_adminhtml_tasks_index>
+    </adminhtml_contactlab_commons_tasks_index>
     <adminhtml_contactlab_template_tasks_list>
         <reference name="content">
             <block type="contactlab_template/adminhtml_newsletter_template_tasks_list" name="contactlab_template_adminhtml_newsletter_template_tasks_list"/>

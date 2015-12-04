@@ -11,7 +11,7 @@ class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_StatsController ex
      */
     public function clearAction() {
         Mage::helper("contactlab_subscribers")->addClearStatsQueue();
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**
@@ -19,7 +19,7 @@ class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_StatsController ex
      */
     public function fillAction() {
         Mage::helper("contactlab_subscribers")->addCalcStatsQueue();
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**

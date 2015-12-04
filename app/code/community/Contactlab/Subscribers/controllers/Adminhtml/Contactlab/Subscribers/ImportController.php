@@ -9,7 +9,7 @@ class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_ImportController e
      */
     public function queueAction() {
         Mage::getModel("contactlab_subscribers/cron")->addImportSubscribersQueue();
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**
