@@ -3,7 +3,7 @@
 /**
  * Controller that manage the queue of exporting tasks.
  */
-class Contactlab_Subscribers_Adminhtml_UkController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_UkController extends Mage_Adminhtml_Controller_Action {
     /**
      * Update UK Table action.
      */

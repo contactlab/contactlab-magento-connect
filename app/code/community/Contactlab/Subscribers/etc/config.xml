@@ -148,6 +148,13 @@
                     <frontName>subscribe</frontName>
                 </args>
             </contactlab_subscribers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <contactlab_subscribers before="Mage_Adminhtml">Contactlab_Subscribers_Adminhtml</contactlab_subscribers>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>

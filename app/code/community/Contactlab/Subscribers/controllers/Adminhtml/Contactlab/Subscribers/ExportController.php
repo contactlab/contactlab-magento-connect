@@ -3,7 +3,7 @@
 /**
  * Controller that manage the queue of exporting tasks.
  */
-class Contactlab_Subscribers_Adminhtml_ExportSubscribersController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_ExportController extends Mage_Adminhtml_Controller_Action {
     /**
      * Queue action.
      */
