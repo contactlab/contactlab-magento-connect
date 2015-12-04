@@ -1,7 +1,7 @@
 <?php
 
 /** Template types controller. */
-class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Template_Adminhtml_Contactlab_TemplateController extends Mage_Adminhtml_Controller_Action {
 
     /**
      * Scan for template in cron.

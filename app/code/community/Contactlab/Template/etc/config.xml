@@ -103,13 +103,6 @@
     </frontend>
     <admin>
         <routers>
-            <contactlab_template>
-                <use>admin</use>
-                <args>
-                    <module>Contactlab_Template</module>
-                    <frontName>contactlab_template</frontName>
-                </args>
-            </contactlab_template>
             <adminhtml>
                 <args>
                     <modules>
