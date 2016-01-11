@@ -165,6 +165,33 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
         return $event;
     }
 
+    /** For Mage 1.7 or newer. */
+    private function _useCoreAddCritical() {
+        return Mage::helper("contactlab_commons")->isMageSameOrNewerOf(1, 7);
+    }
+
+    /**
+     * Add new message (Backporting)
+     *
+     * @param string $title
+     * @param string $description
+     * @return $this
+     */
+    private function _addCritical($title, $description) {
+        $t = Mage::getModel('adminnotification/inbox');
+        $date = date('Y-m-d H:i:s');
+        $t->parse(array(array(
+            'severity'    => Mage::helper('adminnotification')->__('critical'),
+            'date_added'  => $date,
+            'title'       => $title,
+            'description' => $description,
+            'url'         => "",
+            'internal'    => true
+        )));
+        return $this;
+    }
+
+
     /**
      * On set model name, reset interval and retries.
      * @param $model

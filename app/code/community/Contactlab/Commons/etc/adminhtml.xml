@@ -23,7 +23,7 @@
                             <action>adminhtml/contactlab_commons_releaseNotes</action>
                         </release_notes>
                         <configuration_check translate="title" module="contactlab_commons">
-                            <title>Cron Configuration Check</title>
+                            <title>Configuration Check</title>
                             <sort_order>1040</sort_order>
                             <action>adminhtml/contactlab_commons_configurationCheck</action>
                         </configuration_check>
