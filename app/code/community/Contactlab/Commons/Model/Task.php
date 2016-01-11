@@ -246,7 +246,7 @@ class Contactlab_Commons_Model_Task extends Mage_Core_Model_Abstract {
      * View task events url.
      */
     public function getEventsUrl() {
-        return Mage::helper('adminhtml')->getUrl('contactlab_commons/adminhtml_events/', array(
+        return Mage::helper('adminhtml')->getUrl('adminhtml/contactlab_commons_events/', array(
                     'id' => $this->getTaskId()
         ));
     }

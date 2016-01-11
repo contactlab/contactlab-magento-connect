@@ -3,7 +3,7 @@
 /**
  * Test controller.
  */
-class Contactlab_Commons_Adminhtml_TestController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Commons_Adminhtml_Contactlab_Commons_TestController extends Mage_Adminhtml_Controller_Action {
 
     /**
      * Index.
@@ -19,7 +19,7 @@ class Contactlab_Commons_Adminhtml_TestController extends Mage_Adminhtml_Control
      */
     public function queueAction() {
         Mage::getModel("contactlab_commons/cron")->addTestQueue();
-        return $this->_redirect('*/adminhtml_tasks');
+        return $this->_redirect('*/contactlab_commons_tasks');
     }
 
 }

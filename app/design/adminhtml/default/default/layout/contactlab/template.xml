@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <contactlab_template_adminhtml_types_index>
+    <adminhtml_contactlab_template_types_index>
         <reference name="content">
             <block type="contactlab_template/adminhtml_type" name="contactlab_template_type"/>
         </reference>
-    </contactlab_template_adminhtml_types_index>
-    <contactlab_template_adminhtml_types_grid>
+    </adminhtml_contactlab_template_types_index>
+    <adminhtml_contactlab_template_types_grid>
         <reference name="content">
             <block type="contactlab_template/adminhtml_type_grid" name="contactlab_template_type_grid" output="toHtml"/>
         </reference>
-    </contactlab_template_adminhtml_types_grid>
-    <contactlab_template_adminhtml_types_edit>
+    </adminhtml_contactlab_template_types_grid>
+    <adminhtml_contactlab_template_types_edit>
         <update handle="editor"/>
         <reference name="content">
             <block type="contactlab_template/adminhtml_type_edit" name="contactlab_template_edit"
                    template="contactlab/template/type/edit.phtml"/>
         </reference>
-    </contactlab_template_adminhtml_types_edit>
-    <adminhtml_newsletter_template_edit>
+    </adminhtml_contactlab_template_types_edit>
+    <adminhtml_contactlab_template_edit>
         <reference name="content">
             <block type="contactlab_template/adminhtml_newsletter_template_edit_js" name="template_edit_js"
                    template="contactlab/template/edit/js.phtml" after="-"/>
             <block type="core/template"
                    name="template_edit_validation" template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
-    </adminhtml_newsletter_template_edit>
+    </adminhtml_contactlab_template_edit>
     <adminhtml_system_config_edit>
         <reference name="content">
             <block type="core/template" name="adminhtml_system_config_edit_validation_min_max"
                    template="contactlab/template/edit/validation.phtml" after="-"/>
         </reference>
     </adminhtml_system_config_edit>
-    <contactlab_commons_adminhtml_tasks_index>
+    <adminhtml_contactlab_commons_tasks_index>
         <reference name="content">
             <block type="adminhtml/template" name="contactlab.template" after="contactlab.commons.uk"
                    template="contactlab/template/tasks/buttons.phtml">
@@ -42,7 +42,7 @@
                         <label>Scan templates</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_template/adminhtml_template/scan</url>
+                        <url>adminhtml/contactlab_template/scan</url>
                     </action>
                 </block>
                 <block type="adminhtml/template"
@@ -50,15 +50,15 @@
                        template="contactlab/template/tasks/debugemail.phtml"/>
             </block>
         </reference>
-    </contactlab_commons_adminhtml_tasks_index>
-    <contactlab_template_adminhtml_newsletter_template_tasks_list>
+    </adminhtml_contactlab_commons_tasks_index>
+    <adminhtml_contactlab_template_tasks_list>
         <reference name="content">
             <block type="contactlab_template/adminhtml_newsletter_template_tasks_list" name="contactlab_template_adminhtml_newsletter_template_tasks_list"/>
         </reference>
-    </contactlab_template_adminhtml_newsletter_template_tasks_list>
-    <contactlab_template_adminhtml_newsletter_template_tasks_detail>
+    </adminhtml_contactlab_template_tasks_list>
+    <adminhtml_contactlab_template_tasks_detail>
         <reference name="content">
             <block type="contactlab_template/adminhtml_newsletter_template_tasks_detail" name="contactlab_template_adminhtml_newsletter_template_tasks_detail"/>
         </reference>
-    </contactlab_template_adminhtml_newsletter_template_tasks_detail>
+    </adminhtml_contactlab_template_tasks_detail>
 </layout>

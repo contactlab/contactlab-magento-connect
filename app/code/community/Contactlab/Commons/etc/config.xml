@@ -79,6 +79,13 @@
                     <frontName>contactlab_commons</frontName>
                 </args>
             </contactlab_commons>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <contactlab_commons before="Mage_Adminhtml">Contactlab_Commons_Adminhtml</contactlab_commons>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>

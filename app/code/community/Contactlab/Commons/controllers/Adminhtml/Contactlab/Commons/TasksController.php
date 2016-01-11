@@ -3,7 +3,7 @@
 /**
  * Tasks controller.
  */
-class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Commons_Adminhtml_Contactlab_Commons_TasksController extends Mage_Adminhtml_Controller_Action {
 
 	/**
 	 * Index.
@@ -205,9 +205,7 @@ class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Contro
 	}
 
 	/**
-	 * @comment: Set task status mass action
-	 * @params:
-	 * @return: void
+	 * Set task status mass action
 	 */
 	public function setStatusAction() {
 		$session = Mage::getSingleton('adminhtml/session');
@@ -272,7 +270,7 @@ class Contactlab_Commons_Adminhtml_TasksController extends Mage_Adminhtml_Contro
 	}
 
 	/**
-	 * @comment: Mass delete
+	 * Mass delete.
 	 */
 	public function massDeleteAction() {
 		$session = Mage::getSingleton('adminhtml/session');

@@ -1,6 +1,6 @@
 <?php
 
-class Contactlab_Template_Adminhtml_Newsletter_Template_TasksController
+class Contactlab_Template_Adminhtml_Contactlab_Template_TasksController
         extends Mage_Adminhtml_Controller_Action {
 
     /**

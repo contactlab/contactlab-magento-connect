@@ -1,7 +1,7 @@
 <?php
 
 /** Template types controller. */
-class Contactlab_Template_Adminhtml_TypesController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Template_Adminhtml_Contactlab_Template_TypesController extends Mage_Adminhtml_Controller_Action {
 
     /** Index action. */
     public function indexAction() {

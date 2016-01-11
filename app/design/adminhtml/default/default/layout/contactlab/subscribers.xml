@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <contactlab_subscribers_adminhtml_exportsubscribers_index>
-        <reference name="content">
-            <block type="contactlab_subscribers/adminhtml_export" name="contactlab.subscribers.export" />
-        </reference>
-    </contactlab_subscribers_adminhtml_exportsubscribers_index>
-    <contactlab_commons_adminhtml_tasks_index>
+    <adminhtml_contactlab_commons_tasks_index>
         <reference name="content">
             <block type="adminhtml/template" name="contactlab.commons.uk" before="contactlab.commons.version"
                    template="contactlab/subscribers/uk.phtml">
@@ -14,7 +9,7 @@
                         <label>Check unique Keys</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_uk/update</url>
+                        <url>adminhtml/contactlab_subscribers_uk/update</url>
                     </action>
                 </block>
                 <block type="contactlab_commons/adminhtml_widget_button" name="contactlab.commons.uk.update" as="contactlab.commons.uk.update">
@@ -22,7 +17,7 @@
                         <label>Update unique Keys</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_uk/update</url>
+                        <url>adminhtml/contactlab_subscribers_uk/update</url>
                         <params><![CDATA[doit=yes]]></params>
                     </action>
                 </block>
@@ -31,7 +26,7 @@
                         <label>Truncate unique Keys</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_uk/truncate</url>
+                        <url>adminhtml/contactlab_subscribers_uk/truncate</url>
                     </action>
                     <action method="setConfirm" translate="confirm">
                         <confirm>Are you sure to truncate the UK table?</confirm>
@@ -48,7 +43,7 @@
                         <label>Queue Subscribers export job</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_exportSubscribers/queue</url>
+                        <url>adminhtml/contactlab_subscribers_export/queue</url>
                     </action>
                     <action method="setConfirm" translate="confirm">
                         <confirm>Are you sure you want to do this?</confirm>
@@ -61,7 +56,7 @@
                         <label>Queue Subscribers import job</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_importSubscribers/queue</url>
+                        <url>adminhtml/contactlab_subscribers_import/queue</url>
                     </action>
                     <action method="setConfirm" translate="confirm">
                         <confirm>Are you sure you want to do this?</confirm>
@@ -74,7 +69,7 @@
                         <label>Fill statistics</label>
                     </action>
                     <action method="setUrl">
-                        <url>contactlab_subscribers/adminhtml_stats/fill</url>
+                        <url>adminhtml/contactlab_subscribers_stats/fill</url>
                     </action>
                     <action method="setConfirm" translate="confirm">
                         <confirm>Are you sure you want to do this?</confirm>
@@ -82,5 +77,5 @@
                 </block>
             </block>
         </reference>
-    </contactlab_commons_adminhtml_tasks_index>
+    </adminhtml_contactlab_commons_tasks_index>
 </layout>
