@@ -9,7 +9,7 @@ class Contactlab_Commons_Adminhtml_Contactlab_Commons_ConfigurationCheckControll
      * Index of release notes.
      */
     public function indexAction() {
-        $this->_title($this->__('Cron Configuration Check'));
+        $this->_title($this->__('Configuration Check'));
         $this->loadLayout()->_setActiveMenu('newsletter/contactlab');
         return $this->renderLayout();
     }

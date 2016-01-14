@@ -90,7 +90,7 @@
                                         <sort_order>1030</sort_order>
                                     </release_notes>
                                     <configuration_check>
-                                        <title>Cron Configuration Check</title>
+                                        <title>Configuration Check</title>
                                         <sort_order>1040</sort_order>
                                     </configuration_check>
                                 </children>
