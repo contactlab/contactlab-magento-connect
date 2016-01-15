@@ -35,15 +35,15 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
     {
         $block
             ->addColumnAfter('fname', array(
-                'header' => Mage::helper('newsletter')->__('First name'),
+                'header' => Mage::helper('newsletter')->__('First Name'),
                 'index' => 'fname2',
                 'default' => '---'), 'type')
             ->addColumnAfter('lname', array(
-                'header' => Mage::helper('newsletter')->__('Last name'),
+                'header' => Mage::helper('newsletter')->__('Last Name'),
                 'index' => 'lname2',
                 'default' => '---'), 'fname')
             ->addColumnAfter('dob2', array(
-                'header' => Mage::helper('newsletter')->__('Date of birth'),
+                'header' => Mage::helper('newsletter')->__('Date of Birth'),
                 'index' => 'dob2',
                 'type' => 'date',
                 'align' => 'center',
@@ -74,11 +74,11 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
                 'index' => 'address2',
                 'default' => '---'), 'zipcode2')
             ->addColumnAfter('phone2', array(
-                'header' => Mage::helper('newsletter')->__('Landline phone'),
+                'header' => Mage::helper('newsletter')->__('Landline Phone'),
                 'index' => 'phone2',
                 'default' => '---'), 'address2')
             ->addColumnAfter('mphone', array(
-                'header' => Mage::helper('newsletter')->__('Mobile phone'),
+                'header' => Mage::helper('newsletter')->__('Mobile Phone'),
                 'index' => 'mphone',
                 'default' => '---'), 'phone2')
             ->addColumnAfter('company', array(
@@ -86,7 +86,7 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
                 'index' => 'company',
                 'default' => '---'), 'mphone')
             ->addColumnAfter('privacy', array(
-                'header' => Mage::helper('newsletter')->__('Privacy terms agreement'),
+                'header' => Mage::helper('newsletter')->__('Privacy Terms Agreement'),
                 'index' => 'privacy',
                 'type' => 'options',
                 'options' => array('no', 'si')), 'company')
