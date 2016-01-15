@@ -15,9 +15,9 @@ class Contactlab_Subscribers_Model_Checks_FindDuplicatedCustomersCheck extends C
         $count = $this->getCount();
         $this->count = $count;
         if ($count > 0) {
-            return $this->error(sprintf("Duplicated customers in newsletter subscribers: %d", $count));
+            return $this->error(sprintf("Duplicate customers in newsletter subscribers: %d", $count));
         } else {
-            return $this->success("No duplicated customers in newsletter subscribers");
+            return $this->success("No duplicate customers in newsletter subscribers");
         }
     }
 
@@ -36,7 +36,7 @@ class Contactlab_Subscribers_Model_Checks_FindDuplicatedCustomersCheck extends C
      */
     function getDescription()
     {
-        return "Find duplicated customers check";
+        return "Find duplicate customers check";
     }
 
     /**
