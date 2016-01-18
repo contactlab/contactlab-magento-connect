@@ -1,5 +1,14 @@
 # Changelog 
 
+## 2.2.8 (2016-01-18)
+
+- Modified adminhtml controllers due to SUPEE-6788 Magento patch.
+- **Feature** New checks available into the "Configuration checks" page.
+- **Feature** Runs essential checks before subscriber exports.
+- **Feature** Custom subscribers fields added to frontend.
+- **Feature** Added "customer_group_id" and "customer_group_name" to customers' export.
+
+
 ## 2.2.7 (2015-09-30)
 
 - Fixed a bug where previously inserted newsletter templates would not be displayed. ([3c8c906](https://github.com/contactlab/contactlab-magento-connect/commit/3c8c906c6a7beb43d77d313ccc2cfdad28474139))
