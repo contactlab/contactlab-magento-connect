@@ -16,9 +16,9 @@ class Contactlab_Subscribers_Model_Checks_FindInvalidCustomersCheck
         $count = $this->getCount();
         $this->count = $count;
         if ($count > 0) {
-            return $this->error(sprintf("Invalid customers in newsletter subscribers: %d", $count));
+            return $this->error(sprintf("Non-valid customers in newsletter subscribers: %d", $count));
         } else {
-            return $this->success("No invalid customers in newsletter subscribers");
+            return $this->success("No non-valid customers in newsletter subscribers");
         }
     }
 
@@ -37,7 +37,7 @@ class Contactlab_Subscribers_Model_Checks_FindInvalidCustomersCheck
      */
     function getDescription()
     {
-        return "Find invalid customers check";
+        return "Find non-valid customers check";
     }
 
     /**

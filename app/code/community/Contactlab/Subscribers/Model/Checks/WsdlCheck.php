@@ -16,8 +16,8 @@ class Contactlab_Subscribers_Model_Checks_WsdlCheck extends Contactlab_Subscribe
     protected function doCheck()
     {
         return $this->_getCheckWsdl()
-            ? $this->success(sprintf("Wsdl test ok"))
-            : $this->error(sprintf("Wsdl test error"));
+            ? $this->success(sprintf("WSDL test ok"))
+            : $this->error(sprintf("WSDL test error"));
     }
 
     /**
@@ -35,7 +35,7 @@ class Contactlab_Subscribers_Model_Checks_WsdlCheck extends Contactlab_Subscribe
      */
     public function getDescription()
     {
-        return "Wsdl test";
+        return "WSDL test";
     }
 
     /**
