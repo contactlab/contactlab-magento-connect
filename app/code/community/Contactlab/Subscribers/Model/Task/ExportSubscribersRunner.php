@@ -14,6 +14,9 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
         if ($task->getConfigFlag("contactlab_commons/soap/enable")) {
             $this->_checkSubscriberDataExchangeStatus();
         }
+        if (!Mage::helper('contactlab_subscribers/checks')->checkAvailableEssentialChecks()) {
+            throw Mage::helper('contactlab_subscribers/checks')->getLastCheckException($task);
+        }
         if ($task->getConfig("contactlab_subscribers/global/check_uk_before_export") == '1') {
             if (!$this->_checkUk()) {
                 throw new Exception("UK Table inconsistent, please fix it with the \"Update unique Keys\" button in the task page!");

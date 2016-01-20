@@ -1,0 +1,158 @@
+<div class="block block-subscribe">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
+    </div>
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+            <div class="input-box">
+               <label for="newsletter"><?php echo $this->fieldLabel('email') ?></label>
+               <?php if($this->fieldChoices('email') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('email') ?>" name="email" id="newsletter" title="<?php echo $this->fieldTitle('email') ?>" class="input-text required-entry validate-email" />
+               <?php else: foreach (range(1, $this->fieldChoices('email')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('email') ?>" name="email" id="newsletter" class="input-text required-entry validate-email"><?php echo $this->fieldChoice('email',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="first-name"><?php echo $this->fieldLabel('fname') ?></label>
+               <?php if($this->fieldChoices('fname') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('fname') ?>" name="first_name" id="first-name" title="<?php echo $this->fieldTitle('fname') ?>" class="input-text" />
+               <?php else: foreach (range(1, $this->fieldChoices('fname')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('fname') ?>" name="first_name" id="first-name" class="input-text"><?php echo $this->fieldChoice('fname',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="last-name"><?php echo $this->fieldLabel('lname') ?></label>
+               <?php if($this->fieldChoices('lname') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('lname') ?>" name='last_name' id="last-name" title="<?php echo $this->fieldTitle('lname') ?>" class="input-text" />
+               <?php else: foreach (range(1, $this->fieldChoices('lname')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('lname') ?>" name='last_name' id="last-name" class="input-text"><?php echo $this->fieldChoice('lname',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-company"><?php echo $this->fieldLabel('company') ?></label>
+               <?php if($this->fieldChoices('company') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('company') ?>" name='company' id="id-company" title="<?php echo $this->fieldTitle('company') ?>" class="input-text" />
+               <?php else: foreach (range(1, $this->fieldChoices('company')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('company') ?>" name='company' id="id-company" class="input-text"><?php echo $this->fieldChoice('company',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-gender"><?php echo $this->fieldLabel('gender') ?></label><br>
+               <?php if($this->fieldChoices('gender') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('gender') ?>" name='gender' id="id-gender" title="<?php echo $this->fieldTitle('gender') ?>" class="radio"/>
+               <?php else: foreach (range(1, $this->fieldChoices('gender')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('gender') ?>" name='gender' id="id-gender" value="<?php echo $this->fieldValue('gender',$choice) ?>" class="radio"/><?php echo $this->fieldChoice('gender',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-dob"><?php echo $this->fieldLabel('dob') ?></label><br>
+               <?php if($this->fieldChoices('dob') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('dob') ?>" name='dob' id="id-dob" title="<?php echo $this->fieldTitle('dob') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('dob')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('dob') ?>" name='dob' id="id-dob" value="<?php echo $this->fieldValue('dob',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('dob',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-privacy"><?php echo $this->fieldLabel('privacy') ?></label><br>
+               <?php if($this->fieldChoices('privacy') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('privacy') ?>" name='privacy' id="id-privacy" title="<?php echo $this->fieldTitle('privacy') ?>" class="radio"/>
+               <?php else: foreach (range(1, $this->fieldChoices('privacy')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('privacy') ?>" name='privacy' id="id-privacy" value="<?php echo $this->fieldValue('privacy',$choice) ?>" class="radio"/><?php echo $this->fieldChoice('privacy',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-custom1"><?php echo $this->fieldLabel('custom1') ?></label><br>
+               <?php if($this->fieldChoices('custom1') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('custom1') ?>" name='custom_1' id="id-custom1" title="<?php echo $this->fieldTitle('custom1') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('custom1')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('custom1') ?>" name='custom_1' id="id-custom1" value="<?php echo $this->fieldValue('custom1',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('custom1',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-custom2"><?php echo $this->fieldLabel('custom2') ?></label><br>
+               <?php if($this->fieldChoices('custom2') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('custom2') ?>" name='custom_2' id="id-custom2" title="<?php echo $this->fieldTitle('custom2') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('custom2')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('custom2') ?>" name='custom_2' id="id-custom2" value="<?php echo $this->fieldValue('custom2',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('custom2',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-country"><?php echo $this->fieldLabel('country') ?></label><br>
+               <?php if($this->fieldChoices('country') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('country') ?>" name='country' id="id-country" title="<?php echo $this->fieldTitle('country') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('country')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('country') ?>" name='country' id="id-country" value="<?php echo $this->fieldValue('country',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('country',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-city"><?php echo $this->fieldLabel('city') ?></label><br>
+               <?php if($this->fieldChoices('city') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('city') ?>" name='city' id="id-city" title="<?php echo $this->fieldTitle('city') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('city')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('city') ?>" name='city' id="id-city" value="<?php echo $this->fieldValue('city',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('city',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-address"><?php echo $this->fieldLabel('address') ?></label><br>
+               <?php if($this->fieldChoices('address') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('address') ?>" name='address' id="id-address" title="<?php echo $this->fieldTitle('address') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('address')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('address') ?>" name='address' id="id-address" value="<?php echo $this->fieldValue('address',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('address',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-zip"><?php echo $this->fieldLabel('zipcode') ?></label><br>
+               <?php if($this->fieldChoices('zipcode') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('zipcode') ?>" name='zip_code' id="id-zip" title="<?php echo $this->fieldTitle('zipcode') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('zipcode')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('zipcode') ?>" name='zip_code' id="id-zip" value="<?php echo $this->fieldValue('zipcode',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('zipcode',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-phone1"><?php echo $this->fieldLabel('landphone') ?></label><br>
+               <?php if($this->fieldChoices('landphone') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('landphone') ?>" name='phone' id="id-phone1" title="<?php echo $this->fieldTitle('landphone') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('landphone')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('landphone') ?>" name='phone' id="id-phone1" value="<?php echo $this->fieldValue('landphone',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('landphone',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-phone2"><?php echo $this->fieldLabel('mobilephone') ?></label><br>
+               <?php if($this->fieldChoices('mobilephone') < 1 ):?>
+               <input type="<?php echo $this->fieldInputType('mobilephone') ?>" name='cell_phone' id="id-phone2" title="<?php echo $this->fieldTitle('mobilephone') ?>" class="input-text"/>
+               <?php else: foreach (range(1, $this->fieldChoices('mobilephone')) as $choice) :?>
+               <input type="<?php echo $this->fieldInputType('mobilephone') ?>" name='cell_phone' id="id-phone2" value="<?php echo $this->fieldValue('mobilephone',$choice) ?>" class="input-text"/><?php echo $this->fieldChoice('mobilephone',$choice) ?><br>
+               <?php endforeach;  endif;?>
+            </div>
+
+            <div class="input-box">
+               <label for="id-notes"><?php echo $this->fieldLabel('notes') ?></label><br>
+               <textarea name="notes" id="id-notes" title="<?php echo $this->fieldTitle('notes') ?>" class="input-text"></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+    </script>
+</div>
+

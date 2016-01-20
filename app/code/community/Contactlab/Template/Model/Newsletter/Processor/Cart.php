@@ -17,10 +17,10 @@ class Contactlab_Template_Model_Newsletter_Processor_Cart extends Contactlab_Tem
     /**
      * Apply subscribers filter.
      *
-     * @param Mage_Newsletter_Model_Template $template
+     * @param Contactlab_Template_Model_Newsletter_Template $template
      * @return $this
      */
-    public function applySubscribersFilter(Mage_Newsletter_Model_Template $template) {
+    public function applySubscribersFilter(Contactlab_Template_Model_Newsletter_Template $template) {
         $this->applyFilter('contactlab_template/newsletter_processor_filter_onlyCustomers');
         $this->applyFilter('contactlab_template/newsletter_processor_filter_cart_distinctByType');
 
