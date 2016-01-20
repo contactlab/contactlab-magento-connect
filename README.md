@@ -12,6 +12,7 @@ The ContactLab Connect for Magento plug-in is a simple and effective way to mana
   - Wishlist reminder emails
 - Export e-commerce transactions
 - Configure product templates from Magento
+- Extends default newsletter subscription features
 - Manage both newsletter subscribers (guests) and e-commerce subscribers (customers)
 - Compatible with Magento multi-store and multi-Website installations
 
