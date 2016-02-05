@@ -43,6 +43,9 @@ class Contactlab_Commons_Block_Adminhtml_ConfigurationCheck extends Mage_Adminht
      * Subscriber checks.
      */
     public function getSubscribersChecks() {
+        if (!Mage::helper('contactlab_commons')->isModuleEnabled('Contactlab_Subscribers')) {
+            return array();
+        }
         $helper = Mage::helper('contactlab_subscribers/checks');
         return $helper->runAvailableChecks();
     }
