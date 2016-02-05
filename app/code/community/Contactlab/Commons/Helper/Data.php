@@ -209,6 +209,9 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         $count = 0;
         foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $moduleConfig) {
             if (preg_match('/^Contactlab_.*/', $moduleName)) {
+                if (((string) $moduleConfig->active) === 'false') {
+                    continue;
+                }
                 $item = new Varien_Object();
                 $item->setName(preg_replace('/^Contactlab_/', '', $moduleName))
                     ->setVersion((string) $moduleConfig->version)
