@@ -163,6 +163,9 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return bool
      */
     public function isAllowed($section, $action) {
+        if (php_sapi_name() === 'cli') {
+            return false;
+        }
         return Mage::getSingleton('admin/session')
         	->isAllowed("admin/newsletter/contactlab/$section/actions/$action");
     }
