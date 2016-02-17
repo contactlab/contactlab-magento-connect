@@ -58,4 +58,10 @@ interface Contactlab_Subscribers_Model_Checks_CheckInterface
      * @return boolean
      */
     public function isEssential();
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest();
 }

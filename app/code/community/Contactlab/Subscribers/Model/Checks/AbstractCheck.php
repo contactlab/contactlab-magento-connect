@@ -21,8 +21,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Get Name.
      * @return string
      */
-    function getName()
-    {
+    function getName() {
         return get_class($this);
     }
 
@@ -35,8 +34,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
     /**
      * @return mixed
      */
-    public function getExitCode()
-    {
+    public function getExitCode() {
         return parent::getData('exit_code');
     }
 
@@ -44,8 +42,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * @param mixed $exitCode
      * @return Varien_Object
      */
-    public function setExitCode($exitCode)
-    {
+    public function setExitCode($exitCode) {
         return parent::setData('exit_code', $exitCode);
     }
 
@@ -53,8 +50,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * @param string $value
      * @return mixed
      */
-    protected function success($value)
-    {
+    protected function success($value) {
         $this->_addSuccess($value);
         return self::SUCCESS;
     }
@@ -63,8 +59,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * @param string $value
      * @return mixed
      */
-    protected function error($value)
-    {
+    protected function error($value) {
         Mage::logException(new Zend_Exception($value));
         $this->_addError($value);
         return self::ERROR;
@@ -75,8 +70,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * @param $string
      * @return string
      */
-    protected function _getTableName($string)
-    {
+    protected function _getTableName($string) {
         return Mage::getModel('core/resource')->getTableName($string);
     }
 
@@ -86,8 +80,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * @return int
      * @throws Zend_Exception
      */
-    protected function _getSqlResult($sql)
-    {
+    protected function _getSqlResult($sql) {
         /** @var $conn Varien_Db_Adapter_Pdo_Mysql */
         $conn = Mage::getModel('core/resource')->getConnection('read');
         /** @var $stmt PDOStatement */
@@ -105,8 +98,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Add success row.
      * @param String $value
      */
-    private function _addSuccess($value)
-    {
+    private function _addSuccess($value) {
         $this->_success[] = $value;
     }
 
@@ -114,8 +106,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Add error row.
      * @param String $value
      */
-    private function _addError($value)
-    {
+    private function _addError($value) {
         $this->_error[] = $value;
     }
 
@@ -123,8 +114,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Get error messages.
      * @return array
      */
-    public function getErrors()
-    {
+    public function getErrors() {
         return $this->_error;
     }
 
@@ -132,8 +122,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Get success messages.
      * @return array
      */
-    public function getSuccess()
-    {
+    public function getSuccess() {
         return $this->_success;
     }
 
@@ -141,8 +130,16 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Is essential check.
      * @return bool
      */
-    public function isEssential()
-    {
+    public function isEssential() {
         return false;
     }
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
+        return false;
+    }
+
 }

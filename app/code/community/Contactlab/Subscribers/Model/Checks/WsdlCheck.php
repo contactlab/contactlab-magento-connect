@@ -60,4 +60,13 @@ class Contactlab_Subscribers_Model_Checks_WsdlCheck extends Contactlab_Subscribe
         new SoapClient($wsdl, array('soap_version' => SOAP_1_2));
         return true;
     }
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
+        return true;
+    }
+
 }

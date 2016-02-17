@@ -7,8 +7,7 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
     /**
      * Do check.
      */
-    protected function doCheck()
-    {
+    protected function doCheck() {
         $key = Mage::getStoreConfig('contactlab_template/queue/auth_api_key');
         if (empty($key)) {
             return $this->error("No auth_api_key specified");
@@ -21,8 +20,7 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
      * Get Check code.
      * @return string
      */
-    function getCode()
-    {
+    function getCode() {
         return "auth-api-key";
     }
 
@@ -30,8 +28,7 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
      * Get description.
      * @return string
      */
-    function getDescription()
-    {
+    function getDescription() {
         return "Check auth_api_key";
     }
 
@@ -39,8 +36,7 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
      * Get position.
      * @return int
      */
-    public function getPosition()
-    {
+    public function getPosition() {
         return 200;
     }
 
@@ -48,8 +44,16 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
      * Is essential check.
      * @return bool
      */
-    public function isEssential()
-    {
+    public function isEssential() {
+        return true;
+    }
+
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
         return true;
     }
 }
