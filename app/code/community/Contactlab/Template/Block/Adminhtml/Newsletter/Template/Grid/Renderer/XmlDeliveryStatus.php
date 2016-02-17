@@ -134,7 +134,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Grid_Renderer_XmlD
     private function _getUrlForTemplateId($templateId)
     {
         return Mage::helper('adminhtml')
-            ->getUrl('contactlab_template/adminhtml_newsletter_template_tasks/list',
+            ->getUrl('adminhtml/contactlab_template_tasks/list',
                 array('template_id' => $templateId));
     }
 }

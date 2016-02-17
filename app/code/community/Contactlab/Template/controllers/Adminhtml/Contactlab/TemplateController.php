@@ -1,7 +1,7 @@
 <?php
 
 /** Template types controller. */
-class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Template_Adminhtml_Contactlab_TemplateController extends Mage_Adminhtml_Controller_Action {
 
     /**
      * Scan for template in cron.
@@ -21,7 +21,7 @@ class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Co
             Mage::helper('contactlab_commons')->logEmerg($e);
 			$session->addError($e->getMessage());
         }
-        $this->_redirect('contactlab_commons/adminhtml_tasks/',
+        $this->_redirect('adminhtml/contactlab_commons_tasks',
                 array('address' => $this->getRequest()->getParam('address')));
     }
 
@@ -33,7 +33,7 @@ class Contactlab_Template_Adminhtml_TemplateController extends Mage_Adminhtml_Co
      */
     private function _scanByStore($storeId, $debugAddress) {
 		$session = Mage::getSingleton('adminhtml/session');
-        $rv = Mage::helper('contactlab_template')->scan($storeId, $debugAddress);
+        $rv = Mage::helper('contactlab_template')->scan($storeId, $debugAddress, false);
         if (is_array($rv)) {
             foreach ($rv as $k => $v) {
     			$session->addSuccess(sprintf("%s: %s", $k, $v));

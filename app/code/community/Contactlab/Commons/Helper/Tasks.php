@@ -148,4 +148,12 @@ class Contactlab_Commons_Helper_Tasks extends Mage_Core_Helper_Abstract {
 
         return $tasks;
     }
+
+    /**
+     * Add critical message.
+     * @param string$value
+     */
+    public function addCriticalMessage($value) {
+        Mage::helper('contactlab_commons')->addCriticalMessage($value);
+    }
 }

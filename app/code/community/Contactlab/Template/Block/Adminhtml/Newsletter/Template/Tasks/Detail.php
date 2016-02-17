@@ -24,7 +24,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Detail
      * @return string
      */
     public function getBackUrl() {
-        return $this->getUrl('*/adminhtml_newsletter_template_tasks/list',
+        return $this->getUrl('*/*/list',
             array('template_id' => Mage::registry('template_id')));
     }
 }

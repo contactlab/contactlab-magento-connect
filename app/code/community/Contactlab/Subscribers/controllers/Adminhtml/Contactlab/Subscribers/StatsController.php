@@ -3,14 +3,15 @@
 /**
  * Customer Statistics controller.
  */
-class Contactlab_Subscribers_Adminhtml_StatsController extends Mage_Adminhtml_Controller_Action {
+class Contactlab_Subscribers_Adminhtml_Contactlab_Subscribers_StatsController extends Mage_Adminhtml_Controller_Action {
 
     /**
      * Queue action.
+     * @deprecated
      */
     public function clearAction() {
         Mage::helper("contactlab_subscribers")->addClearStatsQueue();
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**
@@ -18,7 +19,7 @@ class Contactlab_Subscribers_Adminhtml_StatsController extends Mage_Adminhtml_Co
      */
     public function fillAction() {
         Mage::helper("contactlab_subscribers")->addCalcStatsQueue();
-        return $this->_redirect('contactlab_commons/adminhtml_tasks');
+        return $this->_redirect('adminhtml/contactlab_commons_tasks');
     }
 
     /**
@@ -27,6 +28,6 @@ class Contactlab_Subscribers_Adminhtml_StatsController extends Mage_Adminhtml_Co
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/uk');
+        return Mage::getSingleton('admin/session')->isAllowed('newsletter/contactlab/stats');
     }
 }

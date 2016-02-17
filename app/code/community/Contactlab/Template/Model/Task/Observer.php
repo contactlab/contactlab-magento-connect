@@ -56,7 +56,7 @@ class Contactlab_Template_Model_Task_Observer {
      * @return void
      */
     private function _deleteNewsletterQueue(Contactlab_Commons_Model_Task $task) {
-        $resource = Mage::getResourceModel('newsletter/queue');
+        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
         $adapter = Mage::getSingleton('core/resource')->getConnection('core_write');
 
         $collection = Mage::getResourceModel('newsletter/queue_collection')

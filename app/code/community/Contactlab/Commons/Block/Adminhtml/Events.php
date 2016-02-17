@@ -20,6 +20,6 @@ class Contactlab_Commons_Block_Adminhtml_Events extends Mage_Adminhtml_Block_Wid
     
     /** To task index. */
     public function getBackUrl() {
-        return $this->getUrl('*/adminhtml_tasks');
+        return $this->getUrl('*/contactlab_commons_tasks');
     }
 }

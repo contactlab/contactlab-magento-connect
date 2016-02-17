@@ -30,7 +30,7 @@ class Contactlab_Template_Adminhtml_Newsletter_QueueController
                     }
                 }
 
-                $this->_redirect('contactlab_commons/adminhtml_tasks');
+                $this->_redirect('adminhtml/contactlab_commons_tasks');
             } else {
                 return parent::editAction();
             }

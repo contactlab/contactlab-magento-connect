@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <contactlab_commons_adminhtml_logs_index>
+    <adminhtml_contactlab_commons_logs_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_logs" name="contactlab.commons.log" />
         </reference>
-    </contactlab_commons_adminhtml_logs_index>
-    <contactlab_commons_adminhtml_logs_grid>
+    </adminhtml_contactlab_commons_logs_index>
+    <adminhtml_contactlab_commons_logs_grid>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_logs_grid" name="contactlab.commons.logs.grid" output="toHtml"/>
         </reference>
-    </contactlab_commons_adminhtml_logs_grid>
-    <contactlab_commons_adminhtml_tasks_index>
+    </adminhtml_contactlab_commons_logs_grid>
+    <adminhtml_contactlab_commons_tasks_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_tasks" name="contactlab.commons.tasks" as="tasks" />
             <block type="contactlab_commons/adminhtml_tasks_js" name="contactlab.commons.tasks.js" as="tasks.js" />
@@ -20,37 +20,37 @@
         <reference name="head">
             <action method="addJs"><file>contactlab_commons/adminhtml/tasks.js</file></action>
         </reference>
-    </contactlab_commons_adminhtml_tasks_index>
-    <contactlab_commons_adminhtml_tasks_grid>
+    </adminhtml_contactlab_commons_tasks_index>
+    <adminhtml_contactlab_commons_tasks_grid>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_tasks_grid" name="contactlab.commons.tasks.grid" output="toHtml"/>
         </reference>
-    </contactlab_commons_adminhtml_tasks_grid>
-    <contactlab_commons_adminhtml_events_index>
+    </adminhtml_contactlab_commons_tasks_grid>
+    <adminhtml_contactlab_commons_events_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_events" name="contactlab.commons.events" />
         </reference>
-    </contactlab_commons_adminhtml_events_index>
-    <contactlab_commons_adminhtml_events_grid>
+    </adminhtml_contactlab_commons_events_index>
+    <adminhtml_contactlab_commons_events_grid>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_events_grid" name="contactlab.commons.events.grid" output="toHtml"/>
         </reference>
-    </contactlab_commons_adminhtml_events_grid>
-    <contactlab_commons_adminhtml_test_index>
+    </adminhtml_contactlab_commons_events_grid>
+    <adminhtml_contactlab_commons_test_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_test" name="contactlab.commons.test" />
         </reference>
-    </contactlab_commons_adminhtml_test_index>
-    <contactlab_commons_adminhtml_releasenotes_index>
+    </adminhtml_contactlab_commons_test_index>
+    <adminhtml_contactlab_commons_releasenotes_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_releaseNotes" name="contactlab_commons_adminhtml_releasenotes"
                    template="contactlab/commons/releasenotes.phtml"/>
         </reference>
-    </contactlab_commons_adminhtml_releasenotes_index>
-    <contactlab_commons_adminhtml_configurationcheck_index>
+    </adminhtml_contactlab_commons_releasenotes_index>
+    <adminhtml_contactlab_commons_configurationcheck_index>
         <reference name="content">
             <block type="contactlab_commons/adminhtml_configurationCheck" name="contactlab_commons_adminhtml_configurationcheck"
                    template="contactlab/commons/configurationcheck.phtml"/>
         </reference>
-    </contactlab_commons_adminhtml_configurationcheck_index>
+    </adminhtml_contactlab_commons_configurationcheck_index>
 </layout>
