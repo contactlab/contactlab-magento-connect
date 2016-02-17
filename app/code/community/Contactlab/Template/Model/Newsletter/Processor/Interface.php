@@ -6,11 +6,11 @@ interface Contactlab_Template_Model_Newsletter_Processor_Interface {
     /**
      * Load subscribers interface function.
      *
-     * @param Mage_Newsletter_Model_Template $template
+     * @param Contactlab_Template_Model_Newsletter_Template $template
      * @param boolean $onlyCustomers
      * @return $this
      */
-    function loadSubscribers(Mage_Newsletter_Model_Template $template, $onlyCustomers);
+    function loadSubscribers(Contactlab_Template_Model_Newsletter_Template $template, $onlyCustomers);
 
     /**
      * Set store id.

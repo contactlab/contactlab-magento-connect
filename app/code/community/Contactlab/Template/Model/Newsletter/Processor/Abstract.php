@@ -7,8 +7,23 @@
  *
  * @method getSendToAllCustomers()
  * @method getDebugInfo()
+ * @method array getFilters()
+ * @method bool getIsTestMode()
+ * @method Mage_Newsletter_Model_Template getTemplate()
+ * @method bool getStop()
  *
- * @method setSendToAllCustomers($value)
+ * @method bool hasDebugInfo()
+ * @method bool hasTemplate()
+ * @method bool hasStop()
+ *
+ * @method unsStop()
+ *
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setSendToAllCustomers($value)
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setDebugInfo($value)
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setFilters($value)
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setIsTestMode($value)
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setTemplate(Mage_Newsletter_Model_Template $template)
+ * @method Contactlab_Template_Model_Newsletter_Processor_Abstract setStop($value)
  */
 abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         extends Varien_Object
@@ -19,17 +34,17 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         $this->setFilters(array());
     }
 
-    /* @var Mage_Core_Model_Resource_Db_Collection_Abstract $_collection The collection. */
+    /* @var Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection $_collection The collection. */
     private $_collection;
 
     /**
      * Load subscribers.
      *
-     * @param Mage_Newsletter_Model_Template $template
+     * @param Contactlab_Template_Model_Newsletter_Template $template
      * @param boolean $onlyCustomers
-     * @return a collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
-    public final function loadSubscribers(Mage_Newsletter_Model_Template $template, $onlyCustomers) {
+    public final function loadSubscribers(Contactlab_Template_Model_Newsletter_Template $template, $onlyCustomers) {
         /* @var $rv Mage_Core_Model_Resource_Db_Collection_Abstract */
         if ($onlyCustomers) {
             $rv = $this->loadCustomers($template);
@@ -40,16 +55,23 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         return $rv;
     }
 
-    protected final function loadNewsletterSubscribers(Mage_Newsletter_Model_Template $template, $onlyCustomers) {
+    /**
+     * Load newsletter subscribers.
+     * @param Contactlab_Template_Model_Newsletter_Template $template
+     * @param $onlyCustomers
+     * @return Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection|Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @throws Zend_Exception
+     */
+    protected final function loadNewsletterSubscribers(Contactlab_Template_Model_Newsletter_Template $template, $onlyCustomers) {
         $this->_collection = Mage::getResourceModel('newsletter/subscriber_collection');
         if (!$onlyCustomers) {
             $this->_collection->useOnlySubscribed();
         }
+        $this->setTemplate($template);
         $this->setIsTestMode($template->getIsTestMode());
         if ($this->getIsTestMode()) {
             $this->applyFilter('contactlab_template/newsletter_processor_filter_testMode');
         }
-        $this->setTemplate($template);
 
         if ($template->hasDebugAddress() && $template->getDebugAddress() != '') {
             $this->applyFilter('contactlab_template/newsletter_processor_filter_emailLike',
@@ -74,10 +96,10 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
 
     /**
      * Load customers.
-     * @param Mage_Newsletter_Model_Template $template
+     * @param Contactlab_Template_Model_Newsletter_Template $template
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
-    protected final function loadCustomers(Mage_Newsletter_Model_Template $template) {
+    protected final function loadCustomers(Contactlab_Template_Model_Newsletter_Template $template) {
         /* @var $subscribers Mage_Core_Model_Resource_Db_Abstract */
         $subscribers = Mage::getResourceModel("newsletter/subscriber");
         $subscribersTable = $subscribers->getMainTable();
@@ -122,6 +144,9 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         if ($this->hasStop() && $this->getStop()) {
             return $this;
         }
+        /**
+         * @var $filterModel Contactlab_Template_Model_Newsletter_Processor_Filter_Abstract
+         */
         $filterModel = Mage::getModel($filter);
         if (!is_object($filterModel)) {
             throw new Zend_Exception("Could not find $filter model");
@@ -132,6 +157,7 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
         if ($this->getIsTestMode() && !$filterModel->doRunInTestMode()) {
             return $this;
         }
+        $countBefore = 0;
         if ($this->doOutputRows()) {
             $countBefore = $this->_collection->getRealSize();
         }
@@ -166,10 +192,10 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
     /**
      * applySubscribersFilter: Load collection (abstract).
      *
-     * @param Mage_Newsletter_Model_Template $template
+     * @param Contactlab_Template_Model_Newsletter_Template $template
      * @return void
      */
-    protected abstract function applySubscribersFilter(Mage_Newsletter_Model_Template $template);
+    protected abstract function applySubscribersFilter(Contactlab_Template_Model_Newsletter_Template $template);
 
     /**
      * Get processor code.
@@ -185,7 +211,7 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
      * @return $this
      */
     public function setStoreId($storeId) {
-        return parent::setStoreId($storeId);
+        return parent::setData('store_id', $storeId);
     }
 
     /**
@@ -194,7 +220,7 @@ abstract class Contactlab_Template_Model_Newsletter_Processor_Abstract
      * @return string
      */
     public function getStoreId() {
-        return parent::getStoreId();
+        return parent::getData('store_id');
     }
 
     /**

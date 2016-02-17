@@ -2,6 +2,15 @@
 
 /**
  * Newsletter subscribers model, get and set from SOAP.
+ * @method int getSubscriberId()
+ * @method int getLastSubscribedAt()
+ * @method bool hasSubscriberId()
+ * @method bool hasSubscriberConfirmCode()
+ * @method bool hasStoreId()
+ * @method bool hasLastSubscribedAt()
+ * @method array getProductIds()
+ *
+ * @method Contactlab_Subscribers_Model_Newsletter_Subscriber setLastSubscribedAt($value)
  */
 class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter_Model_Subscriber {
     // Is customer subscribed?

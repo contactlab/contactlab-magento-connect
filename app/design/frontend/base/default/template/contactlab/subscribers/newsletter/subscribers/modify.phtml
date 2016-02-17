@@ -1,0 +1,23 @@
+<div class="block block-subscribe">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Subscribed users') ?></span></strong>
+    </div>
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+            <div class="form-subscribe-header">
+                <label for="newsletter"><?php echo $this->__('Modify your data?') ?></label>
+            </div>
+            <div class="input-box">
+                <input type="<?php echo $this->getInputType()?>" name="email" id="newsletter" value="<?php echo $this->getCustomerEmail()?>" title="<?php echo $this->__('Your email') ?>" class="input-text required-entry validate-email" />
+            </div>
+            <div class="actions">
+                <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+    </script>
+</div>

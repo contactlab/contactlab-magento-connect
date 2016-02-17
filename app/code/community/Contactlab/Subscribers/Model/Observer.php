@@ -9,7 +9,10 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
 
     private $_toUnsubscribe = array();
 
-    /** Update customer stats, on order save and delete. */
+    /**
+     * Update customer stats, on order save and delete.
+     * @param $observer
+     */
     public function updateStats($observer) {
         try {
             Mage::helper("contactlab_subscribers")
@@ -20,7 +23,10 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
         }
     }
 
-    /** Update customer stats, on order save and delete. */
+    /**
+     * Update customer stats, on order save and delete.
+     * @param $observer
+     */
     public function doUpdateStats($observer) {
         try {
             Mage::helper("contactlab_subscribers")->doUpdateStats();
@@ -30,7 +36,10 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
     }
 
 
-	/** A subscriber has been saved. */
+    /**
+     * A subscriber has been saved.
+     * @param $observer
+     */
 	public function subscriberSaved($observer) {
 		$subscriber = $observer->getEvent()->getDataObject();
 		$isSubscribed = $subscriber->getStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED;
@@ -45,6 +54,7 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
     /**
      * A subscriber has been promoted to customer.
      * @param $observer Varien_Event_Observer
+     * @return bool
      */
     public function subscriberPromotedToCustomer(Varien_Event_Observer $observer) {
         $uk = $observer->getEvent()->getDataObject();
@@ -97,7 +107,6 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
     private function _doUnsubscribeLater(Mage_Newsletter_Model_Subscriber $subscriber) {
         Mage::helper("contactlab_commons")->logNotice(sprintf("Subscriber \"%s\" has been promoted to customer without confirm subscription",
             $subscriber->getSubscriberEmail()));
-        $id = $subscriber->getId();
         $subscriber->setStatus(Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)->save();
         Mage::log(Mage::getModel('newsletter/subscriber')->load($subscriber->getId())->getData());
         if (Mage::getStoreConfigFlag("contactlab_subscribers/subscriber_to_customer/email_on_unsubscribe")) {
@@ -110,20 +119,31 @@ class Contactlab_Subscribers_Model_Observer extends Mage_Core_Model_Abstract {
     }
 
 
-
-	/** Update last subscribed at, before save. */
+    /**
+     * Update last subscribed at, before save.
+     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @deprecated
+     */
 	private function _updateLastSubscribedAt(Mage_Newsletter_Model_Subscriber $subscriber) {
 		$date = Mage::getModel('core/date')->gmtDate();
 		$subscriber->setLastSubscribedAt($date);
 	}
 
-	/** Was unsubscribed? */
+    /**
+     * Was unsubscribed?
+     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @return bool
+     */
 	private function _wasUnsubscribed(Mage_Newsletter_Model_Subscriber $subscriber) {
 		$oldModel = new Mage_Newsletter_Model_Subscriber();
 		$oldModel->load($subscriber->getSubscriberId());
 		return $oldModel->getStatus() !== Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED;
 	}
 
+    /**
+     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @return bool
+     */
     private static function _isSubscribedLocally(Mage_Newsletter_Model_Subscriber $subscriber) {
         if ($subscriber->getId() && $subscriber->getStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED) {
             return true;

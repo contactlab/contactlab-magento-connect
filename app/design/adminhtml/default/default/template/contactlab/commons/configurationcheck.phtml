@@ -1,14 +1,33 @@
 <div class="content-header">
     <h1 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h1>
 </div>
-<?php foreach ($this->getCronConfiguration() as $item): ?>
-<h3><?php echo $item->getModule() ?> - <?php echo $item->getName() ?></h3>
-    <?php if ($item->hasDescription()): ?>
-        <p><em><?php echo $item->getDescription() ?></em></p>
-    <?php endif; ?>
-    <?php if ($item->getSchedule()): ?>
-        <p>Scheduled: <code><?php echo $item->getSchedule() ?></code></p>
-    <?php else: ?>
-        <p> Scheduled: <code class="error">Never</code></p>
-    <?php endif; ?>
-<?php endforeach; ?>
+<div class="box-left">
+    <?php /** @var $check Contactlab_Subscribers_Model_Checks_CheckInterface */ ?>
+    <?php foreach ($this->getSubscribersChecks() as $check): ?>
+        <h3 <?php echo $check->getExitCode() === Contactlab_Subscribers_Model_Checks_CheckInterface::ERROR ? 'class="error"' : '' ?>><?php echo $check->getDescription(); ?></h3>
+        <ul class="messages">
+            <?php foreach ($check->getErrors() as $error): ?>
+                <li class="error-msg"><?php echo $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <ul class="messages">
+            <?php foreach ($check->getSuccess() as $success): ?>
+                <li class="success-msg"><?php echo $success ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endforeach; ?>
+</div>
+<div class="box-right">
+    <h2><?php echo $this->__('Crontab scheduled tasks') ?></h2>
+    <?php foreach ($this->getCronConfiguration() as $item): ?>
+        <h3><?php echo $item->getModule() ?> - <?php echo $item->getName() ?></h3>
+        <?php if ($item->hasDescription()): ?>
+            <p><em><?php echo $item->getDescription() ?></em></p>
+        <?php endif; ?>
+        <?php if ($item->getSchedule()): ?>
+            <p>Scheduled: <code><?php echo $item->getSchedule() ?></code></p>
+        <?php else: ?>
+            <p> Scheduled: <code class="error">Never</code></p>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>

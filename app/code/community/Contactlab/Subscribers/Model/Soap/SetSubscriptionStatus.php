@@ -2,6 +2,10 @@
 
 /**
  * Model for SetSubscriptionStatus calls.
+ * @method Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus setStoreId($value)
+ * @method Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus setEntityId($value)
+ * @method Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus setSubscriberEmail($value)
+ * @method Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus setSubscriberStatus($value)
  */
 class Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus extends Contactlab_Subscribers_Model_Soap_AbstractSubscriberCall {
 	/** Do the SOAP call. */

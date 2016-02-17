@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="footer">
+            <remove name="footer.newsletter"/>
+            <block type="contactlab_subscribers/newsletter_subscribers_subscribe" name="contactlab.newsletter"
+                   template="contactlab/subscribers/newsletter/subscribers/subscribe.phtml"/>
+            <block type="contactlab_subscribers/newsletter_subscribers_modify" name="contactlab.newsletter.modify"
+                   template="contactlab/subscribers/newsletter/subscribers/modify.phtml"/>
+        </reference>
+        <reference name="left">
+            <remove name="left.newsletter"/>
+            <block type="contactlab_subscribers/newsletter_subscribers_subscribe" name="contactlab.newsletter"
+                   template="contactlab/subscribers/newsletter/subscribers/subscribe.phtml"/>
+            <block type="contactlab_subscribers/newsletter_subscribers_modify" name="contactlab.newsletter.modify"
+                   template="contactlab/subscribers/newsletter/subscribers/modify.phtml"/>
+        </reference>
+    </default>
+    <contactlab_subscribers_edit_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+            <reference name="content">
+                <block type="contactlab_subscribers/newsletter_subscribers_update" name="contactlab.newsletter"
+                       template="contactlab/subscribers/newsletter/subscribers/update.phtml"/>
+            </reference>
+        </reference>
+    </contactlab_subscribers_edit_index>
+</layout>

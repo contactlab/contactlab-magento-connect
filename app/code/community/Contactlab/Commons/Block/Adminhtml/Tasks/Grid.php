@@ -7,6 +7,7 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
 
     /**
      * Construct the block.
+     * @param array $attributes
      */
     public function __construct($attributes = array()) {
         parent::__construct($attributes);
@@ -208,9 +209,11 @@ class Contactlab_Commons_Block_Adminhtml_Tasks_Grid extends Mage_Adminhtml_Block
 
     /**
      * Row url.
+     * @param $item
+     * @return string
      */
     public function getRowUrl($item) {
-        return $this->getUrl('*/adminhtml_events/', array(
+        return $this->getUrl('*/contactlab_commons_events/', array(
                     'id' => $item->getId()
         ));
     }

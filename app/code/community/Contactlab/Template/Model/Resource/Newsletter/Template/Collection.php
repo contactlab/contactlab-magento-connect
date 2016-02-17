@@ -8,12 +8,15 @@ class Contactlab_Template_Model_Resource_Newsletter_Template_Collection extends 
      * Load active templates for cron.
      *
      * @param int $storeId
+     * @param bool $excludeTest Exclude test mode templates
      * @return Contactlab_Template_Model_Resource_Newsletter_Template_Collection
      */
-    public function loadActiveTemplatesForCron($storeId = -1) {
+    public function loadActiveTemplatesForCron($storeId = -1, $excludeTest = true) {
         $this->getSelect()->where('(cron_date_range_start is null or cron_date_range_start <= date(now()))');
         $this->getSelect()->where('(cron_date_range_start is null or cron_date_range_end >= date(now()))');
-        $this->getSelect()->where('is_test_mode = 0');
+        if ($excludeTest) {
+            $this->getSelect()->where('is_test_mode = 0');
+        }
         if ($storeId >= 0) {
             $this->getSelect()->where('store_id is null or store_id = ?', intval($storeId));
         }

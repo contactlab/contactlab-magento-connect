@@ -80,7 +80,7 @@ class Contactlab_Template_Block_Adminhtml_Newsletter_Template_Tasks_Renderer_Que
     private function _getQueueDetailUrl($queueId, $templateId)
     {
         return Mage::helper('adminhtml')
-            ->getUrl('contactlab_template/adminhtml_newsletter_template_tasks/detail',
+            ->getUrl('adminhtml/contactlab_template_tasks/detail',
                 array('queue_id' => $queueId, 'template_id' => $templateId));
     }
 }

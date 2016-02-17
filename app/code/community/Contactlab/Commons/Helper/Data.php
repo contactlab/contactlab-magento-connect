@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Helper data for logging pourpose.
+ * Helper data for logging purpose.
  */
 class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
 
@@ -38,13 +38,72 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
 
     /**
      * Emergency: system is unusable
+     * @param string $value
      */
     public function logEmerg($value) {
         $this->_log($value, Zend_Log::EMERG);
     }
 
     /**
+     * Alert: action must be taken immediately
+     * @param string $value
+     */
+    public function logAlert($value) {
+        $this->_log($value, Zend_Log::ALERT);
+    }
+
+    /**
+     * Critical: critical conditions
+     * @param string $value
+     */
+    public function logCrit($value) {
+        $this->_log($value, Zend_Log::CRIT);
+    }
+
+    /**
+     * Error: error conditions
+     * @param string $value
+     */
+    public function logErr($value) {
+        $this->_log($value, Zend_Log::ERR);
+    }
+
+    /**
+     * Warning: warning conditions
+     * @param string $value
+     */
+    public function logWarn($value) {
+        $this->_log($value, Zend_Log::WARN);
+    }
+
+    /**
+     * Notice: normal but significant condition
+     * @param string $value
+     */
+    public function logNotice($value) {
+        $this->_log($value, Zend_Log::NOTICE);
+    }
+
+    /**
+     * Informational: informational messages
+     * @param string $value
+     */
+    public function logInfo($value) {
+        $this->_log($value, Zend_Log::INFO);
+    }
+
+    /**
+     * Debug: debug messages
+     * @param string $value
+     */
+    public function logDebug($value) {
+        $this->_log($value, Zend_Log::DEBUG);
+    }
+
+    /**
      * Private log function.
+     * @param string $value
+     * @param int $level
      */
     private function _log($value, $level) {
         Mage::log(sprintf("%-10s %-6s - %s", "Global",
@@ -54,72 +113,39 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * Alert: action must be taken immediately
+     * Check if debug is enabled.
      */
-    public function logAlert($value) {
-        $this->_log($value, Zend_Log::ALERT);
-    }
-
-    /**
-     * Critical: critical conditions
-     */
-    public function logCrit($value) {
-        $this->_log($value, Zend_Log::CRIT);
-    }
-
-    /**
-     * Error: error conditions
-     */
-    public function logErr($value) {
-        $this->_log($value, Zend_Log::ERR);
-    }
-
-    /**
-     * Warning: warning conditions
-     */
-    public function logWarn($value) {
-        $this->_log($value, Zend_Log::WARN);
-    }
-
-    /**
-     * Notice: normal but significant condition
-     */
-    public function logNotice($value) {
-        $this->_log($value, Zend_Log::NOTICE);
-    }
-
-    /**
-     * Debug: debug messages
-     */
-    public function logDebug($value) {
-        $this->_log($value, Zend_Log::DEBUG);
-    }
-
-    /** Enable Zend DB Profiler. */
-    public function enableDbProfiler() {
-        if (!$this->isDebug()) {
-            return;
-        }
-        Mage::getSingleton('core/resource')->getConnection('core_write')->getProfiler()->setEnabled(true);
-        Varien_Profiler::enable();
-    }
-
-    /** Check if debug is enabled. */
     public function isDebug() {
         return Mage::getStoreConfigFlag("contactlab_commons/global/debug");
     }
 
-    /** Flush Zend DB Profiler. */
+    /**
+     * Enable Zend DB Profiler.
+     */
+    public function enableDbProfiler() {
+        if (!$this->isDebug()) {
+            return;
+        }
+        /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $connection->getProfiler()->setEnabled(true);
+        Varien_Profiler::enable();
+    }
+
+    /**
+     * Flush Zend DB Profiler.
+     */
     public function flushDbProfiler() {
         if (!$this->isDebug()) {
             return;
         }
-        $profiler = Mage::getSingleton('core/resource')
-                ->getConnection('core_write')
-                ->getProfiler();
+        /** @var $connection Varien_Db_Adapter_Pdo_Mysql */
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $profiler = $connection->getProfiler();
 
         $csvArray = array();
         foreach ($profiler->getQueryProfiles() as $q) {
+            /** @var $q Zend_Db_Profiler_Query */
             $csvArray[] = array($q->getElapsedSecs(), $q->getQuery());
         }
         $logDir  = Mage::getBaseDir('var') . DS . 'log';
@@ -130,13 +156,24 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         fclose($fp);
     }
 
-    /** Is the action $action allowed? */
+    /**
+     * Is the action $action allowed?
+     * @param string $section
+     * @param string $action
+     * @return bool
+     */
     public function isAllowed($section, $action) {
         return Mage::getSingleton('admin/session')
         	->isAllowed("admin/newsletter/contactlab/$section/actions/$action");
     }
 
-    /** Mage same or newer of (for backward compatibility). */
+    /**
+     * Mage same or newer of (for backward compatibility).
+     * @param int $major
+     * @param int $minor
+     * @param int $revision
+     * @return bool
+     */
     public function isMageSameOrNewerOf($major, $minor, $revision = 0) {
         if ($this->_mageMajor < $major) {
             return false;
@@ -149,9 +186,13 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * For backward compatibility
+     * For backward compatibility.
+     * @param Varien_Db_Adapter_Pdo_Mysql $adapter
+     * @param Zend_Db_Select $select
+     * @param $table
+     * @return string
      */
-    public function deleteFromSelect($adapter, $select, $table) {
+    public function deleteFromSelect(Varien_Db_Adapter_Pdo_Mysql $adapter, Zend_Db_Select $select, $table) {
         $select = clone $select;
         $select->reset(Zend_Db_Select::DISTINCT);
         $select->reset(Zend_Db_Select::COLUMNS);
@@ -168,6 +209,9 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         $count = 0;
         foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $moduleConfig) {
             if (preg_match('/^Contactlab_.*/', $moduleName)) {
+                if (((string) $moduleConfig->active) === 'false') {
+                    continue;
+                }
                 $item = new Varien_Object();
                 $item->setName(preg_replace('/^Contactlab_/', '', $moduleName))
                     ->setVersion((string) $moduleConfig->version)
@@ -205,9 +249,40 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
-     * Informational: informational messages
+     * Add critical message.
+     * @param string$value
      */
-    public function logInfo($value) {
-        $this->_log($value, Zend_Log::INFO);
+    public function addCriticalMessage($value) {
+        if ($this->_useCoreAddCritical()) {
+            Mage::getModel('adminnotification/inbox')->addCritical($value, "Contactlab");
+        } else {
+            $this->_addCritical($value, "Contactlab");
+        }
+    }
+
+    /** For Mage 1.7 or newer. */
+    private function _useCoreAddCritical() {
+        return Mage::helper("contactlab_commons")->isMageSameOrNewerOf(1, 7);
+    }
+
+    /**
+     * Add new message (Back porting)
+     *
+     * @param string $title
+     * @param string $description
+     * @return $this
+     */
+    private function _addCritical($title, $description) {
+        $t = Mage::getModel('adminnotification/inbox');
+        $date = date('Y-m-d H:i:s');
+        $t->parse(array(array(
+            'severity'    => Mage::helper('adminnotification')->__('critical'),
+            'date_added'  => $date,
+            'title'       => $title,
+            'description' => $description,
+            'url'         => "",
+            'internal'    => true
+        )));
+        return $this;
     }
 }
