@@ -42,7 +42,7 @@
                 <connection>
                     <host>localhost</host>
                     <username>travis</username>
-                    <password></password>
+                    <password>travis</password>
                     <dbname>contactlab_db</dbname>
                     <initStatements>SET NAMES utf8</initStatements>
                     <model>mysql4</model>
