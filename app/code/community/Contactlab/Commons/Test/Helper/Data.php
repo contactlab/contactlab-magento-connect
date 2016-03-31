@@ -26,7 +26,7 @@ class Contactlab_Commons_Test_Helper_Data extends EcomDev_PHPUnit_Test_Case
      */
     public function getPlatformVersion() {
         $version = $this->helper->getPlatformVersion();
-        $this->assertRegExp('|\d+\.\d+\.\d+|', $version, "Platform version should be x.x.x");
+        $this->assertRegExp('|\d+\.\d+(\.\d+)?|', $version, "Platform version should be x.x(.x)?");
     }
 
     /**

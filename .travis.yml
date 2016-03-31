@@ -1,4 +1,4 @@
-# git init && git remote add origin https://github.com/contactlab/contactlab-magento-connect.git && git pull origin develop && git pull origin  feature/travis-test && git checkout feature/travis-test
+# git clone https://github.com/contactlab/contactlab-magento-connect.git -b feature/travis-test .
 
 language: php
 php:
@@ -10,22 +10,21 @@ test:
   encoding: utf8
 before_script:
   - curl -s http://getcomposer.org/installer | php
-  - # php composer.phar self-update
-  - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/composer.json
+  - php composer.phar self-update
+  - ln -s app/code/community/Contactlab/Commons/Test/resources/composer.json
   - php composer.phar install
   - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
   - chmod +x modman
   - ./modman init
   - ./modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
 
-  - pushd app/etc && wget http://www.webformat.com/4GMVhgIhcUaHIz9s/local.xml && popd
+  - ln -s ../../app/code/community/Contactlab/Commons/Test/resources/local.xml app/etc
 
   - mysql -e 'create database contactlab_db;'
   - mysql -e 'create database contactlab_test;'
 
-  - wget http://www.webformat.com/4GMVhgIhcUaHIz9s/contactlab_db.sql.gz
-  - gunzip -c contactlab_db.sql.gz | mysql -D contactlab_db
-  - gunzip -c contactlab_db.sql.gz | mysql -D contactlab_test
+  - gunzip -c app/code/community/Contactlab/Commons/Test/resources/contactlab_db.sql.gz | mysql -D contactlab_db
+  - gunzip -c app/code/community/Contactlab/Commons/Test/resources/contactlab_db.sql.gz | mysql -D contactlab_test
 
   - php cron.php
   - pushd shell && php ecomdev-phpunit.php -a magento-config --db-name contactlab_test --base-url http://magento.contactlab.travis/ && popd
