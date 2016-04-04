@@ -115,15 +115,15 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
             if (!$subs->hasSubscriberId()) {
                 Mage::helper('contactlab_commons')->logInfo('SAVING FIELDS FROM afterSubscriberSaved 1:');
                 $subs->setSubscriberId($observer->getDataObject()->getSubscriberId())->save();
-            };
+            }
         } else {
             /*
              * Otherwise, subscriber was already a customer, so we require customer id
              */
             Mage::helper('contactlab_commons')->logInfo('empty data : ' . print_r($observer->getDataObject()->getData(), true));
-            if (!$observer->getDataObject()->hasCustomerId())
+            if (!$observer->getDataObject()->hasCustomerId()) {
                 return;
-            //Mage::throwException($this->__('Subscriber is neither guest or customer'));
+            }
 
             $customerId = $observer->getDataObject()->getCustomerId();
             /**
@@ -134,10 +134,7 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
             $subs->setLastName($customer->getLastname());
             $subs->setDob($customer->getDob());
             $subs->setGender($customer->getGender());
-            /*
-             *  Manage info saved in address attribute
-             *  Using default billing address
-             */
+            // Manage info saved in address attribute. Using default billing address.
             $address = Mage::getModel('customer/address')->load($customer->getDefaultBilling());
 
             $subs->setCity($address->getCity());
@@ -154,10 +151,16 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
 
     }
 
+    /**
+     * Before subscriber deleted.
+     * @param $observer
+     * @throws Exception
+     * @deprecated uses cascade
+     */
     public function beforeSubscriberDeleted($observer)
     {
-        $id = $observer->getEvent()->getDataObject()->getSubscriberId();
-        Mage::getModel("contactlab_subscribers/fields")->load($id, 'subscriber_id')->delete();
+        /*$id = $observer->getEvent()->getDataObject()->getSubscriberId();
+        Mage::getModel("contactlab_subscribers/fields")->load($id, 'subscriber_id')->delete();*/
     }
 
     /**
@@ -167,10 +170,9 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
     {
         /** @var $fields Contactlab_Subscribers_Model_Fields */
         $fields = Mage::getModel('contactlab_subscribers/fields')
-            ->load($params->getEmail(), 'subscriber_email');
+            ->load($params->getData('email'), 'subscriber_email');
         if ($fields->hasData()) {
             $this->fillModel($fields, $params->getData())->save();
         }
     }
-
 }

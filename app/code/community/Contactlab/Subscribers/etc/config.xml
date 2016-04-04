@@ -92,7 +92,8 @@
                     </contactlab_subscribers_newsletter_subscriber_save_after_fields>
                 </observers>
             </newsletter_subscriber_save_after>
-            <newsletter_subscriber_delete_before>
+            <!-- Driven by cascade database -->
+            <!--newsletter_subscriber_delete_before>
                 <observers>
                     <contactlab_subscribers_newsletter_subscriber_delete_before_fields>
                         <type>singleton</type>
@@ -100,7 +101,7 @@
                         <method>beforeSubscriberDeleted</method>
                     </contactlab_subscribers_newsletter_subscriber_delete_before_fields>
                 </observers>
-            </newsletter_subscriber_delete_before>
+            </newsletter_subscriber_delete_before-->
             <sales_order_save_after>
                 <observers>
                     <contactlab_commons_model_delete_after>

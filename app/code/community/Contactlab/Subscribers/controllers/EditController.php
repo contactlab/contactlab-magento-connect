@@ -21,25 +21,26 @@ class Contactlab_Subscribers_EditController extends Mage_Core_Controller_Front_A
         // Load the subscriber and the additional fields entity
 
         $subs = Mage::getModel('newsletter/subscriber')->load($params['id']);
-        if (!$subs->hasData())
+        if (!$subs->hasData('subscriber_id')) {
             Mage::throwException($this->__('Subscriber not present'));
+        }
 
         /** @noinspection PhpUndefinedMethodInspection */
-        if (!$subs->hasSubscriberConfirmCode())
+        if (!$subs->hasSubscriberConfirmCode()) {
             Mage::throwException($this->__('Subscriber has no confirm code'));
+        }
 
-        if ($subs->getSubscriberConfirmCode() != $params['hash'])
+        if ($subs->getSubscriberConfirmCode() != $params['hash']) {
             Mage::throwException($this->__('Confirm code does not match subscriber'));
+        }
 
-        /** @var $fields Contactlab_Subscribers_Model_Fields */
-        /** @noinspection PhpUndefinedMethodInspection */
         $fields = Mage::getModel('contactlab_subscribers/fields')->load($subs->getSubscriberId(), 'subscriber_id');
 
-        if (!$fields->hasData())
+        /*if (!$fields->hasData('subscriber_id')) {
             Mage::throwException($this->__('No additional fields for this subscriber'));
-        //end of checks
-        //register our fields entity, it will be used to fill input fields
-        //by the Modify block
+        }*/
+        // End of checks
+        // Register our fields entity, it will be used to fill input fields by the Modify block
         Mage::register('contactlab/fields', $fields);
 
         $this->loadLayout();

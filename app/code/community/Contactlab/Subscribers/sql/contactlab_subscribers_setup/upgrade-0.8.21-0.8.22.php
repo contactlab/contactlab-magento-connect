@@ -80,9 +80,13 @@ if (!$connection->isTableExists($tableName)) {
             Varien_Db_Ddl_Table::TYPE_TEXT,
             255, array('nullable' => true),
             'Notes')
-        ->addForeignKey($installer->getFkName($table, 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
-            'subscriber_id', $installer->getTable('newsletter/subscriber'), 'subscriber_id',
-            Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+        ->addForeignKey(
+            $installer->getFkName($table, 'subscriber_id', 'newsletter/subscriber', 'subscriber_id'),
+            'subscriber_id',
+            $installer->getTable('newsletter/subscriber'),
+            'subscriber_id',
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Ddl_Table::ACTION_CASCADE)
         ->setComment("ContactLab Id -> Newsletter subscriber mapping table");
 
     $connection->createTable($newTable);
