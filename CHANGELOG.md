@@ -1,5 +1,8 @@
 # Changelog 
 
+## 2.3.1 (2016-04-04)
+- Generate subscribers fields record if not present, in edit page
+
 ## 2.3 (2016-01-20)
 
 - **New feature** Custom subscribers fields added to frontend.
