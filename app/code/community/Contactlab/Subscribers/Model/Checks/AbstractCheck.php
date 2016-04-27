@@ -21,7 +21,7 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
      * Get Name.
      * @return string
      */
-    function getName() 
+    function getName()
     {
         return get_class($this);
     }
