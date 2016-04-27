@@ -134,7 +134,10 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
             $subs->setLastName($customer->getLastname());
             $subs->setDob($customer->getDob());
             $subs->setGender($customer->getGender());
-            // Manage info saved in address attribute. Using default billing address.
+            /*
+             *  Manage info saved in address attribute
+             *  Using default billing address
+             */
             $address = Mage::getModel('customer/address')->load($customer->getDefaultBilling());
 
             $subs->setCity($address->getCity());
