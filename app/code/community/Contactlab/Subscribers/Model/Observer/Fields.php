@@ -104,7 +104,7 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
         Mage::helper('contactlab_commons')->logInfo('AFTERSUBSAVED:' . print_r($observer->getEvent()->getDataObject(), true));
         $email = $observer->getEvent()->getDataObject()->getSubscriberEmail();
         $subs = Mage::getModel("contactlab_subscribers/fields")->load($email, 'subscriber_email');
-        if ($subs->hasData()) {
+        if ($subs->hasData('entity_id')) {
             /**
              * If the subscriber was already present in our table, this means that
              * the record was saved through a form submission
