@@ -52,4 +52,14 @@ class Contactlab_Subscribers_Model_Checks_ContactlabAuthApiKeyCheck
     {
         return true;
     }
+
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest()
+    {
+        return true;
+    }
 }

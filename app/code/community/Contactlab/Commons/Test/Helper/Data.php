@@ -87,6 +87,7 @@ class Contactlab_Commons_Test_Helper_Data extends EcomDev_PHPUnit_Test_Case
         /**  @var $connection Varien_Db_Adapter_Pdo_Mysql */
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         $profiler = $connection->getProfiler();
+        $profiler->setEnabled(true);
         $this->assertTrue($profiler->getEnabled());
         $tasks = Mage::getModel('contactlab_commons/task')->getCollection();
         $tasks->count();
