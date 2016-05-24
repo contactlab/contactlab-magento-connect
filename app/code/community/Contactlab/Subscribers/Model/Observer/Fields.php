@@ -172,10 +172,41 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
     public function updateFields(Varien_Event_Observer $params)
     {
         /** @var $fields Contactlab_Subscribers_Model_Fields */
-        $fields = Mage::getModel('contactlab_subscribers/fields')
+        /*
+         $fields = Mage::getModel('contactlab_subscribers/fields')
             ->load($params->getData('email'), 'subscriber_email');
-        if ($fields->hasData()) {
+        */
+        $fields = $this->checkEditParams($params);
+
+        if ($fields && $fields->hasData()) {
             $this->fillModel($fields, $params->getData())->save();
         }
+    }
+
+    private function checkEditParams($params) {
+        //check params
+        if (!$params->getData('chkhash')
+            || !$params->getData('chkid')) {
+            return null;
+        }
+
+        // Load the subscriber and the additional fields entity
+
+        $subs = Mage::getModel('newsletter/subscriber')->load($params->getData('chkid'));
+        if (!$subs->hasData('subscriber_id')) {
+            return null;
+        }
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        if (!$subs->hasSubscriberConfirmCode()) {
+            return null;
+        }
+
+        if ($subs->getSubscriberConfirmCode() != $params->getData('chkhash')) {
+            return null;
+        }
+
+        return  Mage::getModel('contactlab_subscribers/fields')->load($subs->getSubscriberId(), 'subscriber_id');
+
     }
 }
