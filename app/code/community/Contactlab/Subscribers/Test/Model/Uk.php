@@ -13,6 +13,12 @@ class Contactlab_Subscribers_Test_Model_Uk extends EcomDev_PHPUnit_Test_Case
      * Setup.
      */
     protected function setUp() {
+        $sessionMock = $this->getModelMockBuilder('admin/session')
+            ->disableOriginalConstructor() // This one removes session_start and other methods usage
+            ->setMethods(null) // Enables original methods usage, because by default it overrides all methods
+            ->getMock();
+        $this->replaceByMock('singleton', 'admin/session', $sessionMock);
+        
         $this->model = Mage::getModel('contactlab_subscribers/uk');
         $this->helper = Mage::helper('contactlab_subscribers/uk');
         $this->model->truncate();
