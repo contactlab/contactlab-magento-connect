@@ -19,6 +19,7 @@ class Contactlab_Subscribers_Test_Model_Uk extends EcomDev_PHPUnit_Test_Case
             ->getMock();
         $this->replaceByMock('singleton', 'adminhtml/session', $sessionMock);
 
+
         $this->model = Mage::getModel('contactlab_subscribers/uk');
         $this->helper = Mage::helper('contactlab_subscribers/uk');
         $this->model->truncate();
@@ -141,7 +142,180 @@ class Contactlab_Subscribers_Test_Model_Uk extends EcomDev_PHPUnit_Test_Case
         $this->assertEquals($this->getUkCount(), 0);
     }
 
-        /**
+
+    /**
+     * Test insert Subscriber without related Customer
+     *
+     */
+    public function testCanInsertSubscriberWithoutRelatedCustomer()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+    }
+
+    /**
+     * Test insert Subscriber with related Customer
+     *
+     * @depends testCanInsertSubscriberWithoutRelatedCustomer
+     */
+    public function testCanInsertSubscriberWithRelatedCustomer()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->setCustomerId($customerId);
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+    }
+
+    /**
+     * Test insert Subscriber with not existent related Customer as null
+     *
+     * @depends testCanInsertSubscriberWithoutRelatedCustomer
+     */
+    public function testCanInsertSubscriberWithNotExistentRelatedCustomerAsNull()
+    {
+        $notExistentCustomerId = 999;
+        $this->assertEquals($this->getUkCount(), 0);
+        $subscriber = $this->createSubscriber();
+        $subscriber->setCustomerId($notExistentCustomerId);
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+    }
+
+    /**
+     * Test update Subscriber with related Customer
+     *
+     * @depends testCanInsertSubscriberWithoutRelatedCustomer
+     */
+    public function testCanUpdateSubscriberWithRelatedCustomer()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $subscriber->setCustomerId($customerId);
+        $subscriber->save();
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+    }
+
+    /**
+     * Test update Subscriber without related Customer
+     *
+     * @depends testCanInsertSubscriberWithRelatedCustomer
+     */
+    public function testCanUpdateSubscriberWithoutRelatedCustomer()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->setCustomerId($customerId);
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+
+        $subscriber->setCustomerId(0);
+        $subscriber->save();
+        $this->assertEquals($subscriber->getCustomerId(), 0);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+    }
+
+    /**
+     * Test update Subscriber not existent related Customer as null
+     *
+     * @depends testCanInsertSubscriberWithoutRelatedCustomer
+     */
+    public function testCanUpdateSubscriberWithNotExistentRelatedCustomerAsNull()
+    {
+        $notExistentCustomerId = 999;
+        $this->assertEquals($this->getUkCount(), 0);
+        $subscriber = $this->createSubscriber();
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+
+        $subscriber->setCustomerId($notExistentCustomerId);
+        $subscriber->save();
+        $this->assertEquals($subscriber->getCustomerId(), $notExistentCustomerId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchBySubscriberId($subscriberId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+        $this->assertNull($uk->getCustomerId());
+    }
+
+    /**
      * Get Count.
      * @return int
      */
