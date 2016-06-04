@@ -64,7 +64,6 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
 	
     /** Delete duplicated subscribers. */
     private function _deleteOrphanSubscribers($adapter, $doit, $session) {
-    	// FIXME: SURE!?
     	$subscribers = "newsletter/subscriber";
     	$subscribersTable = $this->getTable($subscribers);
     	$select = $adapter
@@ -170,8 +169,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                     'subscriber_id' => 'subscriber_id')
                 )              
                 ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                //->where("customer_id not in (select customer_id from contactlab_customers_tmp_idx) and subscriber_id not in (select subscriber_id from contactlab_subscribers_tmp_idx)");
-                ->where("s.customer_id is null or s.customer_id not in (select customer_id from contactlab_subscribers_uk where customer_id is not null) and subscriber_id not in (select subscriber_id from contactlab_subscribers_tmp_idx where subscriber_id is not null)");
+                ->where("customer_id not in (select customer_id from contactlab_customers_tmp_idx) and subscriber_id not in (select subscriber_id from contactlab_subscribers_tmp_idx)");
 
         $this->_helper->logNotice($select->assemble());
         if (!$doit) {
@@ -212,7 +210,6 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      */
     private function _insertFromCustomers(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $this->_helper->logNotice("----------- _insertFromCustomers");
-        Mage::log('----------- _insertFromCustomers', null, 'contactLogFra.log');
         $ukTable = $this->getMainTable();
         $customers = "customer/entity";
         $customersTable = $this->getTable($customers);
@@ -240,7 +237,6 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             } else {
                 $sql = $this->_insertFromSelect($adapter, $select, $ukTable, array('customer_id'));
             }
-            Mage::log($sql, null, 'contactLogFra.log');
             $this->_helper->logNotice($sql);
             $rv = $adapter->query($sql);
             $count = $rv->rowCount();
@@ -291,7 +287,6 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     private function _updateCustomerId(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
 
         $this->_helper->logNotice("----------- _updateCustomerId");
-        Mage::log('----------- _updateCustomerId', null, 'contactLogFra.log');
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
@@ -301,10 +296,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $select = $adapter->select()->from(array('u' => $ukTable), array('entity_id'))
                 ->join(array("s" => $subscribersTable), "s.subscriber_id = u.subscriber_id", array(''))
                 ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                ->where("s.customer_id != ifnull(u.customer_id, -1) and s.customer_id != 0");
+                ->where("ifnull(c.entity_id, -1) != ifnull(u.customer_id, -1) and c.entity_id > 0");
         
-        Mage::log($select->assemble(), null, 'contactLogFra.log');
-                
+
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
             $this->addSuccess("No customer_id to update", $session);
