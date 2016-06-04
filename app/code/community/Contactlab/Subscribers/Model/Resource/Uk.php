@@ -296,7 +296,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $select = $adapter->select()->from(array('u' => $ukTable), array('entity_id'))
                 ->join(array("s" => $subscribersTable), "s.subscriber_id = u.subscriber_id", array(''))
                 ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                ->where("ifnull(c.entity_id, -1) != ifnull(u.customer_id, -1) and c.entity_id > 0");
+                ->where("ifnull(c.entity_id, -1) != ifnull(u.customer_id, -1)");
         
 
         $count = $this->_getCount($adapter, $select);
