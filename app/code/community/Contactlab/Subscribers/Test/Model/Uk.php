@@ -316,6 +316,104 @@ class Contactlab_Subscribers_Test_Model_Uk extends EcomDev_PHPUnit_Test_Case
     }
 
     /**
+     * Test insert Customer not related to Subscriber
+     *
+     *
+     */
+    public function testCanInsertCustomerNotRelatedToSubscriber()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchByCustomerId($customerId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+        $this->assertNull($uk->getSubscriberId());
+    }
+
+    /**
+     * Test update Customer related to Subscriber
+     *
+     * @depends testCanInsertCustomerNotRelatedToSubscriber
+     */
+    public function testCanUpdateCustomerRelatedToSubscriber()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchByCustomerId($customerId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+        $this->assertNull($uk->getSubscriberId());
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->setCustomerId($customerId);
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchByCustomerId($customerId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+
+        $this->assertEquals($this->getUkCount(), 1);
+    }
+
+    /* *
+     * Test update Customer not related to Subscriber
+     *
+     * @depends testCanInsertSubscriberWithRelatedCustomer
+     * @depends testCanUpdateSubscriberWithoutRelatedCustomer
+     */
+    /* UNSUPPORTED FEATURE
+    public function testCanUpdateCustomerNotRelatedToSubscriber()
+    {
+        $this->assertEquals($this->getUkCount(), 0);
+
+        $customer = $this->createCustomer();
+        $customer->save();
+        $customerId = $customer->getEntityId();
+        $this->assertNotNull($customerId);
+
+        $subscriber = $this->createSubscriber();
+        $subscriber->setCustomerId($customerId);
+        $subscriber->save();
+        $subscriberId = $subscriber->getSubscriberId();
+        $this->assertNotNull($subscriberId);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchByCustomerId($customerId);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+        $this->assertEquals($uk->getSubscriberId(), $subscriberId);
+
+        $subscriber->setCustomerId(0);
+        $subscriber->save();
+        $this->assertEquals($subscriber->getCustomerId(), 0);
+
+        $this->helper->updateAll(true);
+
+        $uk = $this->helper->searchByCustomerId($customerId);
+        $this->assertTrue($uk);
+        $this->assertEquals($uk->getCustomerId(), $customerId);
+        $this->assertNull($uk->getSubscriberId());
+
+        $this->assertEquals($this->getUkCount(), 2);
+    }*/
+
+    /**
      * Get Count.
      * @return int
      */
