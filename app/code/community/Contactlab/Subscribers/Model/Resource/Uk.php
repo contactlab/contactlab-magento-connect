@@ -68,7 +68,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     	$subscribersTable = $this->getTable($subscribers);
     	$select = $adapter
     	->select()->from(array('s' => $subscribersTable), array('customer_id','subscriber_id'))
-    	->where("customer_id NOT IN (select entity_id FROM customer_entity)");
+    	->where("customer_id > 0 AND customer_id NOT IN (select entity_id FROM customer_entity)");
     
     	$count = $this->_getCount($adapter, $select);
     	if ($count === 0) {
@@ -103,7 +103,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     		foreach ($adapter->fetchAll($select) as $id) {
     			$string.= $id["subscriber_id"].",";
     		}
-    		$this->addNotice("Would remove $count orphan subscribers :: $string", $session);
+            $bckNotice = $this->getHasNotices();
+    		$this->addNotice("There are $count orphan subscribers :: $string", $session);
+            $this->setHasNotices($bckNotice);
     		return $this;
     	}
     }
