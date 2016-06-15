@@ -57,7 +57,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         // Define customer collection
         $attributesCustomer = $this->helper->getAttributesForEntityType('customer',
-                array_values($this->helper->getAttributesMap($this->getTask())));
+                array_keys($this->helper->getAttributesMap($this->getTask())));
         $this->fAttributesMap = array_flip($this->helper->getAttributesMap($this->getTask()));
         $this->fAddressAttributes = array_flip($this->helper->getAddressesAttributesMap());
 
@@ -459,10 +459,14 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 if (!array_key_exists($k, $this->customerAttributes)) {
                     continue;
                 }
-                $toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] =
-                        $this->helper->decode($this->customerModel, 'customer', $this->customerAttributes[$k], $v);
+                // use flipped array for cstm attributes
+                $flip = array_flip($this->fAttributesMap);
+                //$toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] =
+                $toFill[$flip[$this->customerAttributes[$k]]] =
+                    $this->helper->decode($this->customerModel, 'customer', $this->customerAttributes[$k], $v);
             }
         }
+
     }
 
     /**
