@@ -94,6 +94,6 @@ class Contactlab_Subscribers_Model_Checks_FindInvalidCustomersCheck
      */
     public function isEssential()
     {
-        return true;
+        return false;
     }
 }

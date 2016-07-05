@@ -36,6 +36,7 @@ class Contactlab_Subscribers_EditController extends Mage_Core_Controller_Front_A
 
         $fields = Mage::getModel('contactlab_subscribers/fields')->load($subs->getSubscriberId(), 'subscriber_id');
 
+        $fields->setSubscriberConfirmCode($params['hash']);
         /*if (!$fields->hasData('subscriber_id')) {
             Mage::throwException($this->__('No additional fields for this subscriber'));
         }*/

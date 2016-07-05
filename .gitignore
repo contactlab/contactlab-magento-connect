@@ -598,3 +598,4 @@
 /.modman/
 /phpunit.xml.dist
 /robots.txt
+tmptomagento.sh
