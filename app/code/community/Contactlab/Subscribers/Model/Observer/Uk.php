@@ -10,9 +10,15 @@ class Contactlab_Subscribers_Model_Observer_Uk extends Mage_Core_Model_Abstract 
     private $toUnsubscribeRecords = array();
 
     /** A subscriber has been saved. */
-    public function subscriberSaved($observer) {
-        $subscriber = $observer->getEvent()->getDataObject();
+ 	public function subscriberSaved($observer) {    	
+        $subscriber = $observer->getEvent()->getDataObject();        
         $customerId = $subscriber->getCustomerId();
+    	/* Added this control to prevent UK Integrity constraint violation */    
+        if($subscriber->getSavedCustomerId())
+        {
+        	$customerId = $subscriber->getSavedCustomerId();
+        }
+               
         if ($customerId == 0) {
             $customerId = NULL;
         }
