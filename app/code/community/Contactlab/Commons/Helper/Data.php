@@ -247,7 +247,7 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
                 $functionName = is_object($functionName)?get_class($functionName):gettype($functionName);
             }
         }
-        if (!is_string($storeId)) {
+        if ($storeId !== false && !is_string($storeId)) {
             try {
                 $storeId = strval($storeId);
             } catch (\Exception $e) {
