@@ -8,23 +8,60 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
 {
 
     /**
-     * Append custom columns.
+     * Remove old columns.
      * @param Varien_Event_Observer $event
      * @return $this
      */
-    public function appendCustomColumns(Varien_Event_Observer $event)
+    public function removeOldColumns(Varien_Event_Observer $event)
     {
         /* @var $block Mage_Adminhtml_Block_Newsletter_Subscriber_Grid */
         $block = $event->getBlock();
         if (!isset($block)) {
             return $this;
         }
-
-        if ($block->getType() == 'adminhtml/newsletter_subscriber_grid') {
-            $this->_addColumnsToGrid($block);
-        }
+				
+		if ($block instanceof Mage_Adminhtml_Block_Newsletter_Subscriber_Grid) {
+			$this->_removeColumnsToGrid($block);
+		}
+		
         return $this;
     }
+    
+    
+    /**
+     * Append custom columns.
+     * @param Varien_Event_Observer $event
+     * @return $this
+     */
+    public function appendCustomColumns(Varien_Event_Observer $event)
+    {
+    	/* @var $block Mage_Adminhtml_Block_Newsletter_Subscriber_Grid */
+    	$block = $event->getBlock();
+    	if (!isset($block)) {
+    		return $this;
+    	}
+    
+    	if ($block instanceof Mage_Adminhtml_Block_Newsletter_Subscriber_Grid) {
+    		$this->_addColumnsToGrid($block);
+    	}
+    
+    	return $this;
+    }
+    
+    /**
+     * Remove columns to grid.
+     * @param Mage_Adminhtml_Block_Newsletter_Subscriber_Grid $block
+     * @return Mage_Adminhtml_Block_Newsletter_Subscriber_Grid
+     */
+    private function _removeColumnsToGrid(Mage_Adminhtml_Block_Newsletter_Subscriber_Grid $block)
+    {        
+    	$block->removeColumn('email')
+    		->removeColumn('firstname')
+    		->removeColumn('lastname')
+    		->sortColumnsByOrder();
+    	return $block;
+    }
+    
 
     /**
      * Add columns to grid.
@@ -32,8 +69,13 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
      * @return Mage_Adminhtml_Block_Newsletter_Subscriber_Grid
      */
     private function _addColumnsToGrid(Mage_Adminhtml_Block_Newsletter_Subscriber_Grid $block)
-    {
-        $block
+    {    	 
+    	$block
+    		->addColumnAfter('subscriber_email', array(
+    			'header' => Mage::helper('newsletter')->__('Email C'),
+    			'index' => 'subscriber_email',
+    			'filter_index' => 'main_table.subscriber_email',
+    			'default' => '---'), 'subscriber_id')
             ->addColumnAfter('fname', array(
                 'header' => Mage::helper('newsletter')->__('First Name'),
                 'index' => 'fname2',
@@ -102,7 +144,8 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
                 'header' => Mage::helper('newsletter')->__('Notes'),
                 'index' => 'notes',
                 'width' => '100'), 'custom_2')
-            ->removeColumn('firstname')->removeColumn('lastname')->sortColumnsByOrder();
+            ;        	
+            
         return $block;
     }
 
@@ -133,23 +176,25 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
     private function _addCustomAttributes($collection)
     {
         $collection->getSelect()
-            ->joinLeft('contactlab_subscribers_newsletter_subscriber_fields',
-                'contactlab_subscribers_newsletter_subscriber_fields.subscriber_id = main_table.subscriber_id',
+            ->joinLeft(array('csnsf' => 'contactlab_subscribers_newsletter_subscriber_fields'),
+                'csnsf.subscriber_id = main_table.subscriber_id',
                 array(
-                    'privacy'=>'privacy_accepted',
-                    'company' => 'company',
-                    'fname2' => 'first_name',
-                    'lname2' => 'last_name',
-                    'gender2' => 'gender',
-                    'dob2' => 'dob',
-                    'custom_1' => 'custom_1',
-                    'custom_2' => 'custom_2',
-                    'notes' => 'notes',
-                    'country2' => 'country',
-                    'address2' => 'address',
-                    'zipcode2' => 'zip_code',
-                    'phone2' => 'phone',
-                    'mphone' => 'cell_phone',
-                    'city2' => 'city'));
+                    'privacy' => 'csnsf.privacy_accepted',
+                    'company' => 'csnsf.company',
+                    'fname2' => 'csnsf.first_name',
+                    'lname2' => 'csnsf.last_name',
+                    'gender2' => 'csnsf.gender',
+                    'dob2' => 'csnsf.dob',
+                    'custom_1' => 'csnsf.custom_1',
+                    'custom_2' => 'csnsf.custom_2',
+                    'notes' => 'csnsf.notes',
+                    'country2' => 'csnsf.country',
+                    'address2' => 'csnsf.address',
+                    'zipcode2' => 'csnsf.zip_code',
+                    'phone2' => 'csnsf.phone',
+                    'mphone' => 'csnsf.cell_phone',
+                	'email' => 'csnsf.subscriber_email',	
+                    'city2' => 'csnsf.city'));                
     }
+    
 }
