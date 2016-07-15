@@ -49,6 +49,14 @@ class Contactlab_Subscribers_Model_Observer_Uk extends Mage_Core_Model_Abstract 
         $source = $observer->getEvent()->getDataObject();
         $this->_doRecordDelete($source);
         $this->purge($observer);
+        
+        /* This will delete the customer fixing the MultiWebsite Subscriber */
+        $customer = $observer->getEvent()->getCustomer();
+        $subscriber = Mage::getModel('newsletter/subscriber')
+        ->loadByEmail($customer->getEmail(), $customer->getStoreId());
+        if($subscriber->getId()) {
+        	$subscriber->delete();
+        }
     }
 
     /**
