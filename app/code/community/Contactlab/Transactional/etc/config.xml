@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Transactional>
-            <version>0.8.30</version>
+            <version>0.9.0</version>
             <description>Magento transactional emails sent using ContactLab Smart Relay.</description>
         </Contactlab_Transactional>
     </modules>
@@ -19,6 +19,7 @@
             <core>
                 <rewrite>
                     <email_template>Contactlab_Transactional_Model_Email_Template</email_template>
+                    <email_queue>Contactlab_Transactional_Model_Email_Queue</email_queue>
                 </rewrite>
             </core>
         </models>

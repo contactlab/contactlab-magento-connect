@@ -163,6 +163,9 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return bool
      */
     public function isAllowed($section, $action) {
+        if (php_sapi_name() === 'cli') {
+            return false;
+        }
         return Mage::getSingleton('admin/session')
         	->isAllowed("admin/newsletter/contactlab/$section/actions/$action");
     }
@@ -209,6 +212,9 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         $count = 0;
         foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $moduleConfig) {
             if (preg_match('/^Contactlab_.*/', $moduleName)) {
+                if (((string) $moduleConfig->active) === 'false') {
+                    continue;
+                }
                 $item = new Varien_Object();
                 $item->setName(preg_replace('/^Contactlab_/', '', $moduleName))
                     ->setVersion((string) $moduleConfig->version)
@@ -234,6 +240,21 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         $pid = getmypid();
         $uid = getmyuid();
         $sapi = php_sapi_name();
+        if (!is_string($functionName)) {
+            try {
+                $functionName = strval($functionName);
+            } catch (\Exception $e) {
+                $functionName = is_object($functionName)?get_class($functionName):gettype($functionName);
+            }
+        }
+        if ($storeId !== false && !is_string($storeId)) {
+            try {
+                $storeId = strval($storeId);
+            } catch (\Exception $e) {
+                $storeId = is_object($storeId)?get_class($storeId):gettype($storeId);
+            }
+        }
+
         if ($storeId !== false) {
             $this->logInfo(sprintf(
                 "Function %s called. pid: %s, uid: %s, sapi: %s, store: %s.",

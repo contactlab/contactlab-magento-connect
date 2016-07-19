@@ -96,6 +96,24 @@ class Contactlab_Subscribers_Block_Newsletter_Subscribers_Update extends Contact
     }
 
     /**
+     * Get subs id.
+     * @return mixed
+     */
+    public function getSubsId()
+    {
+        return $this->_fieldValues->getSubscriberId();
+    }
+
+    /**
+     * Get subs hash.
+     * @return mixed
+     */
+    public function getSubsHash()
+    {
+        return $this->_fieldValues->getSubscriberConfirmCode();
+    }
+
+    /**
      * Modify form action url.
      * @return string
      */

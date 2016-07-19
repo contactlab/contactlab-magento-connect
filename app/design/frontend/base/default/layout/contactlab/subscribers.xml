@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout version="0.1.0">
     <default>
-        <reference name="left">
-            <remove name="left.newsletter"/>
+        <reference name="footer">
+        	<action method="unsetChild" ifconfig="contactlab_subscribers/newsletter/enable">
+                <name>newsletter</name>
+            </action>
+            <block type="contactlab_subscribers/newsletter_subscribers_subscribe" name="contactlab.newsletter"
+                   template="contactlab/subscribers/newsletter/subscribers/subscribe.phtml"/>
+            <block type="contactlab_subscribers/newsletter_subscribers_modify" name="contactlab.newsletter.modify"
+                   template="contactlab/subscribers/newsletter/subscribers/modify.phtml"/>
+        </reference>
+        <reference name="left">            
+            <action method="unsetChild" ifconfig="contactlab_subscribers/newsletter/enable">
+                <name>left.newsletter</name>
+            </action>
             <block type="contactlab_subscribers/newsletter_subscribers_subscribe" name="contactlab.newsletter"
                    template="contactlab/subscribers/newsletter/subscribers/subscribe.phtml"/>
             <block type="contactlab_subscribers/newsletter_subscribers_modify" name="contactlab.newsletter.modify"

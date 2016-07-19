@@ -36,4 +36,45 @@ class Contactlab_Subscribers_Model_Fields extends Mage_Core_Model_Abstract {
         $this->_init("contactlab_subscribers/fields");
     }
 
+    /**
+     * Load object data
+     *
+     * @param   integer $id
+     * @return  Mage_Core_Model_Abstract
+     */
+    public function load($id, $field=null)
+    {
+        $rv = parent::load($id, $field);
+        if (!$this->hasData('subscriber_id')) {
+            if ($field === 'subscriber_id') {
+                $this->createFromSubscriber($id);
+            } else if ($field === 'subscriber_email') {
+                $this->createFromSubscriberEmail($id);
+            }
+        }
+
+        return $rv;
+    }
+
+    /**
+     * @param $id
+     * @throws Exception
+     */
+    private function createFromSubscriber($id) {
+        $subscriber = Mage::getModel('newsletter/subscriber')->load($id);
+        $this->setSubscriberId($id);
+        $this->setSubscriberEmail($subscriber->getEmail());
+        $this->save();
+    }
+
+    /**
+     * @param $email
+     * @throws Exception
+     */
+    private function createFromSubscriberEmail($email) {
+        $subscriber = Mage::getModel('newsletter/subscriber')->loadByEmail($email);
+        $this->setSubscriberId($subscriber->getSubscriberId());
+        $this->setSubscriberEmail($subscriber->getEmail());
+        $this->save();
+    }
 }

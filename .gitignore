@@ -597,3 +597,5 @@
 /skin/adminhtml/default/default/images/logo_print.gif
 /.modman/
 /phpunit.xml.dist
+/robots.txt
+tmptomagento.sh

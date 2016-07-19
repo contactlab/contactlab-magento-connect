@@ -104,7 +104,7 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
         Mage::helper('contactlab_commons')->logInfo('AFTERSUBSAVED:' . print_r($observer->getEvent()->getDataObject(), true));
         $email = $observer->getEvent()->getDataObject()->getSubscriberEmail();
         $subs = Mage::getModel("contactlab_subscribers/fields")->load($email, 'subscriber_email');
-        if ($subs->hasData()) {
+        if ($subs->hasData('entity_id')) {
             /**
              * If the subscriber was already present in our table, this means that
              * the record was saved through a form submission
@@ -115,15 +115,15 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
             if (!$subs->hasSubscriberId()) {
                 Mage::helper('contactlab_commons')->logInfo('SAVING FIELDS FROM afterSubscriberSaved 1:');
                 $subs->setSubscriberId($observer->getDataObject()->getSubscriberId())->save();
-            };
+            }
         } else {
             /*
              * Otherwise, subscriber was already a customer, so we require customer id
              */
             Mage::helper('contactlab_commons')->logInfo('empty data : ' . print_r($observer->getDataObject()->getData(), true));
-            if (!$observer->getDataObject()->hasCustomerId())
+            if (!$observer->getDataObject()->hasCustomerId()) {
                 return;
-            //Mage::throwException($this->__('Subscriber is neither guest or customer'));
+            }
 
             $customerId = $observer->getDataObject()->getCustomerId();
             /**
@@ -154,10 +154,16 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
 
     }
 
+    /**
+     * Before subscriber deleted.
+     * @param $observer
+     * @throws Exception
+     * @deprecated uses cascade
+     */
     public function beforeSubscriberDeleted($observer)
     {
-        $id = $observer->getEvent()->getDataObject()->getSubscriberId();
-        Mage::getModel("contactlab_subscribers/fields")->load($id, 'subscriber_id')->delete();
+        /*$id = $observer->getEvent()->getDataObject()->getSubscriberId();
+        Mage::getModel("contactlab_subscribers/fields")->load($id, 'subscriber_id')->delete();*/
     }
 
     /**
@@ -166,11 +172,41 @@ class Contactlab_Subscribers_Model_Observer_Fields extends Mage_Core_Model_Abstr
     public function updateFields(Varien_Event_Observer $params)
     {
         /** @var $fields Contactlab_Subscribers_Model_Fields */
-        $fields = Mage::getModel('contactlab_subscribers/fields')
-            ->load($params->getEmail(), 'subscriber_email');
-        if ($fields->hasData()) {
+        /*
+         $fields = Mage::getModel('contactlab_subscribers/fields')
+            ->load($params->getData('email'), 'subscriber_email');
+        */
+        $fields = $this->checkEditParams($params);
+
+        if ($fields && $fields->hasData()) {
             $this->fillModel($fields, $params->getData())->save();
         }
     }
 
+    private function checkEditParams($params) {
+        //check params
+        if (!$params->getData('chkhash')
+            || !$params->getData('chkid')) {
+            return null;
+        }
+
+        // Load the subscriber and the additional fields entity
+
+        $subs = Mage::getModel('newsletter/subscriber')->load($params->getData('chkid'));
+        if (!$subs->hasData('subscriber_id')) {
+            return null;
+        }
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        if (!$subs->hasSubscriberConfirmCode()) {
+            return null;
+        }
+
+        if ($subs->getSubscriberConfirmCode() != $params->getData('chkhash')) {
+            return null;
+        }
+
+        return  Mage::getModel('contactlab_subscribers/fields')->load($subs->getSubscriberId(), 'subscriber_id');
+
+    }
 }

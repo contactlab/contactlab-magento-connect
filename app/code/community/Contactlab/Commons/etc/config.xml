@@ -144,7 +144,7 @@
             <global>
                 <!--days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug-->
-                <platform_version>2.3</platform_version>
+                <platform_version>2.4.0</platform_version>
             </global>
             <connection>
                 <!--type>1</type>
@@ -159,4 +159,11 @@
             </soap>
         </contactlab_commons>
     </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <Contactlab_Commons/>
+            </modules>
+        </suite>
+    </phpunit>
 </config>

@@ -145,4 +145,13 @@ abstract class Contactlab_Subscribers_Model_Checks_AbstractCheck
     {
         return false;
     }
+
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
+        return false;
+    }
+
 }

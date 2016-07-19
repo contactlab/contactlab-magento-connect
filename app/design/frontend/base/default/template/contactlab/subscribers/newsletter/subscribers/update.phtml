@@ -4,9 +4,10 @@
     </div>
     <form action="<?php echo $this->getModifyFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
         <div class="block-content">
-            
-            <input type="hidden" name="email"  value="<?php echo $this->getSubsEmail();?>" />
-            
+
+            <input type="hidden" name="chkid"  value="<?php echo $this->getSubsId();?>" />
+            <input type="hidden" name="chkhash"  value="<?php echo $this->getSubsHash();?>" />
+
             <div class="input-box">
                <label for="first-name"><?php echo $this->fieldLabel('fname') ?></label>
                <?php if($this->fieldChoices('fname') < 1 ):?>

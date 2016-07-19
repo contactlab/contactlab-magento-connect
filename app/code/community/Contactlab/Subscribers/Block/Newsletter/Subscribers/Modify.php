@@ -15,6 +15,15 @@
  */
 class Contactlab_Subscribers_Block_Newsletter_Subscribers_Modify extends Mage_Newsletter_Block_Subscribe
 {
+	
+	protected function _toHtml()
+	{
+		if(Mage::getStoreConfig('contactlab_subscribers/newsletter/enable'))
+		{
+			return parent::_toHtml();
+		}
+	}
+	
     /**
      * Preparing global layout
      *

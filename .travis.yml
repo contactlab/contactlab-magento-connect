@@ -1,0 +1,32 @@
+# git clone https://github.com/contactlab/contactlab-magento-connect.git -b feature/travis-test .
+
+language: php
+php:
+  - 5.5
+test:
+  adapter: mysql
+  database: myapp_test
+  username: travis
+  encoding: utf8
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar self-update
+  - ln -s app/code/community/Contactlab/Commons/Test/resources/composer.json
+  - php composer.phar install
+  - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
+  - chmod +x modman
+  - ./modman init
+  - ./modman clone git://github.com/EcomDev/EcomDev_PHPUnit.git
+
+  - ln -s ../../app/code/community/Contactlab/Commons/Test/resources/local.xml app/etc
+
+  - mysql -e 'create database contactlab_db;'
+  - mysql -e 'create database contactlab_test;'
+
+  - gunzip -c app/code/community/Contactlab/Commons/Test/resources/contactlab_db.sql.gz | mysql -D contactlab_db
+  - gunzip -c app/code/community/Contactlab/Commons/Test/resources/contactlab_db.sql.gz | mysql -D contactlab_test
+
+  - php cron.php
+  - pushd shell && php ecomdev-phpunit.php -a magento-config --db-name contactlab_test --base-url http://magento.contactlab.travis/ && popd
+
+script: phpunit

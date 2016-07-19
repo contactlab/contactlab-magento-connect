@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.9.0</version>
+            <version>1.0.0</version>
             <description>Subscriber sync Magento/ContactLab and ContactLab/Magento.</description>
         </Contactlab_Subscribers>
     </modules>
@@ -92,7 +92,8 @@
                     </contactlab_subscribers_newsletter_subscriber_save_after_fields>
                 </observers>
             </newsletter_subscriber_save_after>
-            <newsletter_subscriber_delete_before>
+            <!-- Driven by cascade database -->
+            <!--newsletter_subscriber_delete_before>
                 <observers>
                     <contactlab_subscribers_newsletter_subscriber_delete_before_fields>
                         <type>singleton</type>
@@ -100,7 +101,7 @@
                         <method>beforeSubscriberDeleted</method>
                     </contactlab_subscribers_newsletter_subscriber_delete_before_fields>
                 </observers>
-            </newsletter_subscriber_delete_before>
+            </newsletter_subscriber_delete_before-->
             <sales_order_save_after>
                 <observers>
                     <contactlab_commons_model_delete_after>
@@ -241,6 +242,15 @@
                 </observers>
             </controller_action_postdispatch>
 
+			<adminhtml_block_html_before>
+                <observers>
+                    <contactlab_subscribers_newsletter_fields_remove_grid>
+                        <type>model</type>
+                        <class>contactlab_subscribers/newsletter_subscribers_observer</class>
+                        <method>removeOldColumns</method>
+                    </contactlab_subscribers_newsletter_fields_remove_grid>
+                </observers>
+             </adminhtml_block_html_before>
             <core_block_abstract_prepare_layout_after>
                 <observers>
                     <contactlab_subscribers_newsletter_fields_add_grid>
@@ -416,6 +426,13 @@
             </contactlab_subscribers_import_subscribers>
         </jobs>
     </crontab>
+    <phpunit>
+        <suite>
+            <modules>
+                <Contactlab_Subscribers/>
+            </modules>
+        </suite>
+    </phpunit>
     <!--crontab>
         <jobs>
             <contactlab_subscribers_stats_recalc>
