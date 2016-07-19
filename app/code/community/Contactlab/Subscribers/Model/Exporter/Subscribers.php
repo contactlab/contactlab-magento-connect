@@ -57,7 +57,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         // Define customer collection
         $attributesCustomer = $this->helper->getAttributesForEntityType('customer',
-                array_values($this->helper->getAttributesMap($this->getTask())));
+                array_keys($this->helper->getAttributesMap($this->getTask())));
         $this->fAttributesMap = array_flip($this->helper->getAttributesMap($this->getTask()));
         $this->fAddressAttributes = array_flip($this->helper->getAddressesAttributesMap());
 
@@ -67,19 +67,26 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->getTask()->setMaxValue($max);
         Mage::helper("contactlab_commons")->logNotice(sprintf("Counting time: %0.4f", microtime(true) - $start));
 
+        $customKeys = array();
+        for ($ic = 1; $ic < 8; ++$ic) {
+            if ($this->getTask()->getConfigFlag("contactlab_subscribers/custom_fields/enable_field_" . $ic)) {
+                $customKeys[] = $this->getTask()->getConfig("contactlab_subscribers/custom_fields/field_" . $ic);
+            }
+        }
+
         $start = microtime(true);
 
         $limit = 50000;
         $page = 1;
-        $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $preFilled = array_fill_keys(array_values($this->fAttributesMap), '');
         $this->_addAddressFields($preFilled);
-
         while (true) {
             $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer);
             $subscribersInCustomers->getSelect()->limitPage($page, $limit);
             Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
             $found = false;
             while ($item = $subscribersInCustomers->fetchItem()) {
+                $toFill = array();
                 $found = true;
                 $counter++;
                 $toFill['is_customer'] = 1;
@@ -101,7 +108,15 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 }
                 $this->_fillCustomerGroupAttributes($toFill, $item);
                 $this->_manageCustomerClsFlag($toFill, $item);
-
+                foreach ($customKeys as $icKey) {
+                    if (empty($icKey)) {
+                        continue;
+                    }
+                    $icValue = $item->getData($icKey);
+                    if (isset($toFill[$icKey]) && empty($toFill[$icKey]) && !empty($icValue)) {
+                        $toFill[$icKey] = $icValue;
+                    }
+                }
                 $this->found = true;
                 $this->customers++;
                 $writer = new XMLWriter();
@@ -110,8 +125,11 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $writer->startElement("RECORD");
                 $writer->writeAttribute('ACTION', 'U');
                 foreach ($toFill as $k => $v) {
+                    if (empty($k)) {
+                        continue;
+                    }
                     if ($k !== $this->getSubscribedFlagName()) {
-                        $k = strtoupper($k);
+                        $k = strtoupper($this->getOutputTagName($k));
                     }
                     $writer->writeElement($k, $v);
                 }
@@ -248,10 +266,15 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     /** Not customer records. */
     private function _addNotCustomerRecords() {
         Mage::helper("contactlab_commons")->logDebug("_addNotCustomerRecords");
-        $preFilled = array_fill_keys(array_keys($this->fAttributesMap), '');
+        $preFilled = array_fill_keys(array_values($this->fAttributesMap), '');
         $this->_addAddressFields($preFilled);
         $subscribersNotInCustomers = $this->_createSubscribersNotInCustomers();
-
+        $customKeys = array();
+        for ($ic = 1; $ic < 8; ++$ic) {
+            if ($this->getTask()->getConfigFlag("contactlab_subscribers/custom_fields/enable_field_" . $ic)) {
+                $customKeys[] = $this->getTask()->getConfig("contactlab_subscribers/custom_fields/field_" . $ic);
+            }
+        }
         $counter = 0;
         $max = $subscribersNotInCustomers->getSize();
         $this->getTask()->setMaxValue($max);
@@ -282,6 +305,15 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $this->_manageNewsletterClsFlag($toFill, $item);
                 $this->_fillStoreAttributes($toFill, $item);
                 $this->_fillNewsletterAttributes($toFill, $item);
+                foreach ($customKeys as $icKey) {
+                    if (empty($icKey)) {
+                        continue;
+                    }
+                    $icValue = $item->getData($icKey);
+                    if (isset($toFill[$icKey]) && empty($toFill[$icKey]) && !empty($icValue)) {
+                        $toFill[$icKey] = $icValue;
+                    }
+                }
 
                 $this->found = true;
                 $this->newsletterSubscribers++;
@@ -291,8 +323,11 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $writer->startElement("RECORD");
                 $writer->writeAttribute('ACTION', 'U');
                 foreach ($toFill as $k => $v) {
+                    if (empty($k)) {
+                        continue;
+                    }
                     if ($k !== $this->getSubscribedFlagName()) {
-                        $k = strtoupper($k);
+                        $k = strtoupper($this->getOutputTagName($k));
                     }
                     $writer->writeElement($k, $v);
                 }
@@ -319,17 +354,20 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _createSubscribersNotInCustomers()
     {
         /** @var $rv Contactlab_Template_Model_Resource_Newsletter_Subscriber_Collection */
-        $rv = Mage::getModel('newsletter/subscriber')->getCollection();
-        $this->_manageExportPolicy($rv,
-            array('main_table' => 'last_updated_at'));
-        if (!$this->_mustExportNotSubscribed()) {
-            $rv->addFieldToFilter('subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
-        }
-        $this->_addNewsletterSubscriberExportCollection($rv);
+        $rv = Mage::getModel('contactlab_subscribers/uk')->getCollection();
+        $rv->addFieldToSelect(
+            array('uk' => 'entity_id', 'is_exported' => 'is_exported')
+        );
         $this->_addSubscriberFields($rv, 'main_table');
-
+        $rv->getSelect()->joinLeft(
+            array('native_nl' => $this->resource->getTableName('newsletter/subscriber')),
+            'native_nl.subscriber_id = main_table.subscriber_id');
+        $this->_manageExportPolicy($rv,
+            array('native_nl' => 'last_updated_at'));
+        if (!$this->_mustExportNotSubscribed()) {
+            $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
+        }
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
-
         return $rv;
     }
 
@@ -459,10 +497,15 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 if (!array_key_exists($k, $this->customerAttributes)) {
                     continue;
                 }
-                $toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] =
-                        $this->helper->decode($this->customerModel, 'customer', $this->customerAttributes[$k], $v);
+                // use flipped array for cstm attributes
+                //$flip = array_flip($this->fAttributesMap);
+                //$toFill[$this->fAttributesMap[$this->customerAttributes[$k]]] =
+//                $toFill[$flip[$this->customerAttributes[$k]]] =
+                $toFill[$this->customerAttributes[$k]] =
+                    $this->helper->decode($this->customerModel, 'customer', $this->customerAttributes[$k], $v);
             }
         }
+
     }
 
     /**
@@ -912,5 +955,17 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 'customer_group_id' => 'customer_group_id'
             )
         );
+    }
+
+    /**
+     * Use destination field name for cstm fields
+     * @param $k
+     * @return mixed
+     */
+    private function getOutputTagName($k) {
+        if (isset($this->fAttributesMap[$k]) && strpos($k, 'cstm') === 0) {
+            return $this->fAttributesMap[$k];
+        }
+        return $k;
     }
 }

@@ -10,7 +10,7 @@ class Contactlab_Template_Model_Cron {
      * Scan for template to be sent.
      * @param int|string $storeId
      */
-    public function scan($storeId = -1) {
+    public function scan($schedule = -1, $storeId = -1) {
         $this->logCronCall('scan', $storeId);
 
         /** @var $h Contactlab_Template_Helper_Data */

@@ -47,6 +47,19 @@ class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter
         return parent::isSubscribed();
     }
 
+    
+    /**
+     * Load subscriber data from resource model by email
+     *
+     * @param int $subscriberId
+     */
+    public function loadByEmail($subscriberEmail, $storeId=null)
+    {
+    	$this->addData(Mage::getModel('newsletter_resource/subscriber')->loadByEmail($subscriberEmail, $storeId));
+    	return $this;
+    }
+    
+    
     /**
      * Load subscriber by customer
      *

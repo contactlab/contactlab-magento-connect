@@ -13,22 +13,26 @@ class Contactlab_Subscribers_Model_Resource_Newsletter_Subscriber
      * @param string $subscriberEmail
      * @return array
      */
-    public function loadByEmail($subscriberEmail)
-    {
+	public function loadByEmail($subscriberEmail, $storeId=null)
+    {   	  
         if (!$this->_isEnabledMultiWebsiteSubscriber()) {
             return parent::loadByEmail($subscriberEmail);
         }
-        /** @var $customerSession Mage_Customer_Model_Session */
-        $customerSession = Mage::getSingleton('customer/session');
-        $ownerId = Mage::getModel('customer/customer')
-            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-            ->loadByEmail($subscriberEmail)
-            ->getId();
-
-        $storeId = $customerSession->isLoggedIn() && $ownerId == $customerSession->getId()
-            ? $customerSession->getCustomer()->getStoreId()
-            : Mage::app()->getStore()->getId();
-
+        
+        if(!$storeId)
+        {
+	        /** @var $customerSession Mage_Customer_Model_Session */
+	        $customerSession = Mage::getSingleton('customer/session');
+	        $ownerId = Mage::getModel('customer/customer')
+	            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+	            ->loadByEmail($subscriberEmail)
+	            ->getId();
+	
+	        $storeId = $customerSession->isLoggedIn() && $ownerId == $customerSession->getId()
+	            ? $customerSession->getCustomer()->getStoreId()
+	            : Mage::app()->getStore()->getId();
+        }
+        
         $select = $this->getReadConnection()->select()
             ->from($this->getMainTable())
             ->where('subscriber_email=:subscriber_email')
@@ -37,12 +41,11 @@ class Contactlab_Subscribers_Model_Resource_Newsletter_Subscriber
         $result = $this->getReadConnection()->fetchRow($select, array(
             'subscriber_email' => $subscriberEmail,
             'store_id' => $storeId
-        ));
-
+        ));        
         if (!$result) {
             return array();
         }
-
+        
         return $result;
     }
 

@@ -145,13 +145,16 @@ class Contactlab_Transactional_Model_Zend_Mail extends Zend_Mail
             $newMail->reallyAddTo($email);
             $emailDescription = $email;
         }
-        Mage::getModel("contactlab_commons/task")
+        $task = Mage::getModel("contactlab_commons/task")
             ->setStoreId($storeId)
             ->setTaskCode("Transactional email to $emailDescription")
             ->setModelName('contactlab_transactional/task_sendEmailRunner')
             ->setDescription("Send transactional email to $emailDescription")
             ->setTaskData(serialize($newMail))
             ->save();
+        if (Mage::getStoreConfigFlag('contactlab_transactional/global/runtask')) {
+            $task->runTask()->save();
+        }
     }
 
     private function _crc16($string) {

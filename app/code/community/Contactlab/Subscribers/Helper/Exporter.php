@@ -89,7 +89,9 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
         $rv = array();
         foreach (range(1, 7) as $i) {
             if ($task->getConfigFlag("contactlab_subscribers/custom_fields/enable_field_" . $i)) {
-                $rv['cstm_' . $i] = $task->getConfig("contactlab_subscribers/custom_fields/field_" . $i);
+                // $rv['cstm_' . $i] = $task->getConfig("contactlab_subscribers/custom_fields/field_" . $i);
+                // Array is flipped
+                $rv[$task->getConfig("contactlab_subscribers/custom_fields/field_" . $i)] = 'cstm_' . $i;
             }
         }
         return $rv;

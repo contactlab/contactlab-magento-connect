@@ -488,6 +488,26 @@
                         </contactlab_subscribers_model_task_startsubscriberdataexchangerunner_retries>
                     </fields>
                 </queue>
+                <newsletter>
+                	<label>Newsletter custom block</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>45</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable custom newsletter block</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enable>
+					</fields>
+                </newsletter>          
                 <example_configuration translate="label">
                     <label>Cron configuration example</label>
                     <frontend_type>text</frontend_type>

@@ -240,6 +240,21 @@ class Contactlab_Commons_Helper_Data extends Mage_Core_Helper_Abstract {
         $pid = getmypid();
         $uid = getmyuid();
         $sapi = php_sapi_name();
+        if (!is_string($functionName)) {
+            try {
+                $functionName = strval($functionName);
+            } catch (\Exception $e) {
+                $functionName = is_object($functionName)?get_class($functionName):gettype($functionName);
+            }
+        }
+        if ($storeId !== false && !is_string($storeId)) {
+            try {
+                $storeId = strval($storeId);
+            } catch (\Exception $e) {
+                $storeId = is_object($storeId)?get_class($storeId):gettype($storeId);
+            }
+        }
+
         if ($storeId !== false) {
             $this->logInfo(sprintf(
                 "Function %s called. pid: %s, uid: %s, sapi: %s, store: %s.",

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>0.9.1</version>
+            <version>1.0.0</version>
             <description>Subscriber sync Magento/ContactLab and ContactLab/Magento.</description>
         </Contactlab_Subscribers>
     </modules>
@@ -242,6 +242,15 @@
                 </observers>
             </controller_action_postdispatch>
 
+			<adminhtml_block_html_before>
+                <observers>
+                    <contactlab_subscribers_newsletter_fields_remove_grid>
+                        <type>model</type>
+                        <class>contactlab_subscribers/newsletter_subscribers_observer</class>
+                        <method>removeOldColumns</method>
+                    </contactlab_subscribers_newsletter_fields_remove_grid>
+                </observers>
+             </adminhtml_block_html_before>
             <core_block_abstract_prepare_layout_after>
                 <observers>
                     <contactlab_subscribers_newsletter_fields_add_grid>
