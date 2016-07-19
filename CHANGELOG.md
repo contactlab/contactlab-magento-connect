@@ -1,5 +1,10 @@
 # Changelog 
 
+## 2.4.0 (2017-07-19)
+- **New feature** Added config option to show custom newsletter subscribe form.
+- **New feature** Added config option to send transactional emails immediatly after insert.
+- Bug fix.
+
 ## 2.3.1 (2016-04-04)
 - Generate subscribers fields record if not present, in edit page
 
