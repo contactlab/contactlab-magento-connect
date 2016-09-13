@@ -576,7 +576,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at'
             ));
 
-            $collection->getSelect()->joinLeft(
+            $collection->getSelect()->joinInner(
                 array('newsletter_subscriber' => $this->resource->getTableName('newsletter/subscriber')),
                 'newsletter_subscriber.customer_id = e.entity_id AND ' . $w,
                 array('subscriber_status' => 'subscriber_status'));
