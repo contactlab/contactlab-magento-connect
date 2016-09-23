@@ -6,6 +6,8 @@
 class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
     private $attributeSource = array();
     private $noSourceAttributes = array();
+    protected $attribute_map = array();
+    protected $address_attribute_map = array();
 
     /** Decode id attributes.
      * @param Mage_Core_Model_Abstract $model
@@ -37,11 +39,17 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
 
     /**
      * Attributes map for customer.
+     * Metodo customizzatoper aggiungere l'evento
      * @param Contactlab_Commons_Model_Task $task
      * @return array
      */
     public function getAttributesMap(Contactlab_Commons_Model_Task $task) {
-        return array_merge(array(
+        $attribute_map = $this->attribute_map;
+        if (!empty($attribute_map)){
+            return $attribute_map;
+        }
+
+        $attribute_map =  array_merge(array(
             'prefix' => 'prefix',
             'firstname' => 'firstname',
             'middlename' => 'middlename',
@@ -62,11 +70,35 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'customer_group_id' => 'customer_group_id',
             'customer_group_name' => 'customer_group_name'
         ), array_merge($this->_getCustomAttributesMap($task)), $this->getStatsAttributesMap());
+
+        $tMapTransporter = Mage::getModel('contactlab_subscribers/exporter_subscribers_mapTransporter_attribute');
+        $tMapTransporter->setMap($attribute_map);
+        $tMapTransporter->setIsMod(false);
+
+        Mage::dispatchEvent("contactlab_export_attributesmap",array(
+            'map_transporter' => $tMapTransporter
+        ));
+
+        if ($tMapTransporter->isMod()){
+            $attribute_map = $tMapTransporter->getMap();
+        }
+        $this->attribute_map = $attribute_map;
+
+        return $this->attribute_map ;
     }
 
-    /** Attributes map for addresses. */
+
+    /**
+     * Attributes map for addresses.
+     * Metodo customizzatoper aggiungere l'evento
+     */
     public function getAddressesAttributesMap() {
-        return array(
+        $address_attribute_map = $this->address_attribute_map;
+        if (!empty($address_attribute_map)){
+            return $address_attribute_map;
+        }
+
+        $address_attribute_map =  array(
             'country_id' => 'country_id',
             'country' => 'country',
             'region_id' => 'region_id',
@@ -78,6 +110,21 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'fax' => 'fax',
             'company' => 'company',
         );
+
+        $tMapTransporter = Mage::getModel('contactlab_subscribers/exporter_subscribers_mapTransporter_address');
+        $tMapTransporter->setMap($address_attribute_map);
+        $tMapTransporter->setIsMod(false);
+
+        Mage::dispatchEvent("contactlab_export_AddressesAttributesMap",array(
+            'map_transporter' => $tMapTransporter
+        ));
+
+        if ($tMapTransporter->isMod()){
+            $address_attribute_map = $tMapTransporter->getMap();
+        }
+        $this->address_attribute_map = $address_attribute_map;
+
+        return $this->address_attribute_map ;
     }
 
     /**
