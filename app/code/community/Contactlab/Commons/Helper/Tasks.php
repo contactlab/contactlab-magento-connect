@@ -128,6 +128,8 @@ class Contactlab_Commons_Helper_Tasks extends Mage_Core_Helper_Abstract {
 
 	/** Get events with alert flg. */
     private function loadErrorTasks() {
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+    	
         $tasks = Mage::getModel('contactlab_commons/task')->getCollection();
         $tasks->addFieldToSelect('task_code')
             ->addFieldToSelect('created_at')
@@ -139,7 +141,7 @@ class Contactlab_Commons_Helper_Tasks extends Mage_Core_Helper_Abstract {
             ->addFieldToSelect('retries_interval')
             ->addFieldToSelect('status')
             ->getSelect()
-            ->join(array('task_event' => Mage::getSingleton('core/resource')->getTableName('contactlab_commons_task_event_entity')),
+            ->join(array('task_event' => Mage::getSingleton('core/resource')->getTableName($tablePrefix.'contactlab_commons_task_event_entity')),
                 'main_table.task_id = task_event.task_id AND task_event.email_sent = 0 AND task_event.send_alert = 1',
                 array('task_event_id' => 'task_event.task_event_id',
                       'created_at_' => 'task_event.created_at', 
