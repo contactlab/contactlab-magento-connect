@@ -92,9 +92,11 @@ class Contactlab_Commons_Test_Helper_Data extends EcomDev_PHPUnit_Test_Case
         $tasks = Mage::getModel('contactlab_commons/task')->getCollection();
         $tasks->count();
         $found = false;
+
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
         foreach ($profiler->getQueryProfiles() as $q) {
             /** @var $q Zend_Db_Profiler_Query */
-            if (strpos($q->getQuery(), 'contactlab_commons_task_entity')) {
+            if (strpos($q->getQuery(), $tablePrefix.'contactlab_commons_task_entity')) {
                 $found = true;
             }
         }
