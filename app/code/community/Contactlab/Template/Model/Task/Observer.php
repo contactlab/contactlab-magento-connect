@@ -27,8 +27,9 @@ class Contactlab_Template_Model_Task_Observer {
      * @return void
      */
     public function loadOldTasks(Varien_Event_Observer $observer) {
-        $collection = $observer->getCollection();
-        $collection->getSelect()->orWhere("status = ? and main_table.task_id not in (select task_id from newsletter_queue)",
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+    	$collection = $observer->getCollection();
+        $collection->getSelect()->orWhere("status = ? and main_table.task_id not in (select task_id from {$tablePrefix}newsletter_queue)",
             Contactlab_Commons_Model_Task::STATUS_HIDDEN);
     }
 
