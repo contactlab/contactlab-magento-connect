@@ -1,17 +1,20 @@
 <?php
 
+
 $installer = $this;
 $installer->startSetup();
 
 $installer->run("drop table if exists {$installer->getTable("contactlab_commons/task")};");
 
+$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+
 $installer->run(<<<EOT
-DROP TABLE IF EXISTS `contactlab_commons_task_entity`;
+DROP TABLE IF EXISTS `{$tablePrefix}contactlab_commons_task_entity`;
 EOT
 );
 
 $installer->run(<<<EOT
-CREATE TABLE `contactlab_commons_task_entity` (
+CREATE TABLE `{$tablePrefix}contactlab_commons_task_entity` (
   `task_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task Id',
   `task_code` varchar(255) NOT NULL COMMENT 'Task Code',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Created At',
@@ -29,19 +32,19 @@ CREATE TABLE `contactlab_commons_task_entity` (
   PRIMARY KEY (`task_id`),
   KEY `IDX_CONTACTLAB_COMMONS_TASK_ENTITY_STATUS` (`status`),
   KEY `FK_CONTACTLAB_COMMONS_TASK_ENTITY_STORE_ID_CORE_STORE_STORE_ID` (`store_id`),
-  CONSTRAINT `FK_CONTACTLAB_COMMONS_TASK_ENTITY_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_CONTACTLAB_COMMONS_TASK_ENTITY_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `{$tablePrefix}core_store` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT='Tasks';
 EOT
 );
 
 
 $installer->run(<<<EOT
-DROP TABLE IF EXISTS `contactlab_commons_task_event_entity`;
+DROP TABLE IF EXISTS `{$tablePrefix}contactlab_commons_task_event_entity`;
 EOT
 );
 
 $installer->run(<<<EOT
-CREATE TABLE `contactlab_commons_task_event_entity` (
+CREATE TABLE `{$tablePrefix}contactlab_commons_task_event_entity` (
   `task_event_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task Event Id',
   `task_id` int(10) unsigned NOT NULL COMMENT 'Task Id',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Created At',
@@ -53,19 +56,19 @@ CREATE TABLE `contactlab_commons_task_event_entity` (
   PRIMARY KEY (`task_event_id`),
   KEY `FK_C3903EA306F9FB462C57D0501D1B13E8` (`task_id`),
   KEY `FK_CONTACTLAB_COMMONS_TASK_EVENT_ENTT_USR_ID_ADM_USR_USR_ID` (`user_id`),
-  CONSTRAINT `FK_C3903EA306F9FB462C57D0501D1B13E8` FOREIGN KEY (`task_id`) REFERENCES `contactlab_commons_task_entity` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_CONTACTLAB_COMMONS_TASK_EVENT_ENTT_USR_ID_ADM_USR_USR_ID` FOREIGN KEY (`user_id`) REFERENCES `admin_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `FK_C3903EA306F9FB462C57D0501D1B13E8` FOREIGN KEY (`task_id`) REFERENCES `{$tablePrefix}contactlab_commons_task_entity` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_CONTACTLAB_COMMONS_TASK_EVENT_ENTT_USR_ID_ADM_USR_USR_ID` FOREIGN KEY (`user_id`) REFERENCES `{$tablePrefix}admin_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) COMMENT='Task events';
 EOT
 );
 
 
 $installer->run(<<<EOT
-DROP TABLE IF EXISTS `contactlab_commons_deleted_entity`;
+DROP TABLE IF EXISTS `{$tablePrefix}contactlab_commons_deleted_entity`;
 EOT
 );
 $installer->run(<<<EOT
-CREATE TABLE `contactlab_commons_deleted_entity` (
+CREATE TABLE `{$tablePrefix}contactlab_commons_deleted_entity` (
   `deleted_entity_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Deleted Entity Id',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Created At',
   `model` varchar(255) NOT NULL COMMENT 'Model',
@@ -75,7 +78,7 @@ CREATE TABLE `contactlab_commons_deleted_entity` (
   `entity_id` int(10) unsigned DEFAULT NULL COMMENT 'Entity id',
   PRIMARY KEY (`deleted_entity_id`),
   KEY `FK_AB8E6FEC8986ED3EF2FA1B7DADE8FF28` (`task_id`),
-  CONSTRAINT `FK_AB8E6FEC8986ED3EF2FA1B7DADE8FF28` FOREIGN KEY (`task_id`) REFERENCES `contactlab_commons_task_entity` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_AB8E6FEC8986ED3EF2FA1B7DADE8FF28` FOREIGN KEY (`task_id`) REFERENCES `{$tablePrefix}contactlab_commons_task_entity` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT='Deleted customers and subscribers email log';
 EOT
 );
@@ -83,11 +86,11 @@ EOT
 
 
 $installer->run(<<<EOT
-DROP TABLE IF EXISTS `contactlab_commons_log_entity`;
+DROP TABLE IF EXISTS `{$tablePrefix}contactlab_commons_log_entity`;
 EOT
 );
 $installer->run(<<<EOT
-CREATE TABLE `contactlab_commons_log_entity` (
+CREATE TABLE `{$tablePrefix}contactlab_commons_log_entity` (
   `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Task Id',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Created At',
   `log_level` smallint(6) NOT NULL COMMENT 'Log level',
