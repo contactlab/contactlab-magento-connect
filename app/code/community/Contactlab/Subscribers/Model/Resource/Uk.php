@@ -13,8 +13,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * Constructor.
      */
-    public function _construct() {
-        $this->_init("contactlab_subscribers/uk", "entity_id");
+    public function _construct() { 	
+        $this->_init("contactlab_subscribers/uk", "entity_id");    
         $this->_helper = Mage::helper('contactlab_commons');
     }
 
@@ -41,14 +41,13 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
 
     /** Insert existing records. */
-    private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
-        $this->_helper->logNotice("----------- _insertExistingRecords");
+    private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {      
+    	$this->_helper->logNotice("----------- _insertExistingRecords");
         $this->_createTmpTables($adapter);
-        try {
-            $this->_makeCouples($adapter, $doit, $session);
+ 		try {
+        	$this->_makeCouples($adapter, $doit, $session);
             $this->_deleteDuplicatedSubscribers($adapter, $doit, $session);
             $this->_deleteOrphanSubscribers($adapter, $doit, $session);
-            
             $this->_insertFromNewsletterSubscriber($adapter, $doit, $session);
             $this->_updateSubscriberId($adapter, $doit, $session);
             $this->_insertFromCustomers($adapter, $doit, $session);
@@ -65,10 +64,12 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /** Delete duplicated subscribers. */
     private function _deleteOrphanSubscribers($adapter, $doit, $session) {
     	$subscribers = "newsletter/subscriber";
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+    	
     	$subscribersTable = $this->getTable($subscribers);
     	$select = $adapter
     	->select()->from(array('s' => $subscribersTable), array('customer_id','subscriber_id'))
-    	->where("customer_id > 0 AND customer_id NOT IN (select entity_id FROM customer_entity)");
+    	->where("customer_id > 0 AND customer_id NOT IN (select entity_id FROM {$tablePrefix}customer_entity)");
     
     	$count = $this->_getCount($adapter, $select);
     	if ($count === 0) {
@@ -113,7 +114,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     
     /** Delete duplicated subscribers. */
     private function _deleteDuplicatedSubscribers(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
-        $this->_helper->logNotice("----------- _deleteDuplicatedSubscribers");
+       
+    	$this->_helper->logNotice("----------- _deleteDuplicatedSubscribers");
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
         $select = $adapter
@@ -159,21 +161,26 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * where customer_id and subscriber_id are not in uk table
      */
     private function _insertFromNewsletterSubscriber(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
+    
         $this->_helper->logNotice("----------- _insertFromNewsletterSubscriber");
         $ukTable = $this->getMainTable();
+      
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
         $customers = "customer/entity";
         $customersTable = $this->getTable($customers);
-        
+       
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+       
         $select = $adapter
                 ->select()->from(array('s' => $subscribersTable), array(
                     'subscriber_id' => 'subscriber_id')
                 )              
                 ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                ->where("customer_id not in (select customer_id from contactlab_customers_tmp_idx) and subscriber_id not in (select subscriber_id from contactlab_subscribers_tmp_idx)");
+                ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and subscriber_id 
+                not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_tmp_idx)");
 
-        $this->_helper->logNotice($select->assemble());
+                $this->_helper->logNotice($select->assemble());
         if (!$doit) {
             $count = $this->_getCount($adapter, $select);
             if ($count === 0) {
@@ -194,6 +201,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                         Varien_Db_Adapter_Interface::INSERT_IGNORE*/);
             }
             $this->_helper->logNotice($sql);
+            
             $rv = $adapter->query($sql);
             $count = $rv->rowCount();
             if ($count > 0) {
@@ -217,9 +225,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $customersTable = $this->getTable($customers);
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
         $select = $adapter
                 ->select()->from(array('c' => $customersTable), array('entity_id'))
-                ->where("entity_id not in (select customer_id from contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
+                ->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
 
         $this->_helper->logNotice($select->assemble());
         if (!$doit) {
@@ -255,10 +264,11 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      */
     private function _updateSubscriberId(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $this->_helper->logNotice("----------- _updateSubscriberId");
+      
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
-
+	
         $select = $adapter
                 ->select()->from(array('u' => $ukTable), array('entity_id'))
                 ->join(array("s" => $subscribersTable), "s.customer_id = u.customer_id", array('subscriber_id'))
@@ -367,7 +377,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
 
     private function _truncate(Varien_Db_Adapter_Pdo_Mysql $adapter, $session) {
-        $sql = "truncate table " . $this->getMainTable();
+    	$sql = "truncate table " . $this->getMainTable();
         $adapter->query($sql);
         $this->addSuccess("Table truncated", $session);
         return $this;
@@ -551,19 +561,26 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
 
     private function _createTmpTables(Varien_Db_Adapter_Pdo_Mysql $adapter)
     {
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+    	 
         $this->_helper->logNotice("----------- _createTmpTables");
         $this->_dropTmpTables($adapter);
-        $adapter->query("create table contactlab_subscribers_tmp_idx as select subscriber_id from contactlab_subscribers_uk where subscriber_id is not null;");
-        $adapter->query("create table contactlab_customers_tmp_idx as select customer_id from contactlab_subscribers_uk where customer_id is not null;");
-        $adapter->query("alter table contactlab_subscribers_tmp_idx add unique key contactlab_subscribers_uks (subscriber_id);");
-        $adapter->query("alter table contactlab_customers_tmp_idx add unique key contactlab_subscribers_ukc (customer_id);");
+       
+        $adapter->query("create table {$tablePrefix}contactlab_subscribers_tmp_idx as select subscriber_id from {$tablePrefix}contactlab_subscribers_uk where subscriber_id is not null;");
+        $adapter->query("create table {$tablePrefix}contactlab_customers_tmp_idx as select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null;");
+        $adapter->query("alter table {$tablePrefix}contactlab_subscribers_tmp_idx add unique key contactlab_subscribers_uks (subscriber_id);");
+        $adapter->query("alter table {$tablePrefix}contactlab_customers_tmp_idx add unique key contactlab_subscribers_ukc (customer_id);");
+      
     }
 
     private function _dropTmpTables(Varien_Db_Adapter_Pdo_Mysql $adapter)
     {
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+    	
         $this->_helper->logNotice("----------- _dropTmpTables");
-        $adapter->query("drop table if exists contactlab_subscribers_tmp_idx;");
-        $adapter->query("drop table if exists contactlab_customers_tmp_idx;");
+       
+        $adapter->query("drop table if exists {$tablePrefix}contactlab_subscribers_tmp_idx;");
+        $adapter->query("drop table if exists {$tablePrefix}contactlab_customers_tmp_idx;");
     }
 }
 
