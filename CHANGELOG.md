@@ -1,5 +1,11 @@
 # Changelog 
 
+## 2.4.1 (2017-10-06)
+- **New feature** Made custom subscription form visibility configurable via settings page.
+- **Improvement** Custom table prefix is now fully supported.
+- **Changed** Task data now relies on a blob field to allow binary (attachment) support.
+- Bug fix.
+
 ## 2.4.0 (2017-07-19)
 - **New feature** Added config option to show custom newsletter subscribe form.
 - **New feature** Added config option to send transactional emails immediatly after insert.
