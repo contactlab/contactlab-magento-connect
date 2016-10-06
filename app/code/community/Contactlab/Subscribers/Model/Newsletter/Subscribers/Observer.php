@@ -175,8 +175,9 @@ class Contactlab_Subscribers_Model_Newsletter_Subscribers_Observer extends Mage_
 
     private function _addCustomAttributes($collection)
     {
+    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
         $collection->getSelect()
-            ->joinLeft(array('csnsf' => 'contactlab_subscribers_newsletter_subscriber_fields'),
+            ->joinLeft(array('csnsf' => $tablePrefix.'contactlab_subscribers_newsletter_subscriber_fields'),
                 'csnsf.subscriber_id = main_table.subscriber_id',
                 array(
                     'privacy' => 'csnsf.privacy_accepted',
