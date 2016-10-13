@@ -1,4 +1,4 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 <config>
     <modules>
         <Contactlab_Commons>
@@ -144,7 +144,7 @@
             <global>
                 <!--days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug-->
-                <platform_version>2.4.1</platform_version>
+                <platform_version>2.4.2</platform_version>
             </global>
             <connection>
                 <!--type>1</type>
