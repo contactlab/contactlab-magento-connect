@@ -129,6 +129,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $writer->startElement("RECORD");
                 $writer->writeAttribute('ACTION', 'U');
                 foreach ($toFill as $k => $v) {
+                	                	 
                     if (empty($k)) {
                         continue;
                     }
@@ -536,6 +537,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     {
         $toFill['customer_group_id'] = $item->getData('customer_group_id');
         $toFill['customer_group_name'] = $item->getData('customer_group_name');
+        //FIX
+        $toFill['created_at'] = $item->getData('created_at');
     }
 
     /**
@@ -760,11 +763,11 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 ->getCollection()->setLoadDefault(true);
         $stores->addFieldToSelect('*')->getSelect()
             ->join(array('core_website' => $websiteTable),
-                'main_table.website_id = ' . $websiteTable . '.website_id',
-                array('website_name' => $websiteTable . '.name'))
+                'main_table.website_id = ' . 'core_website.website_id',
+                array('website_name' => 'core_website.name'))
             ->join(array('core_store_group' => $storeGroupTable),
-                'main_table.group_id = ' . $storeGroupTable . '.group_id',
-                array('group_name' => $storeGroupTable . '.name'));
+                'main_table.group_id = ' . 'core_store_group.group_id',
+                array('group_name' => 'core_store_group.name'));        
         /** @var $store Mage_Core_Model_Store */
         foreach ($stores as $store) {
             $storeId = $store->getData('store_id');

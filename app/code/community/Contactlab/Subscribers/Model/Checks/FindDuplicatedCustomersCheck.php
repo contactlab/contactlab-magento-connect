@@ -14,10 +14,12 @@ class Contactlab_Subscribers_Model_Checks_FindDuplicatedCustomersCheck extends C
     {
         $count = $this->getCount();
         $this->count = $count;
-        if ($count > 0) {
-            return $this->error(sprintf("Duplicate customers in newsletter subscribers: %d", $count));
-        } else {
-            return $this->success("No duplicate customers in newsletter subscribers");
+        if ($count > 0) {        	
+        	//return $this->error(sprintf("Duplicate customers in newsletter subscribers: %d", $count));
+        	Mage::helper('contactlab_commons')->logCrit(sprintf("Duplicate customers in newsletter subscribers: %d", $count));
+        	return $this->success(sprintf("Skipped %d duplicate customers in newsletter subscribers", $count));
+        } else {        	
+        	return $this->success("No duplicate customers in newsletter subscribers");
         }
     }
 
