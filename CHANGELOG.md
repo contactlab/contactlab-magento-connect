@@ -1,4 +1,11 @@
-# Changelog 
+# Changelog
+
+## 2.4.2 (2017-10-28)
+- **Improvement** Fix table prefix.
+- **Improvement** Duplicated Customers Check.
+- **Improvement** Change mail separator from , to ;
+- **Improvement** Add field created_at to XML export customer.
+- Bug fix.
 
 ## 2.4.1 (2017-10-06)
 - **New feature** Made custom subscription form visibility configurable via settings page.
