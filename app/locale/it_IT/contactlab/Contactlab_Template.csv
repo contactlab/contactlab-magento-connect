@@ -117,3 +117,4 @@
 "Show full XML Delivery status information for this template","Dettaglio dello stato XML Delivery per questo template"
 "Full XML Delivery status","Dettaglio XML Delivery"
 "Any", "Tutti"
+"Use ; as the delimiter to separate recipients.", "Utilizzare il carattere ; per separare destinatari multipli"
