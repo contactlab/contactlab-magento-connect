@@ -40,10 +40,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         return $this;
     }
 
-    /** Insert existing records. */
+    /** Insert existing records. */ 
     private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {      
     	$this->_helper->logNotice("----------- _insertExistingRecords");
-        $this->_createTmpTables($adapter);
+        //$this->_createTmpTables($adapter);
  		try {
         	$this->_makeCouples($adapter, $doit, $session);
             $this->_deleteDuplicatedSubscribers($adapter, $doit, $session);
@@ -54,10 +54,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             $this->_updateCustomerId($adapter, $doit, $session);
             $this->_helper->logNotice("----------- DONE");
         } catch (Exception $e) {
-            $this->_dropTmpTables($adapter);
+            //$this->_dropTmpTables($adapter);
             throw $e;
         }
-        $this->_dropTmpTables($adapter);
+        //$this->_dropTmpTables($adapter);
         return $this;
     }
 	
@@ -77,8 +77,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     		return $this;
     	}
     
-    	if ($doit) {
-    		/*
+    	/*
+    	if ($doit) {    		
     		 foreach ($adapter->fetchAll($select) as $id) {
     		 $select = $adapter
     		 ->select()->from(array('s' => $subscribersTable), array('subscriber_id'))
@@ -96,9 +96,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     		 $first = false;
     		 }
     		 }
-    		 $this->addError("$count duplicated subscribers removed", $session);
-    		 return $this;
-    		 */
+    		 $this->addError("$count duplicated subscribers removed", $session);    		 
+    		 return $this;    		 
     	} else {
     		$string='Table '.$subscribersTable.' subscriber_id: ';
     		foreach ($adapter->fetchAll($select) as $id) {
@@ -109,6 +108,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             $this->setHasNotices($bckNotice);
     		return $this;
     	}
+    	*/
+    	return $this;
     }
     
     
@@ -177,9 +178,14 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                     'subscriber_id' => 'subscriber_id')
                 )              
                 ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
+                /*
                 ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and subscriber_id 
                 not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_tmp_idx)");
-
+				*/
+		        ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and subscriber_id
+		        not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_uk where subscriber_id is not null)");
+                
+                
                 $this->_helper->logNotice($select->assemble());
         if (!$doit) {
             $count = $this->_getCount($adapter, $select);
@@ -201,15 +207,16 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                         Varien_Db_Adapter_Interface::INSERT_IGNORE*/);
             }
             $this->_helper->logNotice($sql);
-            
+            /*
             $rv = $adapter->query($sql);
             $count = $rv->rowCount();
             if ($count > 0) {
                 $this->addError("$count missing subscribers inserted", $session);
             }
+            */
             return $rv;
         } else {
-            $this->addNotice("Would insert $count missing subscribers", $session);
+            //$this->addNotice("Would insert $count missing subscribers", $session);
             return $this;
         }
     }
@@ -228,10 +235,12 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
         $select = $adapter
                 ->select()->from(array('c' => $customersTable), array('entity_id'))
-                ->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
-
+                //->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
+        		->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and entity_id not in (select customer_id from $subscribersTable)");
+                
         $this->_helper->logNotice($select->assemble());
         if (!$doit) {
+        	/*
             $count = $this->_getCount($adapter, $select);
             if ($count === 0) {
                 $this->addSuccess("No customer to insert", $session);
@@ -240,6 +249,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                 $this->addNotice("Would insert $count missing customers", $session);
                 return $this;
             }
+            */
+            return $this;
         }
         if ($doit) {
             // backward compatibility
@@ -250,10 +261,12 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             }
             $this->_helper->logNotice($sql);
             $rv = $adapter->query($sql);
+            /*
             $count = $rv->rowCount();
             if ($count > 0) {
                 $this->addError("$count missing customers inserted", $session);
             }
+            */
             return $rv;
         } else {
         }
@@ -286,9 +299,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                 $adapter->query("update $ukTable set subscriber_id = " .
                         $row['subscriber_id'] . " where entity_id = " . $row['entity_id']);
             }
-            $this->addError("$count missing subscriber_id updated", $session);
+            //$this->addError("$count missing subscriber_id updated", $session);
         } else {
-            $this->addNotice("Would update $count missing subscriber_id", $session);
+            //$this->addNotice("Would update $count missing subscriber_id", $session);
         }
         return $this;
     }
@@ -333,9 +346,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                                      
                
             }
-            $this->addError("$count missing customer_id updated", $session);
+            //$this->addError("$count missing customer_id updated", $session);
         } else {
-            $this->addNotice("Would update $count missing customer_id", $session);
+            //$this->addNotice("Would update $count missing customer_id", $session);
         }
         return $this;
     }

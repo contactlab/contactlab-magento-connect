@@ -100,6 +100,15 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
                 $toFill = array_merge($toFill, $preFilled);
                 $toFill['email'] = $item->getData('email');
+                
+                //FIX
+                $toFill['created_at'] = $item->getData('created_at');
+                if($item->getData('last_subscribed_at'))
+                {
+                	$toFill['created_at'] = $item->getData('last_subscribed_at');
+                }
+                                
+                
                 $this->_setAttributeKeys($toFill, $item);
                 $this->_setAddressesAttributeKeys($toFill, $item);
 
@@ -536,9 +545,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _fillCustomerGroupAttributes(array &$toFill, Varien_Object $item)
     {
         $toFill['customer_group_id'] = $item->getData('customer_group_id');
-        $toFill['customer_group_name'] = $item->getData('customer_group_name');
-        //FIX
-        $toFill['created_at'] = $item->getData('created_at');
+        $toFill['customer_group_name'] = $item->getData('customer_group_name');        
     }
 
     /**

@@ -316,7 +316,7 @@ class Contactlab_Template_Model_Newsletter_XmlDelivery extends Mage_Core_Model_A
         $this->getTask()->setProgressValue($counter);
 
         $zip = new ZipArchive();
-        $res = $zip->open($zipFilePath, ZipArchive::OVERWRITE);
+        $res = $zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $zip->addFile($csvFilePath, $csvFileName);
         $zip->close();
         unlink($csvFilePath);
