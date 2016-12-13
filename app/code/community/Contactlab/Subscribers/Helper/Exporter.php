@@ -57,8 +57,8 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'suffix' => 'suffix',
             'dob' => 'dob',
             'gender' => 'gender',
-            'email' => 'email',
-            'created_at' => 'created_at',
+            'email' => 'email',            
+        	'created_at' => 'created_at',
             /**
              * Adding new fields from extended newsletter subscription form
              */
@@ -181,7 +181,8 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'zip_code' => 'billing_postcode',
             'phone' => 'billing_telephone',
             'cell_phone' => 'mobilephone',
-            'notes' => 'notes',
+            'notes' => 'notes', 
+        	'last_subscribed_at' => 'last_subscribed_at',        	
             'custom_1' => 'custom_1',
             'custom_2' => 'custom_2'
         );

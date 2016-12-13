@@ -69,6 +69,7 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
         $this->getTask()->setSuppressSuccessUk(true);
         $this->getTask()->setSkipMessages($skipMessages);
         return $helper->updateAll(false, $this->getTask());
+        return true;
     }
 
     /**
@@ -83,5 +84,6 @@ class Contactlab_Subscribers_Model_Task_ExportSubscribersRunner extends Contactl
         $this->getTask()->setSuppressSuccessUk(true);
         $this->getTask()->setSkipMessages($skipMessages);
         return $helper->updateAll(true, $this->getTask());
+        return true;
     }
 }
