@@ -1,10 +1,10 @@
 ![](https://raw.githubusercontent.com/wiki/contactlab/contactlab-magento-connect/image/contactlab.png)
 
-# ContactLab Connect for Magento
+# Contactsend Connect for Magento
 
-The ContactLab Connect for Magento plug-in is a simple and effective way to manage your communications with online customers. It combines the digital messaging platform from ContactLab with the e-commerce capabilities of Magento to provide a simple, flexible, and highly configurable e-communications environment:
+The Contactsend Connect for Magento plug-in is a simple and effective way to manage your communications with online customers. It combines Contactsend from Contactlab with the e-commerce capabilities of Magento to provide a simple, flexible, and highly configurable e-communications environment:
 
-- Automatically synchronize Magento and ContactLab user databases
+- Automatically synchronize Magento and Contactsend user databases
 - Synchronize subscribe and unsubscribe activities
 - Send:
   - Transactional emails
@@ -17,11 +17,11 @@ The ContactLab Connect for Magento plug-in is a simple and effective way to mana
 - Compatible with Magento multi-store and multi-Website installations
 
 **Note:**  
-ContactLab Connect for Magento is intended for use with a standard Magento installation. If you use other plug-ins with the same installation, there may be compatibility issues that require system integration updates.  
+Contactsend Connect for Magento is intended for use with a standard Magento installation. If you use other plug-ins with the same installation, there may be compatibility issues that require system integration updates.  
 
 ## Documentation
 
-To learn how to install, configure and use ContactLab Connect for Magento, go to the [Wiki pages](https://github.com/contactlab/contactlab-magento-connect/wiki).
+To learn how to install, configure and use Contactsend Connect for Magento, go to the [Wiki pages](https://github.com/contactlab/contactlab-magento-connect/wiki).
 
 ## Contributing
 
