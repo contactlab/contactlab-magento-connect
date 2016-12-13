@@ -1,19 +1,23 @@
 # Changelog
 
-## 2.4.2 (2017-10-28)
+## 2.5.0 (2016-12-13)
+- **Added compatibilty to laters 5.* php version**
+- Bug fixes.
+
+## 2.4.2 (2016-10-28)
 - **Improvement** Fix table prefix.
 - **Improvement** Duplicated Customers Check.
 - **Improvement** Change mail separator from , to ;
 - **Improvement** Add field created_at to XML export customer.
 - Bug fix.
 
-## 2.4.1 (2017-10-06)
+## 2.4.1 (2016-10-06)
 - **New feature** Made custom subscription form visibility configurable via settings page.
 - **Improvement** Custom table prefix is now fully supported.
 - **Changed** Task data now relies on a blob field to allow binary (attachment) support.
 - Bug fix.
 
-## 2.4.0 (2017-07-19)
+## 2.4.0 (2016-07-19)
 - **New feature** Added config option to show custom newsletter subscribe form.
 - **New feature** Added config option to send transactional emails immediatly after insert.
 - Bug fix.
