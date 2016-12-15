@@ -149,10 +149,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                     $first = false;
                 }
             }
-            $this->addError("$count duplicated subscribers removed", $session);
+            //$this->addError("$count duplicated subscribers removed", $session);
             return $this;
         } else {
-            $this->addNotice("Would remove $count duplicated subscribers", $session);
+            //$this->addNotice("Would remove $count duplicated subscribers", $session);
             return $this;
         }
     }
@@ -206,10 +206,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                         array('subscriber_id', 'customer_id')/*,
                         Varien_Db_Adapter_Interface::INSERT_IGNORE*/);
             }
-            $this->_helper->logNotice($sql);
-            /*
+            $this->_helper->logNotice($sql);            
             $rv = $adapter->query($sql);
             $count = $rv->rowCount();
+            /*
             if ($count > 0) {
                 $this->addError("$count missing subscribers inserted", $session);
             }
@@ -382,9 +382,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                 $adapter->query("update $ukTable set customer_id = " . $row['customer_id'] . " where entity_id = " .
                         $row['subscriber_uk_id']);
             }
-            $this->addError("$count customer_id/subscriber_id couple to updated", $session);
+            //$this->addError("$count customer_id/subscriber_id couple to updated", $session);
         } else {
-            $this->addNotice("Would update $count customer_id/subscriber_id couple", $session);
+            //$this->addNotice("Would update $count customer_id/subscriber_id couple", $session);
         }
         return $this;
     }

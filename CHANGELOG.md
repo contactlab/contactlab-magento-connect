@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.1 (2016-12-15)
+- Bug fixes.
+
 ## 2.5.0 (2016-12-13)
 - **Added compatibilty to laters 5.* php version**
 - Bug fixes.
