@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Subscribers>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
             <description>Subscriber sync Magento/ContactLab and ContactLab/Magento.</description>
         </Contactlab_Subscribers>
     </modules>
