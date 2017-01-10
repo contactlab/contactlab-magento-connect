@@ -12,8 +12,11 @@ class Contactlab_Subscribers_Model_Soap_GetSubscriptionStatus extends Contactlab
         } else if ($this->hasCustomerId()) {
             $uk = Mage::helper("contactlab_subscribers/uk")->searchByCustomerId($this->getCustomerId());
         }
-        if (isset($uk) && $uk->hasEntityId()) {
-		    $subscriber = $this->_findSubscriberByEntityId($uk->getEntityId());
+        if ($uk)
+        {
+        	if($uk->hasEntityId()) {
+		    	$subscriber = $this->_findSubscriberByEntityId($uk->getEntityId());
+        	}
         } else {
             Mage::log("ERROR: Could not find uk for " . $this->getSubscriberEmail());
 		    $subscriber = $this->_findSubscriberByEmail($this->getSubscriberEmail());
