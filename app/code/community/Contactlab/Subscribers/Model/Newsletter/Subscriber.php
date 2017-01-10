@@ -92,7 +92,7 @@ class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter
     public function unsubscribe()
     {
         parent::unsubscribe();
-        $this->setLastSubscribedAt(null)->save();
+        //$this->setLastSubscribedAt(null)->save();
     }
 
     /**
@@ -101,12 +101,19 @@ class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter
      */
     public function subscribe($email)
     {
-        parent::subscribe($email);
-        $this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate())->save();
+        parent::subscribe($email);        
+        if(!$this->getLastSubscribedAt())
+        {
+        	$this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate())->save();
+        }
     }
 
     protected function _beforeSave()
     {
+    	if(!$this->getLastSubscribedAt())
+    	{
+    		$this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate())->save();
+    	}
         $this->setLastUpdatedAt(Mage::getModel('core/date')->gmtDate());
         parent::_beforeSave();
     }

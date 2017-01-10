@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Contactlab_Commons>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
             <description>Magento/ContactLab Common functions.</description>
         </Contactlab_Commons>
     </modules>
@@ -144,7 +144,7 @@
             <global>
                 <!--days_of_old_tasks>3</days_of_old_tasks>
                 <debug>0</debug-->
-                <platform_version>2.5.1</platform_version>
+                <platform_version>2.5.2</platform_version>
             </global>
             <connection>
                 <!--type>1</type>
