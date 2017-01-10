@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.5.2 (2017-01-10)
+- **Improvement** Fix to subscribers "created_at" field in exported data.
+
 ## 2.5.1 (2016-12-15)
 - Bug fixes.
 
