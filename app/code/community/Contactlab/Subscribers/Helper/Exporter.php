@@ -59,6 +59,7 @@ class Contactlab_Subscribers_Helper_Exporter extends Mage_Core_Helper_Abstract {
             'gender' => 'gender',
             'email' => 'email',            
         	'created_at' => 'created_at',
+        	'last_subscribed_at' => 'last_subscribed_at',
             /**
              * Adding new fields from extended newsletter subscription form
              */

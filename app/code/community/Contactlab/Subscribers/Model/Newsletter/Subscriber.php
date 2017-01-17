@@ -90,9 +90,9 @@ class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter
      *
      */
     public function unsubscribe()
-    {
-        parent::unsubscribe();
-        //$this->setLastSubscribedAt(null)->save();
+    {        
+        $this->setLastSubscribedAt();
+        return parent::unsubscribe();
     }
 
     /**
@@ -100,21 +100,30 @@ class Contactlab_Subscribers_Model_Newsletter_Subscriber extends Mage_Newsletter
      *
      */
     public function subscribe($email)
-    {
-        parent::subscribe($email);        
-        if(!$this->getLastSubscribedAt())
+    {                
+        if(!$this->getCreatedAt())
         {
-        	$this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate())->save();
+        	$this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
         }
+        $this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate());
+        return parent::subscribe($email);
     }
 
     protected function _beforeSave()
-    {
-    	if(!$this->getLastSubscribedAt())
+    {    	
+    	if($this->getSubscriberStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED)
     	{
-    		$this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate())->save();
+    		if(!$this->getCreatedAt())
+    		{
+    			$this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
+    		}
+        	$this->setLastSubscribedAt(Mage::getModel('core/date')->gmtDate());
     	}
-        $this->setLastUpdatedAt(Mage::getModel('core/date')->gmtDate());
+    	elseif($this->getSubscriberStatus() == Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED)
+    	{
+    		$this->setLastSubscribedAt();
+    	}
+    	$this->setLastUpdatedAt(Mage::getModel('core/date')->gmtDate());
         parent::_beforeSave();
     }
 }
