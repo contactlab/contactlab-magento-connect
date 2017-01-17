@@ -84,6 +84,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         while (true) {
             $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer);
             $subscribersInCustomers->getSelect()->limitPage($page, $limit);
+            
             Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
             $found = false;
             while ($item = $subscribersInCustomers->fetchItem()) {
@@ -100,14 +101,6 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
                 $toFill = array_merge($toFill, $preFilled);
                 $toFill['email'] = $item->getData('email');
-                
-                //FIX
-                $toFill['created_at'] = $item->getData('created_at');
-                if($item->getData('last_subscribed_at'))
-                {
-                	$toFill['created_at'] = $item->getData('last_subscribed_at');
-                }
-                                
                 
                 $this->_setAttributeKeys($toFill, $item);
                 $this->_setAddressesAttributeKeys($toFill, $item);
@@ -383,7 +376,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_manageExportPolicy($rv,
             array('native_nl' => 'last_updated_at'));
         if (!$this->_mustExportNotSubscribed()) {
-            $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
+            $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);            
         }
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
         return $rv;
@@ -589,12 +582,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $collection->getSelect()->joinInner(
                 array('newsletter_subscriber' => $this->resource->getTableName('newsletter/subscriber')),
                 'newsletter_subscriber.customer_id = e.entity_id AND ' . $w,
-                array('subscriber_status' => 'subscriber_status'));
+                array('subscriber_status' => 'subscriber_status', 'subscriber_created_at'=>'created_at', 'last_subscribed_at' => 'last_subscribed_at', 'last_updated_at' => 'last_updated_at'));
         }else{
             $collection->getSelect()->joinLeft(
                 array('newsletter_subscriber' => $this->resource->getTableName('newsletter/subscriber')),
                 'newsletter_subscriber.customer_id = e.entity_id',
-                array('subscriber_status' => 'subscriber_status'));
+                array('subscriber_status' => 'subscriber_status', 'subscriber_created_at'=>'created_at', 'last_subscribed_at' => 'last_subscribed_at', 'last_updated_at' => 'last_updated_at'));
         }
 
         $collection->getSelect()->joinLeft(
@@ -1015,6 +1008,21 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $tCustInfo->setCustomer($customer);
         $tCustInfo->setIsMod(false);
 
+        //FIX
+        $toFill['created_at'] = $customer->getData('created_at');
+        if($customer->getData('subscriber_created_at'))
+        {
+        	$createdAt = $customer->getData('created_at');
+        	$subscriberCreatedAt = $customer->getData('subscriber_created_at');
+        	if(strtotime($subscriberCreatedAt) < strtotime($createdAt))
+        	{
+        		$toFill['created_at'] = $customer->getData('subscriber_created_at');
+        	}
+        }
+        if($customer->getData('last_subscribed_at'))
+        {
+        	$toFill['last_subscribed_at'] = $customer->getData('last_subscribed_at');
+        }
         Mage::dispatchEvent("contactlab_export_subscribers_customer_info",array(
             'customer_info' => $tCustInfo
         ));
@@ -1051,8 +1059,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $tSubscriberInfo = Mage::getModel('contactlab_subscribers/exporter_subscribers_infoTransporter_subscriber');
         $tSubscriberInfo->setInfo($toFill);
         $tSubscriberInfo->setSubscriber($subscriber);
-        $tSubscriberInfo->setIsMod(false);
-
+        $tSubscriberInfo->setIsMod(false);       
+        
+        //FIX
+        $toFill['created_at'] = $subscriber->getData('created_at');
+        
+        
         Mage::dispatchEvent("contactlab_export_subscribers_subscriber_info",array(
             'subscriber_info' => $tSubscriberInfo
         ));
