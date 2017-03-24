@@ -6,7 +6,7 @@
  * Date: 06/10/15
  * Time: 9.30
  */
-class Contactlab_Subscribers_Model_Checks_SftpCheck extends Contactlab_Subscribers_Model_Checks_AbstractCheck
+class Contactlab_Subscribers_Model_Checks_SftpSubscriberExporter extends Contactlab_Subscribers_Model_Checks_AbstractCheck
 {
 
     /**
@@ -35,7 +35,7 @@ class Contactlab_Subscribers_Model_Checks_SftpCheck extends Contactlab_Subscribe
      */
     public function getDescription()
     {
-        return "SFTP test";
+        return "SFTP Subscriber Exporter test";
     }
 
     /**
@@ -96,7 +96,7 @@ class Contactlab_Subscribers_Model_Checks_SftpCheck extends Contactlab_Subscribe
      * @return string
      */
     private function _getRelativePath() {
-    	return Mage::getStoreConfig("contactlab_template/queue/export_remote_path");
+    	return Mage::getStoreConfig("contactlab_commons/connection/export_remote_path");
     }
     
     /**
