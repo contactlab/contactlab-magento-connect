@@ -81,7 +81,9 @@ class Contactlab_Template_Model_Newsletter_Processor_Cart extends Contactlab_Tem
      * @param array $item
      * @return string
      */
-    public function getPriceFor(Mage_Catalog_Model_Product $product, array $item) {
-        return Mage::app()->getStore()->formatPrice(floatval($item[3]));
+    public function getPriceFor(Mage_Catalog_Model_Product $product, array $item) 
+    {
+    	$store = Mage::getModel('core/store')->load($product->getStoreId());
+        return $store->formatPrice(floatval($item[3])); 
     }
 }
