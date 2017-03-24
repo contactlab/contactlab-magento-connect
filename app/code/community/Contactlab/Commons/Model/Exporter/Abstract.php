@@ -12,7 +12,7 @@ abstract class Contactlab_Commons_Model_Exporter_Abstract extends Contactlab_Com
      * @return string
      * @throws Zend_Exception
      */
-    public final function export(Contactlab_Commons_Model_Task_Interface $task) {
+    public function export(Contactlab_Commons_Model_Task_Interface $task) {
         if (!$this->isEnabled()) {
             Mage::helper("contactlab_commons")->logWarn("Module export is disabled");
             return "Module export is disabled";

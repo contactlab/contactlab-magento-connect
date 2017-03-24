@@ -31,8 +31,7 @@ class Contactlab_Subscribers_Model_Soap_SetSubscriptionStatus extends Contactlab
 		$modifySubscriberSubscriptionStatus->token = $this->getAuthToken();
 		$modifySubscriberSubscriptionStatus->webFormCode = $this->getConfig("contactlab_subscribers/global/web_form_code");
 		$modifySubscriberSubscriptionStatus->subscriberIdentifier = $subscriber->identifier;
-		$modifySubscriberSubscriptionStatus->isSubscribed = $this->getSubscriberStatus() ? 1 : 0;
-
+		$modifySubscriberSubscriptionStatus->isSubscribed = $this->getSubscriberStatus() ? 1 : 0;		
 		$rv = $this->getClient()->modifySubscriberSubscriptionStatus($modifySubscriberSubscriptionStatus);
 
 		return $rv;
