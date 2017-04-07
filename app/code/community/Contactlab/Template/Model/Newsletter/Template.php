@@ -225,8 +225,8 @@ class Contactlab_Template_Model_Newsletter_Template extends Mage_Newsletter_Mode
      * @param string[] $item
      * @return string
      */
-    public function getPriceFor(Mage_Catalog_Model_Product $product, array $item, $storeId) {
-        return $this->getTemplateQueueProcessor($storeId)->getPriceFor($product, $item);
+    public function getPriceFor(Mage_Catalog_Model_Product $product, array $item, $storeId) {           
+    	return $this->getTemplateQueueProcessor($storeId)->getPriceFor($product->setStoreId($storeId), $item);
     }
 
     /**

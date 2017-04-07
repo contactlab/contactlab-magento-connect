@@ -193,7 +193,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 //        $w = $this->_manageExportPolicySql($w, array(
 //            'e#1' => 'updated_at',
 //            'e#2' => 'created_at',
-//            $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at'
+//            'newsletter_subscriber' => 'last_updated_at'
 //        ));
 
 
@@ -222,13 +222,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_manageExportPolicy($rv,
             array(
                 'e' => array('created_at', 'updated_at'),
-                $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at',
+                'newsletter_subscriber' => 'last_updated_at',
             ));
         $this->_addCustomerExportCollection($rv);
         $this->_addSubscriberFields($rv);
 
-        $rv->getSelect()->group('e.entity_id');
-
+        $rv->getSelect()->group('e.entity_id');        
         return $rv;
     }
 
@@ -246,19 +245,19 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 //        $w = $this->_manageExportPolicySql($w, array(
 //            'e#1' => 'updated_at',
 //            'e#2' => 'created_at',
-//            $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at'
+//            'newsletter_subscriber' => 'last_updated_at'
 //        ));
 
 //        if (!$this->_mustExportNotSubscribed()) {
 //            $rv->getSelect()
-//                ->where('e.entity_id in (select customer_id from ' . $this->resource->getTableName('newsletter_subscriber')
+//                ->where('e.entity_id in (select customer_id from ' . 'newsletter_subscriber'
 //                . ' where ' . $w . ')');
 //        }
 
         $this->_manageExportPolicy($rv,
             array(
-                'e' => array('created_at', 'updated_at'),
-                $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at',
+                'e' => array('created_at', 'updated_at'), 
+                'newsletter_subscriber' => 'last_updated_at',
             ));
         $this->_addCustomerExportCollection($rv);
         return $rv;
@@ -379,6 +378,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);            
         }
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
+        
         return $rv;
     }
 
@@ -576,7 +576,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             $w = $this->_manageExportPolicySql($w, array(
                 'e#1' => 'updated_at',
                 'e#2' => 'created_at',
-                $this->resource->getTableName('newsletter_subscriber') => 'last_updated_at'
+                'newsletter_subscriber' => 'last_updated_at'
             ));
 
             $collection->getSelect()->joinInner(
