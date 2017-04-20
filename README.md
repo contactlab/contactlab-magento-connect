@@ -26,3 +26,4 @@ To learn how to install, configure and use Contactsend Connect for Magento, go t
 ## Contributing
 
 Contributions from the community are welcome: to learn how to contribute to the project please refer to [Contributing](https://github.com/contactlab/contactlab-magento-connect/blob/master/CONTRIBUTING.md).
+
