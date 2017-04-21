@@ -1,33 +1,83 @@
 <div class="content-header">
-    <h1 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h1>
+	<h1 class="<?php echo $this->getHeaderHtmlProperty() ?>"><?php echo $this->getHeaderHtml() ?></h1>
 </div>
 <div class="box-left">
     <?php /** @var $check Contactlab_Subscribers_Model_Checks_CheckInterface */ ?>
     <?php foreach ($this->getSubscribersChecks() as $check): ?>
-        <h3 <?php echo $check->getExitCode() === Contactlab_Subscribers_Model_Checks_CheckInterface::ERROR ? 'class="error"' : '' ?>><?php echo $check->getDescription(); ?></h3>
-        <ul class="messages">
+        <h3
+		<?php echo $check->getExitCode() === Contactlab_Subscribers_Model_Checks_CheckInterface::ERROR ? 'class="error"' : '' ?>><?php echo $check->getDescription(); ?></h3>
+	<ul class="messages">
             <?php foreach ($check->getErrors() as $error): ?>
                 <li class="error-msg"><?php echo $error ?></li>
             <?php endforeach; ?>
         </ul>
-        <ul class="messages">
+	<ul class="messages">
             <?php foreach ($check->getSuccess() as $success): ?>
                 <li class="success-msg"><?php echo $success ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endforeach; ?>
+
+
+
+<div class="grid" style="margin-top: 5px">
+		<div class="hor-scroll">
+			<h3 style="margin-top: 10px">Test email</h3>
+			<table style="border-collapse: collapse">
+				<colgroup>
+					<col style="width: 200px">
+					<col>
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>
+							<label for="email-address-debug"><?php echo $this->__('Debug an email address') ?>:</label></td>
+						<td>
+							<input type="text" 
+								name="email-address-debug" id="email-address-debug" 
+								value="<?php echo filter_var(Mage::app()->getRequest()->getParam('address'), FILTER_VALIDATE_EMAIL) ?>" 
+								class="input-text" 
+							/>
+						</td>
+						<td>
+							<button id="sendemail"
+								title="<?php echo $this->__('Send email') ?>"
+								type="contactlab_template/adminhtml_widget_button_queue"
+								class="scalable "								
+								onclick="var v = $('email-address-debug').value; 
+										location.href = '<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/contactlab_commons_configurationCheck/testemail') ?>mail/' + v;"
+								style="">
+								<span><span><span><?php echo $this->__('Send email') ?></span></span></span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
 </div>
 <div class="box-right">
-    <h2><?php echo $this->__('Crontab scheduled tasks') ?></h2>
+	<h2><?php echo $this->__('Crontab scheduled tasks') ?></h2>
     <?php foreach ($this->getCronConfiguration() as $item): ?>
         <h3><?php echo $item->getModule() ?> - <?php echo $item->getName() ?></h3>
         <?php if ($item->hasDescription()): ?>
-            <p><em><?php echo $item->getDescription() ?></em></p>
+            <p>
+		<em><?php echo $item->getDescription() ?></em>
+	</p>
         <?php endif; ?>
         <?php if ($item->getSchedule()): ?>
-            <p>Scheduled: <code><?php echo $item->getSchedule() ?></code></p>
+            <p>
+		Scheduled:
+		<code><?php echo $item->getSchedule() ?></code>
+	</p>
         <?php else: ?>
-            <p> Scheduled: <code class="error">Never</code></p>
+            <p>
+		Scheduled:
+		<code class="error">Never</code>
+	</p>
         <?php endif; ?>
     <?php endforeach; ?>
 </div>
