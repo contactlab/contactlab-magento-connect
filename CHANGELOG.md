@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.5 (2017-05-29)
+- **New feature** Added test transactional emails.
+- Bug fixes.
+
+## 2.5.4 (2017-04-07)
+- **Improvement** Added SFTP read/write test in check configuration page.
+- Bug fixes.
+
 ## 2.5.3 (2017-01-17)
 - Bug fixes.
 
