@@ -71,8 +71,6 @@ class Contactlab_Transactional_Model_Email_Queue extends Mage_Core_Model_Email_Q
                     Mage::setIsDeveloperMode(true);
                     Mage::logException($e);
                     Mage::setIsDeveloperMode($oldDevMode);
-
-                    return false;
                 }
             }
         }
