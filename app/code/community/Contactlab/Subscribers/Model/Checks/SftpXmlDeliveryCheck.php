@@ -106,9 +106,11 @@ class Contactlab_Subscribers_Model_Checks_SftpXmlDeliveryCheck extends Contactla
      */
     public function getSFTPConnection() 
     {
-        $sftp = new Contactlab_Commons_Model_Ssh_Net_SFTP(
-                Mage::getStoreConfig("contactlab_commons/connection/remote_server")
-        	);
+        $host = Mage::getStoreConfig("contactlab_commons/connection/remote_server");
+        if (!$host) {
+            return false;
+        }
+        $sftp = new Contactlab_Commons_Model_Ssh_Net_SFTP($host);
         if (!$sftp->login(
                 	Mage::getStoreConfig("contactlab_commons/connection/sftp_username"),
                 	Mage::getStoreConfig("contactlab_commons/connection/sftp_password")
@@ -147,6 +149,12 @@ class Contactlab_Subscribers_Model_Checks_SftpXmlDeliveryCheck extends Contactla
         return $return;
     }
     
-    
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
+        return true;
+    }    
 
 }
