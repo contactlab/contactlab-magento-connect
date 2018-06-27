@@ -9,6 +9,7 @@ class Contactlab_Subscribers_Test_Helper_Checks extends EcomDev_PHPUnit_Test_Cas
 
     protected function setUp() {
         $this->helper = Mage::helper("contactlab_subscribers/checks");
+        Mage::getConfig()->saveConfig("contactlab_commons/connection/remote_server", "sftp.example.com");
     }
 
 
