@@ -2,6 +2,8 @@
 
 # Contactsend Connect for Magento
 
+[![Build Status](https://travis-ci.org/contactlab/contactlab-magento-connect.svg?branch=master)](https://travis-ci.org/contactlab/contactlab-magento-connect)
+
 The Contactsend Connect for Magento plug-in is a simple and effective way to manage your communications with online customers. It combines Contactsend from Contactlab with the e-commerce capabilities of Magento to provide a simple, flexible, and highly configurable e-communications environment:
 
 - Automatically synchronize Magento and Contactsend user databases
