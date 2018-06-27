@@ -4,11 +4,6 @@
     "require-dev": {
         "phpunit/phpunit": "~4.4"
     },
-    "config": {
-        "github-oauth": {
-          "github.com": "${GH_TOKEN}"
-        }
-    },
     "require": {
         "aydin-hassan/magento-core-composer-installer" : "~1.0",
         "magento/magento" : "1.9.1.0"

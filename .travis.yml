@@ -12,6 +12,7 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar self-update
   - ln -s app/code/community/Contactlab/Commons/Test/resources/composer.json
+  - php composer.phar config github-oauth.github.com $GH_TOKEN
   - php composer.phar install
   - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
   - chmod +x modman
