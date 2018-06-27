@@ -147,6 +147,11 @@ class Contactlab_Subscribers_Model_Checks_SftpXmlDeliveryCheck extends Contactla
         return $return;
     }
     
-    
-
+    /**
+     * Should the check fail in test mode?
+     * @return bool
+     */
+    public function shouldFailInTest() {
+        return true;
+    }
 }
