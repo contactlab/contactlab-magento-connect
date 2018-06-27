@@ -12,6 +12,7 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar self-update
   - ln -s app/code/community/Contactlab/Commons/Test/resources/composer.json
+  - php composer.phar config github-oauth.github.com [secure]
   - php composer.phar install
   - wget https://raw.githubusercontent.com/colinmollenhour/modman/master/modman
   - chmod +x modman
@@ -30,3 +31,7 @@ before_script:
   - pushd shell && php ecomdev-phpunit.php -a magento-config --db-name contactlab_test --base-url http://magento.contactlab.travis/ && popd
 
 script: phpunit
+
+env:
+  global:
+    secure: B6raVus8Rnv5ImTCzCco/IWzJduTZXO/b6CWdN9ISKMldjK9AJps1v/+/FQDXGTPeQFulecFhl9Yjd8UDV4w98TEqMrQtd79y/VBny3D1uiCUKq8G96Wx4VQnPPl/gvDHFH2+9j7JQa2RvakB4XEPTsqofTF6cW1bKHClS2eKr9GmPC+vzKEg75AHZb620GDQNgja1BTgu3Y84gg/L+Hpcvaf05tFk8UZdQY4EaRFJc82iavirNVfY+xaRyeIIRnSre7PmkVcUDk8IDFGdb0EqiNnfPNhjMTkU8tQQYUgPk5KFTOUusADh4UA85FbiJnLWwGay8WyvGtnqV/+H+fcl1J7CTbjMZ3C7wGcX3Xfj4HmR/11qIJPASwyN6sN3OEBahBEQbtVJEFYpiRS/ZKcnIo6w8fYXAW01YraWjPF3QfK2+58lRGjTqoqdX5WDL3m7q1CWVa7s5QXnEXMnZO+n/WH3iI5smNvrHq/D06IDeTMfb6Bkh4qNwe3ZTtPie65RZFuiBi4F8ArMsDlpPq3dMmXa3zglxS/1J8JrzGsl5F89L5gMGeQp+ww3ZMUJ9rd1f5+JYbxRa8QpJ2peajpd+Eia+qxTq+YfkOQWHOMvf3/qDhzMWuAEGbf6gQhhbD2nSD2e4nyo0M0yMapOIiFxyHl8LnOPwLvUkngHDT6/8=
