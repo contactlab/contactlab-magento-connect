@@ -13,8 +13,8 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     /**
      * Constructor.
      */
-    public function _construct() { 	
-        $this->_init("contactlab_subscribers/uk", "entity_id");    
+    public function _construct() {
+        $this->_init("contactlab_subscribers/uk", "entity_id");
         $this->_helper = Mage::helper('contactlab_commons');
     }
 
@@ -40,18 +40,23 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         return $this;
     }
 
-    /** Insert existing records. */ 
-    private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {      
-    	$this->_helper->logNotice("----------- _insertExistingRecords");
+    /** Insert existing records. */
+    private function _insertExistingRecords(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
+        $this->_helper->logNotice("----------- _insertExistingRecords");
         //$this->_createTmpTables($adapter);
- 		try {
-        	$this->_makeCouples($adapter, $doit, $session);
+        try {
+
+            $this->_makeCouples($adapter, $doit, $session);
             $this->_deleteDuplicatedSubscribers($adapter, $doit, $session);
             $this->_deleteOrphanSubscribers($adapter, $doit, $session);
             $this->_insertFromNewsletterSubscriber($adapter, $doit, $session);
             $this->_updateSubscriberId($adapter, $doit, $session);
             $this->_insertFromCustomers($adapter, $doit, $session);
             $this->_updateCustomerId($adapter, $doit, $session);
+
+
+            $this->_cleanSubscribers($adapter, $doit, $session);
+
             $this->_helper->logNotice("----------- DONE");
         } catch (Exception $e) {
             //$this->_dropTmpTables($adapter);
@@ -60,70 +65,91 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         //$this->_dropTmpTables($adapter);
         return $this;
     }
-	
+
+    /** Clean Dirty Subscribers that have wrong customer_id for the same store_id */
+    private function _cleanSubscribers($adapter, $doit, $session) {
+        $subscribers = "newsletter/subscriber";
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+        $subscribersTable = $this->getTable($subscribers);
+        $select = "select ce.entity_id as customer_id, ns.subscriber_id
+        from customer_entity as ce
+        inner join newsletter_subscriber as ns on ce.email = ns.subscriber_email and ce.store_id = ns.store_id
+        and ce.entity_id != ns.customer_id";
+        foreach ($adapter->fetchAll($select) as $id)
+        {
+            $query = "UPDATE newsletter_subscriber set customer_id = ". $id['customer_id'] ." WHERE subscriber_id = " . $id['subscriber_id'];
+            $adapter->query($query);
+        }
+    }
+
+
+
+
+
+
     /** Delete duplicated subscribers. */
     private function _deleteOrphanSubscribers($adapter, $doit, $session) {
-    	$subscribers = "newsletter/subscriber";
-    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
-    	
-    	$subscribersTable = $this->getTable($subscribers);
-    	$select = $adapter
-    	->select()->from(array('s' => $subscribersTable), array('customer_id','subscriber_id'))
-    	->where("customer_id > 0 AND customer_id NOT IN (select entity_id FROM {$tablePrefix}customer_entity)");
-    
-    	$count = $this->_getCount($adapter, $select);
-    	if ($count === 0) {
-    		$this->addSuccess("No orphan subscribers found", $session);
-    		return $this;
-    	}
-    
-    	/*
-    	if ($doit) {    		
-    		 foreach ($adapter->fetchAll($select) as $id) {
-    		 $select = $adapter
-    		 ->select()->from(array('s' => $subscribersTable), array('subscriber_id'))
-    		 ->where("customer_id = " . $id['customer_id'])
-    		 ->order("subscriber_status desc");
-    		 Mage::log($select->assemble());
-    		 $first = true;
-    		 foreach ($adapter->fetchAll($select) as $id) {
-    		 if (!$first) {
-    		 Mage::log("Will delete " . $id['subscriber_id']);
-    		 if ($doit) {
-    		 $select = $adapter->query("delete from $subscribersTable where subscriber_id = " . $id['subscriber_id']);
-    		 }
-    		 }
-    		 $first = false;
-    		 }
-    		 }
-    		 $this->addError("$count duplicated subscribers removed", $session);    		 
-    		 return $this;    		 
-    	} else {
-    		$string='Table '.$subscribersTable.' subscriber_id: ';
-    		foreach ($adapter->fetchAll($select) as $id) {
-    			$string.= $id["subscriber_id"].",";
-    		}
+        $subscribers = "newsletter/subscriber";
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+
+        $subscribersTable = $this->getTable($subscribers);
+        $select = $adapter
+            ->select()->from(array('s' => $subscribersTable), array('customer_id','subscriber_id'))
+            ->where("customer_id > 0 AND customer_id NOT IN (select entity_id FROM {$tablePrefix}customer_entity)");
+
+        $count = $this->_getCount($adapter, $select);
+        if ($count === 0) {
+            $this->addSuccess("No orphan subscribers found", $session);
+            return $this;
+        }
+
+        /*
+        if ($doit) {
+             foreach ($adapter->fetchAll($select) as $id) {
+             $select = $adapter
+             ->select()->from(array('s' => $subscribersTable), array('subscriber_id'))
+             ->where("customer_id = " . $id['customer_id'])
+             ->order("subscriber_status desc");
+             Mage::log($select->assemble());
+             $first = true;
+             foreach ($adapter->fetchAll($select) as $id) {
+             if (!$first) {
+             Mage::log("Will delete " . $id['subscriber_id']);
+             if ($doit) {
+             $select = $adapter->query("delete from $subscribersTable where subscriber_id = " . $id['subscriber_id']);
+             }
+             }
+             $first = false;
+             }
+             }
+             $this->addError("$count duplicated subscribers removed", $session);
+             return $this;
+        } else {
+            $string='Table '.$subscribersTable.' subscriber_id: ';
+            foreach ($adapter->fetchAll($select) as $id) {
+                $string.= $id["subscriber_id"].",";
+            }
             $bckNotice = $this->getHasNotices();
-    		$this->addNotice("There are $count orphan subscribers :: $string", $session);
+            $this->addNotice("There are $count orphan subscribers :: $string", $session);
             $this->setHasNotices($bckNotice);
-    		return $this;
-    	}
-    	*/
-    	return $this;
+            return $this;
+        }
+        */
+        return $this;
     }
-    
-    
+
+
     /** Delete duplicated subscribers. */
     private function _deleteDuplicatedSubscribers(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
-       
-    	$this->_helper->logNotice("----------- _deleteDuplicatedSubscribers");
+
+        $this->_helper->logNotice("----------- _deleteDuplicatedSubscribers");
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
         $select = $adapter
-                ->select()->from(array('s' => $subscribersTable), array('customer_id'))
-                ->where("customer_id is not null and customer_id != 0")
-                ->group('customer_id')
-                ->having('count(1) > 1');
+            ->select()->from(array('s' => $subscribersTable), array('customer_id'))
+            ->where("customer_id is not null and customer_id != 0")
+            ->group('customer_id')
+            ->having('count(1) > 1');
 
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
@@ -134,9 +160,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         if ($doit) {
             foreach ($adapter->fetchAll($select) as $id) {
                 $select = $adapter
-                        ->select()->from(array('s' => $subscribersTable), array('subscriber_id'))
-                        ->where("customer_id = " . $id['customer_id'])
-                        ->order("subscriber_status desc");
+                    ->select()->from(array('s' => $subscribersTable), array('subscriber_id'))
+                    ->where("customer_id = " . $id['customer_id'])
+                    ->order("subscriber_status desc");
                 $this->_helper->logNotice($select->assemble());
                 $first = true;
                 foreach ($adapter->fetchAll($select) as $id) {
@@ -162,31 +188,31 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      * where customer_id and subscriber_id are not in uk table
      */
     private function _insertFromNewsletterSubscriber(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
-    
+
         $this->_helper->logNotice("----------- _insertFromNewsletterSubscriber");
         $ukTable = $this->getMainTable();
-      
+
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
         $customers = "customer/entity";
         $customersTable = $this->getTable($customers);
-       
+
         $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
-       
+
         $select = $adapter
-                ->select()->from(array('s' => $subscribersTable), array(
+            ->select()->from(array('s' => $subscribersTable), array(
                     'subscriber_id' => 'subscriber_id')
-                )              
-                ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                /*
-                ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and subscriber_id 
-                not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_tmp_idx)");
-				*/
-		        ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and subscriber_id
+            )
+            ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
+            /*
+            ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and subscriber_id
+            not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_tmp_idx)");
+            */
+            ->where("customer_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and subscriber_id
 		        not in (select subscriber_id from {$tablePrefix}contactlab_subscribers_uk where subscriber_id is not null)");
-                
-                
-                $this->_helper->logNotice($select->assemble());
+
+
+        $this->_helper->logNotice($select->assemble());
         if (!$doit) {
             $count = $this->_getCount($adapter, $select);
             if ($count === 0) {
@@ -198,15 +224,15 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             // backward compatibility
             if ($this->_useCoreInsertFrom()) {
                 $sql = $adapter->insertFromSelect($select,
-                        $ukTable, array('subscriber_id', 'customer_id')/*,
+                    $ukTable, array('subscriber_id', 'customer_id')/*,
                         Varien_Db_Adapter_Interface::INSERT_IGNORE*/);
             } else {
                 $sql = $this->_insertFromSelect($adapter, $select,
-                        $ukTable,
-                        array('subscriber_id', 'customer_id')/*,
+                    $ukTable,
+                    array('subscriber_id', 'customer_id')/*,
                         Varien_Db_Adapter_Interface::INSERT_IGNORE*/);
             }
-            $this->_helper->logNotice($sql);            
+            $this->_helper->logNotice($sql);
             $rv = $adapter->query($sql);
             $count = $rv->rowCount();
             /*
@@ -234,13 +260,13 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $subscribersTable = $this->getTable($subscribers);
         $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
         $select = $adapter
-                ->select()->from(array('c' => $customersTable), array('entity_id'))
-                //->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
-        		->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and entity_id not in (select customer_id from $subscribersTable)");
-                
+            ->select()->from(array('c' => $customersTable), array('entity_id'))
+            //->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_customers_tmp_idx) and entity_id not in (select customer_id from $subscribersTable)");
+            ->where("entity_id not in (select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null) and entity_id not in (select customer_id from $subscribersTable)");
+
         $this->_helper->logNotice($select->assemble());
         if (!$doit) {
-        	/*
+            /*
             $count = $this->_getCount($adapter, $select);
             if ($count === 0) {
                 $this->addSuccess("No customer to insert", $session);
@@ -277,15 +303,15 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
      */
     private function _updateSubscriberId(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $session) {
         $this->_helper->logNotice("----------- _updateSubscriberId");
-      
+
         $ukTable = $this->getMainTable();
         $subscribers = "newsletter/subscriber";
         $subscribersTable = $this->getTable($subscribers);
-	
+
         $select = $adapter
-                ->select()->from(array('u' => $ukTable), array('entity_id'))
-                ->join(array("s" => $subscribersTable), "s.customer_id = u.customer_id", array('subscriber_id'))
-                ->where("s.subscriber_id != ifnull(u.subscriber_id, -1)");
+            ->select()->from(array('u' => $ukTable), array('entity_id'))
+            ->join(array("s" => $subscribersTable), "s.customer_id = u.customer_id", array('subscriber_id'))
+            ->where("s.subscriber_id != ifnull(u.subscriber_id, -1)");
         $this->_helper->logNotice($select->assemble());
 
         $count = $this->_getCount($adapter, $select);
@@ -297,7 +323,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         if ($doit) {
             foreach ($adapter->fetchAll($select) as $row) {
                 $adapter->query("update $ukTable set subscriber_id = " .
-                        $row['subscriber_id'] . " where entity_id = " . $row['entity_id']);
+                    $row['subscriber_id'] . " where entity_id = " . $row['entity_id']);
             }
             //$this->addError("$count missing subscriber_id updated", $session);
         } else {
@@ -317,12 +343,12 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $subscribersTable = $this->getTable($subscribers);
         $customers = "customer/entity";
         $customersTable = $this->getTable($customers);
-        
+
         $select = $adapter->select()->from(array('u' => $ukTable), array('entity_id'))
-                ->join(array("s" => $subscribersTable), "s.subscriber_id = u.subscriber_id", array(''))
-                ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
-                ->where("ifnull(c.entity_id, -1) != ifnull(u.customer_id, -1)");
-        
+            ->join(array("s" => $subscribersTable), "s.subscriber_id = u.subscriber_id", array(''))
+            ->joinLeft(array("c" => $customersTable), "s.customer_id = c.entity_id", array('customer_id' => 'entity_id'))
+            ->where("ifnull(c.entity_id, -1) != ifnull(u.customer_id, -1)");
+
 
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
@@ -330,21 +356,21 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             return $this;
         }
 
-        
-        
+
+
         if ($doit) {
             $this->_helper->logNotice($select->assemble());
-            
-            foreach ($adapter->fetchAll($select) as $row) {    
-            	if(!$row['customer_id'])
-            	{
-            		$row['customer_id'] = 'NULL';
-            	}
 
-               $sql = $adapter->query("update $ukTable set customer_id = " .
-                        $row['customer_id'] . " where entity_id = " . $row['entity_id']);
-                                     
-               
+            foreach ($adapter->fetchAll($select) as $row) {
+                if(!$row['customer_id'])
+                {
+                    $row['customer_id'] = 'NULL';
+                }
+
+                $sql = $adapter->query("update $ukTable set customer_id = " .
+                    $row['customer_id'] . " where entity_id = " . $row['entity_id']);
+
+
             }
             //$this->addError("$count missing customer_id updated", $session);
         } else {
@@ -363,10 +389,10 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
         $subscribersTable = $this->getTable($subscribers);
 
         $select = $adapter
-                ->select()->from(array('s' => $subscribersTable), array('customer_id', 'subscriber_id'))
-                ->join(array("uc" => $ukTable), "uc.customer_id = s.customer_id", array('customer_uk_id' => 'entity_id'))
-                ->join(array("us" => $ukTable), "us.subscriber_id = s.subscriber_id", array('subscriber_uk_id' => 'entity_id'))
-                ->where("uc.entity_id != us.entity_id");
+            ->select()->from(array('s' => $subscribersTable), array('customer_id', 'subscriber_id'))
+            ->join(array("uc" => $ukTable), "uc.customer_id = s.customer_id", array('customer_uk_id' => 'entity_id'))
+            ->join(array("us" => $ukTable), "us.subscriber_id = s.subscriber_id", array('subscriber_uk_id' => 'entity_id'))
+            ->where("uc.entity_id != us.entity_id");
 
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
@@ -378,9 +404,9 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
             $this->_helper->logNotice($select->assemble());
             foreach ($adapter->fetchAll($select) as $row) {
                 $adapter->query("delete from $ukTable where entity_id = " .
-                        $row['customer_uk_id']);
+                    $row['customer_uk_id']);
                 $adapter->query("update $ukTable set customer_id = " . $row['customer_id'] . " where entity_id = " .
-                        $row['subscriber_uk_id']);
+                    $row['subscriber_uk_id']);
             }
             //$this->addError("$count customer_id/subscriber_id couple to updated", $session);
         } else {
@@ -390,7 +416,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     }
 
     private function _truncate(Varien_Db_Adapter_Pdo_Mysql $adapter, $session) {
-    	$sql = "truncate table " . $this->getMainTable();
+        $sql = "truncate table " . $this->getMainTable();
         $adapter->query($sql);
         $this->addSuccess("Table truncated", $session);
         return $this;
@@ -403,13 +429,13 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
     public function setTask($task) {
         $this->_task = $task;
     }
-    
+
     /** Remove null null records. */
     private function _purge(Varien_Db_Adapter_Pdo_Mysql $adapter, $doit, $messages, $session) {
         $this->_helper->logNotice("----------- Purge");
         $select = $adapter->select()
-                ->from($this->getMainTable())
-                ->where('subscriber_id is null and customer_id is null');
+            ->from($this->getMainTable())
+            ->where('subscriber_id is null and customer_id is null');
         $count = $this->_getCount($adapter, $select);
         if ($count === 0) {
             if ($messages) {
@@ -422,7 +448,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
                 $sql = $adapter->deleteFromSelect($select, $this->getMainTable());
             } else {
                 $sql = Mage::helper('contactlab_commons')
-                        ->deleteFromSelect($adapter, $select, $this->getMainTable());
+                    ->deleteFromSelect($adapter, $select, $this->getMainTable());
             }
             $adapter->query($sql);
             if ($messages) {
@@ -436,7 +462,7 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
 
     private function _getCount(Varien_Db_Adapter_Pdo_Mysql $adapter, Varien_Db_Select $select) {
         $countSelect = $adapter->select()
-                ->from(
+            ->from(
                 array("t" => $select), array("c" => new Zend_Db_Expr('count(1)')));
         foreach ($adapter->fetchAll($countSelect) as $row) {
             return intval($row['c']);
@@ -574,24 +600,24 @@ class Contactlab_Subscribers_Model_Resource_Uk extends Mage_Core_Model_Mysql4_Ab
 
     private function _createTmpTables(Varien_Db_Adapter_Pdo_Mysql $adapter)
     {
-    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
-    	 
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+
         $this->_helper->logNotice("----------- _createTmpTables");
         $this->_dropTmpTables($adapter);
-       
+
         $adapter->query("create table {$tablePrefix}contactlab_subscribers_tmp_idx as select subscriber_id from {$tablePrefix}contactlab_subscribers_uk where subscriber_id is not null;");
         $adapter->query("create table {$tablePrefix}contactlab_customers_tmp_idx as select customer_id from {$tablePrefix}contactlab_subscribers_uk where customer_id is not null;");
         $adapter->query("alter table {$tablePrefix}contactlab_subscribers_tmp_idx add unique key contactlab_subscribers_uks (subscriber_id);");
         $adapter->query("alter table {$tablePrefix}contactlab_customers_tmp_idx add unique key contactlab_subscribers_ukc (customer_id);");
-      
+
     }
 
     private function _dropTmpTables(Varien_Db_Adapter_Pdo_Mysql $adapter)
     {
-    	$tablePrefix = (string) Mage::getConfig()->getTablePrefix();
-    	
+        $tablePrefix = (string) Mage::getConfig()->getTablePrefix();
+
         $this->_helper->logNotice("----------- _dropTmpTables");
-       
+
         $adapter->query("drop table if exists {$tablePrefix}contactlab_subscribers_tmp_idx;");
         $adapter->query("drop table if exists {$tablePrefix}contactlab_customers_tmp_idx;");
     }

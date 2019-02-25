@@ -58,7 +58,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         // Define customer collection
         $attributesCustomer = $this->helper->getAttributesForEntityType('customer',
-                array_keys($this->helper->getAttributesMap($this->getTask())));
+            array_keys($this->helper->getAttributesMap($this->getTask())));
         $this->fAttributesMap = array_flip($this->helper->getAttributesMap($this->getTask()));
         $this->fAddressAttributes = array_flip($this->helper->getAddressesAttributesMap());
 
@@ -84,7 +84,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         while (true) {
             $subscribersInCustomers = $this->_createSubscribersInCustomersCollection($attributesCustomer);
             $subscribersInCustomers->getSelect()->limitPage($page, $limit);
-            
+
             Mage::helper("contactlab_commons")->logDebug($subscribersInCustomers->getSelect()->assemble());
             $found = false;
             while ($item = $subscribersInCustomers->fetchItem()) {
@@ -92,7 +92,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $found = true;
                 $counter++;
                 $toFill['is_customer'] = 1;
-                if (!$item->hasData('uk')) {
+                /** Checked also if there is the key uk but if not void */
+                if (!$item->hasData('uk') || !$item->getData('uk')) {
                     $msg = sprintf("FATAL ERROR, %s subscriber has no UK record!", $item->getData('email'));
                     $this->getTask()->addEvent($msg, true);
                     throw new Exception($msg);
@@ -101,7 +102,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
                 $toFill = array_merge($toFill, $preFilled);
                 $toFill['email'] = $item->getData('email');
-                
+
                 $this->_setAttributeKeys($toFill, $item);
                 $this->_setAddressesAttributeKeys($toFill, $item);
 
@@ -131,7 +132,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                 $writer->startElement("RECORD");
                 $writer->writeAttribute('ACTION', 'U');
                 foreach ($toFill as $k => $v) {
-                	                	 
+
                     if (empty($k)) {
                         continue;
                     }
@@ -207,12 +208,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         foreach ($this->helper->fillBackendTypesFromArray($attributesCustomer) as $backendType => $ids) {
             $alias = 'ce' . $backendType;
             $w = 'e.entity_id = ' . $alias . '.entity_id and length(' . $alias . '.value) > 0 and '
-                    . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
+                . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
             $rv->getSelect()->joinLeft(
                 array(
                     $alias => $this->resource->getTableName('customer_entity_' . $backendType)),
-                        $w, array($backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
-                    . $alias . ".attribute_id, '_', " .$alias. ".value) SEPARATOR '" . $this->limiter . "')")));
+                $w, array($backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
+                . $alias . ".attribute_id, '_', " .$alias. ".value) SEPARATOR '" . $this->limiter . "')")));
         }
 
         // Stats
@@ -227,7 +228,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_addCustomerExportCollection($rv);
         $this->_addSubscriberFields($rv);
 
-        $rv->getSelect()->group('e.entity_id');        
+        $rv->getSelect()->group('e.entity_id');
         return $rv;
     }
 
@@ -256,7 +257,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         $this->_manageExportPolicy($rv,
             array(
-                'e' => array('created_at', 'updated_at'), 
+                'e' => array('created_at', 'updated_at'),
                 'newsletter_subscriber' => 'last_updated_at',
             ));
         $this->_addCustomerExportCollection($rv);
@@ -375,22 +376,22 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $this->_manageExportPolicy($rv,
             array('native_nl' => 'last_updated_at'));
         if (!$this->_mustExportNotSubscribed()) {
-            $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);            
+            $rv->addFieldToFilter('native_nl.subscriber_status', Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
         }
         $rv->getSelect()->where('main_table.customer_id is null or main_table.customer_id = 0');
-        
+
         return $rv;
     }
 
-    
+
     /**
      * Add delete records.
      */
     private function _addDeletedRecords() {
         /** @var $deletedEntities Contactlab_Commons_Model_Resource_Deleted_Collection */
         $deletedEntities = Mage::getModel('contactlab_commons/deleted')
-                ->getCollection()
-                ->addFieldToFilter('task_id', array('null' => true));
+            ->getCollection()
+            ->addFieldToFilter('task_id', array('null' => true));
 
         $counter = 0;
         // FIXME TODO count vs getSize
@@ -484,7 +485,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
                     continue;
                 }
                 $toFill[$addressType . '_' . $this->fAddressAttributes[$this->addressAttributes[$k]]] =
-                        $this->helper->decode($this->addressModel, 'address', $this->addressAttributes[$k], $v);
+                    $this->helper->decode($this->addressModel, 'address', $this->addressAttributes[$k], $v);
             }
         }
     }
@@ -530,7 +531,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _fillStoreAttributes(array &$toFill, Varien_Object $item) {
         $store = $this->stores[$item->getData('store_id')];
         foreach (array('store_id', 'store_name', 'website_id', 'website_name',
-            'group_id', 'group_name', 'lang') as $k) {
+                     'group_id', 'group_name', 'lang') as $k) {
             $toFill[$k] = $store[$k];
         }
     }
@@ -538,7 +539,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _fillCustomerGroupAttributes(array &$toFill, Varien_Object $item)
     {
         $toFill['customer_group_id'] = $item->getData('customer_group_id');
-        $toFill['customer_group_name'] = $item->getData('customer_group_name');        
+        $toFill['customer_group_name'] = $item->getData('customer_group_name');
     }
 
     /**
@@ -562,8 +563,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
      */
     private function _addStatsToSelect(Varien_Data_Collection_Db $collection) {
         $collection->getSelect()->joinLeft(
-                    array('stats' => $this->resource->getTableName('contactlab_subscribers/stats')),
-                            'stats.customer_id = e.entity_id', $this->statsAttributesMap);
+            array('stats' => $this->resource->getTableName('contactlab_subscribers/stats')),
+            'stats.customer_id = e.entity_id', $this->statsAttributesMap);
     }
 
     /**
@@ -591,9 +592,9 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         }
 
         $collection->getSelect()->joinLeft(
-                    array('uk' => $this->resource->getTableName('contactlab_subscribers/uk')),
-                            'uk.customer_id = e.entity_id',
-                            array('uk' => 'entity_id', 'is_exported' => 'is_exported'));
+            array('uk' => $this->resource->getTableName('contactlab_subscribers/uk')),
+            'uk.customer_id = e.entity_id',
+            array('uk' => 'entity_id', 'is_exported' => 'is_exported'));
     }
 
     /**
@@ -602,9 +603,9 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
      */
     private function _addNewsletterSubscriberExportCollection(Varien_Data_Collection_Db $collection) {
         $collection->getSelect()->joinLeft(
-                    array('uk' => $this->resource->getTableName('contactlab_subscribers/uk')),
-                            'uk.subscriber_id = main_table.subscriber_id',
-                            array('uk' => 'entity_id', 'is_exported' => 'is_exported'));
+            array('uk' => $this->resource->getTableName('contactlab_subscribers/uk')),
+            'uk.subscriber_id = main_table.subscriber_id',
+            array('uk' => 'entity_id', 'is_exported' => 'is_exported'));
     }
 
     /**
@@ -613,7 +614,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
      * @param array $fields
      */
     private function _manageExportPolicy(Varien_Data_Collection_Db $collection,
-            array $fields) {
+                                         array $fields) {
         if ($this->exportPolicy != '2') {
             // Ok, will export everything
             return;
@@ -706,23 +707,23 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
             return;
         }
         $collection->getSelect()->joinLeft(
-                    array($type . '_addr' => $this->resource->getTableName('customer_entity_int')),
-                            $type . '_addr.entity_id = e.entity_id and ' . $type . '_addr.attribute_id = '
-                            . $this->helper->getAttributeId('customer', 'default_' . $type),
-                            array('default_' . $type => 'value'));
+            array($type . '_addr' => $this->resource->getTableName('customer_entity_int')),
+            $type . '_addr.entity_id = e.entity_id and ' . $type . '_addr.attribute_id = '
+            . $this->helper->getAttributeId('customer', 'default_' . $type),
+            array('default_' . $type => 'value'));
 
         // Fills array of types with attributes id array
         $attributesAddress = $this->helper->getAttributesForEntityType('customer_address',
-                array_values($this->helper->getAddressesAttributesMap()));
+            array_values($this->helper->getAddressesAttributesMap()));
         foreach ($this->helper->fillBackendTypesFromArray($attributesAddress) as $backendType => $ids) {
             $alias = 'ce' . $type . $backendType;
             $w = $type . '_addr.value = ' . $alias . '.entity_id and length(' . $alias . '.value) > 0 and '
-                    . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
+                . $alias . '.attribute_id IN (' . implode(',', $ids) . ')';
             $collection->getSelect()->joinLeft(
                 array(
                     $alias => $this->resource->getTableName('customer_address_entity_' . $backendType)),
-                        $w, array($type . '_' . $backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
-                    . $alias . ".attribute_id, '_', " .$alias. ".value) SEPARATOR '" . $this->limiter . "')")));
+                $w, array($type . '_' . $backendType . '_value' => new Zend_Db_Expr('GROUP_CONCAT(DISTINCT CONCAT('
+                . $alias . ".attribute_id, '_', " .$alias. ".value) SEPARATOR '" . $this->limiter . "')")));
         }
     }
 
@@ -732,8 +733,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
      */
     private function _removeDeletedEntity() {
         $toDelete = Mage::getModel('contactlab_commons/deleted')
-                ->getCollection()
-                ->addFieldToFilter('task_id', $this->getTask()->getTaskId());
+            ->getCollection()
+            ->addFieldToFilter('task_id', $this->getTask()->getTaskId());
 
         $counter = 0;
         $max = $toDelete->count();
@@ -760,14 +761,14 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
 
         /** @var Mage_Core_Model_Resource_Store_Collection $stores */
         $stores = Mage::getModel('core/store')
-                ->getCollection()->setLoadDefault(true);
+            ->getCollection()->setLoadDefault(true);
         $stores->addFieldToSelect('*')->getSelect()
             ->join(array('core_website' => $websiteTable),
                 'main_table.website_id = ' . 'core_website.website_id',
                 array('website_name' => 'core_website.name'))
             ->join(array('core_store_group' => $storeGroupTable),
                 'main_table.group_id = ' . 'core_store_group.group_id',
-                array('group_name' => 'core_store_group.name'));        
+                array('group_name' => 'core_store_group.name'));
         /** @var $store Mage_Core_Model_Store */
         foreach ($stores as $store) {
             $storeId = $store->getData('store_id');
@@ -881,7 +882,7 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         }
         $toFill[$this->getSubscribedFlagName()]
             = $item->getData('subscriber_status') == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED
-                ? 1 : 0;
+            ? 1 : 0;
         return true;
     }
 
@@ -934,8 +935,8 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
     private function _addSubscriberFields(Varien_Data_Collection_Db $collection, $table = 'newsletter_subscriber')
     {
         return $collection->getSelect()->joinLeft(
-                    array('fields' => $this->resource->getTableName('contactlab_subscribers/newsletter_subscriber_fields')),
-                    "fields.subscriber_id = $table.subscriber_id"
+            array('fields' => $this->resource->getTableName('contactlab_subscribers/newsletter_subscriber_fields')),
+            "fields.subscriber_id = $table.subscriber_id"
         );
     }
 
@@ -1012,16 +1013,16 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $toFill['created_at'] = $customer->getData('created_at');
         if($customer->getData('subscriber_created_at'))
         {
-        	$createdAt = $customer->getData('created_at');
-        	$subscriberCreatedAt = $customer->getData('subscriber_created_at');
-        	if(strtotime($subscriberCreatedAt) < strtotime($createdAt))
-        	{
-        		$toFill['created_at'] = $customer->getData('subscriber_created_at');
-        	}
+            $createdAt = $customer->getData('created_at');
+            $subscriberCreatedAt = $customer->getData('subscriber_created_at');
+            if(strtotime($subscriberCreatedAt) < strtotime($createdAt))
+            {
+                $toFill['created_at'] = $customer->getData('subscriber_created_at');
+            }
         }
         if($customer->getData('last_subscribed_at'))
         {
-        	$toFill['last_subscribed_at'] = $customer->getData('last_subscribed_at');
+            $toFill['last_subscribed_at'] = $customer->getData('last_subscribed_at');
         }
         Mage::dispatchEvent("contactlab_export_subscribers_customer_info",array(
             'customer_info' => $tCustInfo
@@ -1059,12 +1060,12 @@ class Contactlab_Subscribers_Model_Exporter_Subscribers extends Contactlab_Commo
         $tSubscriberInfo = Mage::getModel('contactlab_subscribers/exporter_subscribers_infoTransporter_subscriber');
         $tSubscriberInfo->setInfo($toFill);
         $tSubscriberInfo->setSubscriber($subscriber);
-        $tSubscriberInfo->setIsMod(false);       
-        
+        $tSubscriberInfo->setIsMod(false);
+
         //FIX
         $toFill['created_at'] = $subscriber->getData('created_at');
-        
-        
+
+
         Mage::dispatchEvent("contactlab_export_subscribers_subscriber_info",array(
             'subscriber_info' => $tSubscriberInfo
         ));
